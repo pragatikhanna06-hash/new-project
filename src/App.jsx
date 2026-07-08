@@ -18,14 +18,8 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-
-        {/* Report a Crime — form + government resource finder */}
         <Route path="/report-crime" element={<ReportCrimePage />} />
-
-        {/* Services overview page (all service cards + detail sections) */}
         <Route path="/services" element={<ServicesPage />} />
-
-        {/* Dedicated service pages — each one opens on its own route */}
         <Route path="/services/data-security" element={<DataSecurityPage />} />
         <Route path="/services/forensic-audit" element={<ForensicAuditPage />} />
         <Route path="/services/digital-forensics" element={<DigitalForensicsPage />} />
@@ -33,8 +27,6 @@ export default function App() {
         <Route path="/services/investigations" element={<InvestigationsPage />} />
         <Route path="/services/legal-consultation" element={<LegalConsultationPage />} />
         <Route path="/services/document-examination" element={<DocumentExaminationPage />} />
-
-        {/* fallback */}
         <Route path="*" element={<HomePage />} />
       </Routes>
     </BrowserRouter>

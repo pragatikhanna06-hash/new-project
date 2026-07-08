@@ -124,9 +124,12 @@ const ISOS = [
   { code: "ISO 27001:2022", label: "Information Security" },
 ];
 
-// ── canvas particle network ────────────────────────────────────────────────────
+// ── cyber background animation ─────────────────────────────────────────────
+// Circuit-trace network with traveling data pulses, a floating particle mesh,
+// sparse binary rain, and a slow security-style scan line. Replaces the old
+// simple dotted particle field with a heavier, cyber-forensics-appropriate look.
 
-function ParticleCanvas() {
+function CyberBackground() {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -136,67 +139,222 @@ function ParticleCanvas() {
     let animId;
     let W, H;
 
-    const PARTICLE_COUNT = 80;
-    const MAX_DIST = 140;
-    const particles = [];
+    const rand = (min, max) => Math.random() * (max - min) + min;
+    const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
     const resize = () => {
       W = canvas.width = canvas.offsetWidth;
       H = canvas.height = canvas.offsetHeight;
     };
 
-    const rand = (min, max) => Math.random() * (max - min) + min;
+    const isMobile = window.innerWidth < 640;
 
+    // ── circuit traces (orthogonal paths with traveling data pulses) ──
+    const PATH_COUNT = isMobile ? 8 : 16;
+    const paths = [];
+
+    function buildPath() {
+      const segCount = Math.floor(rand(3, 6));
+      let x = rand(0, 1);
+      let y = rand(0, 1);
+      const points = [{ x, y }];
+      for (let i = 0; i < segCount; i++) {
+        if (Math.random() > 0.5) x = Math.min(1, Math.max(0, x + rand(-0.25, 0.25)));
+        else y = Math.min(1, Math.max(0, y + rand(-0.25, 0.25)));
+        points.push({ x, y });
+      }
+      return {
+        points,
+        pulses: [
+          { t: Math.random(), speed: rand(0.09, 0.18) },
+          { t: Math.random(), speed: rand(0.09, 0.18) },
+        ],
+      };
+    }
+    for (let i = 0; i < PATH_COUNT; i++) paths.push(buildPath());
+
+    function pointAtT(points, t, w, h) {
+      const segLens = [];
+      let total = 0;
+      for (let i = 1; i < points.length; i++) {
+        const dx = (points[i].x - points[i - 1].x) * w;
+        const dy = (points[i].y - points[i - 1].y) * h;
+        const l = Math.sqrt(dx * dx + dy * dy);
+        segLens.push(l);
+        total += l;
+      }
+      let target = t * total;
+      for (let i = 0; i < segLens.length; i++) {
+        if (target <= segLens[i] || i === segLens.length - 1) {
+          const ratio = segLens[i] ? target / segLens[i] : 0;
+          const a = points[i], b = points[i + 1];
+          return {
+            x: (a.x + (b.x - a.x) * ratio) * w,
+            y: (a.y + (b.y - a.y) * ratio) * h,
+          };
+        }
+        target -= segLens[i];
+      }
+      const last = points[points.length - 1];
+      return { x: last.x * w, y: last.y * h };
+    }
+
+    // ── floating particle network (depth layer) ──
+    const PARTICLE_COUNT = isMobile ? 40 : 70;
+    const particles = [];
     for (let i = 0; i < PARTICLE_COUNT; i++) {
       particles.push({
         x: rand(0, 1),
         y: rand(0, 1),
-        vx: rand(-0.15, 0.15),
-        vy: rand(-0.15, 0.15),
-        r: rand(1.5, 3),
+        vx: rand(-0.12, 0.12),
+        vy: rand(-0.12, 0.12),
+        r: rand(1, 2.4),
+      });
+    }
+    const MAX_DIST = 130;
+
+    // ── sparse binary rain columns ──
+    const COLS = isMobile ? 5 : 9;
+    const rainCols = [];
+    for (let i = 0; i < COLS; i++) {
+      rainCols.push({
+        x: rand(0.04, 0.96),
+        y: rand(-1, 0),
+        speed: rand(0.03, 0.07),
+        chars: Array.from({ length: 12 }, () => pick("01")),
       });
     }
 
-    const draw = () => {
-      ctx.clearRect(0, 0, W, H);
+    // ── scanning line ──
+    let scanY = 0;
 
-      particles.forEach((p) => {
-        p.x += p.vx / W;
-        p.y += p.vy / H;
-        if (p.x < 0) p.x = 1;
-        if (p.x > 1) p.x = 0;
-        if (p.y < 0) p.y = 1;
-        if (p.y > 1) p.y = 0;
+    function draw() {
+      const w = W, h = H;
+      ctx.clearRect(0, 0, w, h);
+
+      // faint backdrop grid — circuit-board feel
+      ctx.strokeStyle = "rgba(245,166,35,0.035)";
+      ctx.lineWidth = 1;
+      const gridSize = 46;
+      for (let gx = 0; gx < w; gx += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(gx, 0);
+        ctx.lineTo(gx, h);
+        ctx.stroke();
+      }
+      for (let gy = 0; gy < h; gy += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(0, gy);
+        ctx.lineTo(w, gy);
+        ctx.stroke();
+      }
+
+      // circuit traces + node joints + traveling data pulses
+      paths.forEach((p) => {
+        ctx.beginPath();
+        ctx.strokeStyle = "rgba(245,166,35,0.12)";
+        ctx.lineWidth = 1;
+        p.points.forEach((pt, i) => {
+          const px = pt.x * w, py = pt.y * h;
+          if (i === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        });
+        ctx.stroke();
+
+        p.points.forEach((pt) => {
+          ctx.beginPath();
+          ctx.fillStyle = "rgba(245,166,35,0.25)";
+          ctx.arc(pt.x * w, pt.y * h, 1.6, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        p.pulses.forEach((pulse) => {
+          pulse.t += pulse.speed / 100;
+          if (pulse.t > 1) pulse.t = 0;
+          const pos = pointAtT(p.points, pulse.t, w, h);
+          const grad = ctx.createRadialGradient(pos.x, pos.y, 0, pos.x, pos.y, 8);
+          grad.addColorStop(0, "rgba(245,166,35,0.9)");
+          grad.addColorStop(1, "rgba(245,166,35,0)");
+          ctx.beginPath();
+          ctx.fillStyle = grad;
+          ctx.arc(pos.x, pos.y, 8, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.beginPath();
+          ctx.fillStyle = "rgba(255,220,150,0.95)";
+          ctx.arc(pos.x, pos.y, 1.8, 0, Math.PI * 2);
+          ctx.fill();
+        });
       });
 
+      // floating particle network
+      particles.forEach((pt) => {
+        pt.x += pt.vx / w;
+        pt.y += pt.vy / h;
+        if (pt.x < 0) pt.x = 1;
+        if (pt.x > 1) pt.x = 0;
+        if (pt.y < 0) pt.y = 1;
+        if (pt.y > 1) pt.y = 0;
+      });
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
-          const a = particles[i];
-          const b = particles[j];
-          const dx = (a.x - b.x) * W;
-          const dy = (a.y - b.y) * H;
+          const a = particles[i], b = particles[j];
+          const dx = (a.x - b.x) * w, dy = (a.y - b.y) * h;
           const d = Math.sqrt(dx * dx + dy * dy);
           if (d < MAX_DIST) {
-            const alpha = (1 - d / MAX_DIST) * 0.4;
+            const alpha = (1 - d / MAX_DIST) * 0.25;
             ctx.beginPath();
             ctx.strokeStyle = `rgba(245,166,35,${alpha})`;
-            ctx.lineWidth = 0.8;
-            ctx.moveTo(a.x * W, a.y * H);
-            ctx.lineTo(b.x * W, b.y * H);
+            ctx.lineWidth = 0.6;
+            ctx.moveTo(a.x * w, a.y * h);
+            ctx.lineTo(b.x * w, b.y * h);
             ctx.stroke();
           }
         }
       }
-
-      particles.forEach((p) => {
+      particles.forEach((pt) => {
         ctx.beginPath();
-        ctx.arc(p.x * W, p.y * H, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(245,166,35,0.75)";
+        ctx.fillStyle = "rgba(245,166,35,0.6)";
+        ctx.arc(pt.x * w, pt.y * h, pt.r, 0, Math.PI * 2);
         ctx.fill();
       });
 
+      // sparse binary rain
+      ctx.font = "11px monospace";
+      rainCols.forEach((col) => {
+        col.y += col.speed / 100;
+        if (col.y > 1.2) {
+          col.y = -0.2;
+          col.chars = Array.from({ length: 12 }, () => pick("01"));
+        }
+        const baseY = col.y * h;
+        col.chars.forEach((c, idx) => {
+          const yy = baseY - idx * 16;
+          if (yy < -20 || yy > h + 20) return;
+          const alpha = Math.max(0, 0.5 - idx * 0.045);
+          ctx.fillStyle =
+            idx === 0 ? `rgba(245,166,35,${alpha + 0.2})` : `rgba(148,163,184,${alpha})`;
+          ctx.fillText(c, col.x * w, yy);
+        });
+      });
+
+      // scanning line sweep — security-scan motif
+      scanY += 0.6;
+      if (scanY > h + 100) scanY = -100;
+      const scanGrad = ctx.createLinearGradient(0, scanY - 60, 0, scanY + 60);
+      scanGrad.addColorStop(0, "rgba(245,166,35,0)");
+      scanGrad.addColorStop(0.5, "rgba(245,166,35,0.05)");
+      scanGrad.addColorStop(1, "rgba(245,166,35,0)");
+      ctx.fillStyle = scanGrad;
+      ctx.fillRect(0, scanY - 60, w, 120);
+      ctx.strokeStyle = "rgba(245,166,35,0.18)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(0, scanY);
+      ctx.lineTo(w, scanY);
+      ctx.stroke();
+
       animId = requestAnimationFrame(draw);
-    };
+    }
 
     resize();
     draw();
@@ -295,7 +453,7 @@ function Navbar({ scrolled }) {
 function HeroSection() {
   return (
     <section className="hero" id="hero">
-      <ParticleCanvas />
+      <CyberBackground />
       <div className="hero-content">
         <div className="hero-eyebrow animate-fade-up">
           Detect. Protect. Evolve.
