@@ -259,6 +259,8 @@ img { display: block; max-width: 100%; }
   50% { box-shadow: 0 0 0 7px rgba(255,107,87,0); }
 }
 
+
+
 .hamburger {
   display: none;
   flex-direction: column;
