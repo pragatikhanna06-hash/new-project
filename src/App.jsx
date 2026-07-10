@@ -90,8 +90,12 @@ import HomePage from "./HomePage";
 import ServicesPage from "./ServicesPage";
 import ReportCrimePage from "./pages/ReportCrimePage";
 import BookLawyerPage from "./pages/BookLawyerPage";
+import BookLawyerDay1Page from "./pages/BookLawyerDay1Page";
+import BookLawyerInBetweenPage from "./pages/BookLawyerInBetweenPage";
 import CaseStatusPage from "./pages/CaseStatusPage";
 import NyayShieldPage from "./pages/NyayShieldPage";
+import ForensicExpertPage from "./pages/ForensicExpertPage";
+import NearbyPoliceStationPage from "./pages/NearbyPoliceStationPage";
 
 import DataSecurityPage from "./pages/services/DataSecurityPage";
 import ForensicAuditPage from "./pages/services/ForensicAuditPage";
@@ -109,7 +113,11 @@ export default function App() {
         <Route path="/nyay-shield" element={<NyayShieldPage />} />
         <Route path="/report-crime" element={<ReportCrimePage />} />
         <Route path="/book-lawyer" element={<BookLawyerPage />} />
+        <Route path="/book-lawyer/day-1" element={<BookLawyerDay1Page />} />
+        <Route path="/book-lawyer/in-between" element={<BookLawyerInBetweenPage />} />
         <Route path="/case-status" element={<CaseStatusPage />} />
+        <Route path="/forensic-expert" element={<ForensicExpertPage />} />
+        <Route path="/nearby-police-station" element={<NearbyPoliceStationPage />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/services/data-security" element={<DataSecurityPage />} />
         <Route path="/services/forensic-audit" element={<ForensicAuditPage />} />
