@@ -3,7 +3,7 @@
 .bl-root{
   --ink:#0a0d16; --panel:#111726; --panel-2:#161e30;
   --line: rgba(201,162,39,0.16); --gold:#c9a227; --gold-soft:#e6c85c;
-  --red:#e4483a; --teal:#2fbfa6; --text:#edeff5; --text-dim:#96a0b8; --text-faint:#5b6479;
+  --red:#e4483a; --teal:#2fbfa6; --text:#f5f6fa; --text-dim:#aab4cc; --text-faint:#7c86a1;
 }
 .bl-root, .bl-root *, .bl-root *::before, .bl-root *::after{ box-sizing:border-box; }
 .bl-root{

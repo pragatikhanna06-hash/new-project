@@ -24,10 +24,31 @@ const CASE_TYPES = [
 
 const EMPTY_FORM = { name: "", phone: "", email: "", city: "", caseType: "", notes: "" };
 
+// Demo lawyer directory — each entry includes a Gmail contact so the person
+// knows who to reach out to. Replace with a real lawyer-network lookup later.
+const LAWYER_POOL = [
+  { name: "Adv. R. Mehta", gmail: "advocate.rmehta@gmail.com" },
+  { name: "Adv. S. Kapoor", gmail: "advocate.skapoor@gmail.com" },
+  { name: "Adv. N. Sharma", gmail: "advocate.nsharma@gmail.com" },
+  { name: "Adv. P. Iyer", gmail: "advocate.piyer@gmail.com" },
+  { name: "Adv. A. Verma", gmail: "advocate.averma@gmail.com" },
+];
+
+// Demo-only deterministic hash so the same details always match the same demo lawyer.
+function hashString(str) {
+  let h = 0;
+  for (let i = 0; i < str.length; i++) {
+    h = (h << 5) - h + str.charCodeAt(i);
+    h |= 0;
+  }
+  return Math.abs(h);
+}
+
 export default function BookLawyerPage() {
   const [form, setForm] = useState(EMPTY_FORM);
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [assignedLawyer, setAssignedLawyer] = useState(null);
 
   const handleChange = (field) => (e) => {
     setForm((f) => ({ ...f, [field]: e.target.value }));
@@ -49,6 +70,8 @@ export default function BookLawyerPage() {
     e.preventDefault();
     if (!validate()) return;
     // TODO: replace with a real API call to your lawyer-matching backend.
+    const seed = hashString(form.name + form.phone + form.caseType);
+    setAssignedLawyer(LAWYER_POOL[seed % LAWYER_POOL.length]);
     setSubmitted(true);
   };
 
@@ -56,6 +79,7 @@ export default function BookLawyerPage() {
     setForm(EMPTY_FORM);
     setErrors({});
     setSubmitted(false);
+    setAssignedLawyer(null);
   };
 
   return (
@@ -136,13 +160,19 @@ export default function BookLawyerPage() {
             <div className="bl-confirm-icon"><CheckCircle2 size={30} /></div>
             <h2>Request Received{form.name ? `, ${form.name}` : ""}.</h2>
             <p>
-              A verified criminal lawyer for <b>{form.caseType}</b> cases in {form.city} will be matched
-              to you shortly. (This is a demo confirmation — connect a real backend to actually notify a lawyer.)
+              {assignedLawyer ? assignedLawyer.name : "A verified criminal lawyer"} for <b>{form.caseType}</b> cases in {form.city} has been
+              matched to your request. (This is a demo confirmation — connect a real backend to actually notify a lawyer.)
             </p>
             <div className="bl-confirm-detail">
               <div><b>Case Type:</b> {form.caseType}</div>
               <div><b>City:</b> {form.city}</div>
               <div><b>Contact:</b> {form.phone}{form.email ? ` · ${form.email}` : ""}</div>
+              {assignedLawyer && (
+                <>
+                  <div><b>Assigned Lawyer:</b> {assignedLawyer.name}</div>
+                  <div><b>Lawyer's Gmail:</b> {assignedLawyer.gmail}</div>
+                </>
+              )}
             </div>
             <div className="bl-confirm-actions">
               <button className="bl-ghost-btn" onClick={resetForm}>Submit Another Request</button>

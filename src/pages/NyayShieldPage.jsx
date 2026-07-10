@@ -106,19 +106,42 @@ const CRIME_DATA = {
   },
 };
 
+const SPECIALIST_POOL = [
+  "Adv. R. Mehta — Case Registration Specialist",
+  "Adv. S. Kapoor — Case Registration Specialist",
+  "Adv. N. Sharma — Case Registration Specialist",
+  "Adv. P. Iyer — Case Registration Specialist",
+  "Adv. A. Verma — Case Registration Specialist",
+];
+
+// Demo-only deterministic hash so the same inputs always produce the same demo match.
+function hashString(str) {
+  let h = 0;
+  for (let i = 0; i < str.length; i++) {
+    h = (h << 5) - h + str.charCodeAt(i);
+    h |= 0;
+  }
+  return Math.abs(h);
+}
+
 export default function NyayShieldPage() {
   const [crimeType, setCrimeType] = useState("");
   const [name, setName] = useState("");
   const [contact, setContact] = useState("");
   const [incidentDesc, setIncidentDesc] = useState("");
-  const [submittedKey, setSubmittedKey] = useState(null);
-
-  const activeData = submittedKey ? CRIME_DATA[submittedKey] : null;
+  const [activeBooking, setActiveBooking] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!crimeType) return;
-    setSubmittedKey(crimeType);
+    // DEMO ONLY — replace with a real API call to your specialist-matching backend.
+    const seed = hashString(name + contact + crimeType);
+    setActiveBooking({
+      specialist: SPECIALIST_POOL[seed % SPECIALIST_POOL.length],
+      etaHours: 2 + (seed % 10),
+      bookingId: "NS-" + String(seed % 100000).padStart(5, "0"),
+      crimeLabel: CRIME_DATA[crimeType].label,
+    });
     document.getElementById("detailPanel")?.scrollIntoView({ behavior: "smooth", block: "center" });
   };
 
@@ -168,7 +191,7 @@ export default function NyayShieldPage() {
           <Link className="qa-btn qa-info" to="/case-status">
             <span className="qa-icon"><ClipboardList size={22} /></span>
             <span>
-              <div className="qa-text-title">Case Information</div>
+              <div className="qa-text-title">Check Your Case Status</div>
               <div className="qa-text-sub">Track progress & next hearing date</div>
             </span>
           </Link>
@@ -224,14 +247,15 @@ export default function NyayShieldPage() {
         </div>
       </section>
 
-      {/* ---------- REPORT A CRIME (quick preview widget) ---------- */}
+      {/* ---------- BOOK A SPECIALIST TO REGISTER CRIME ---------- */}
       <section className="report-section" id="report">
         <div className="wrap">
-          <div className="eyebrow">File a Report</div>
-          <h2 style={{ fontSize: "clamp(28px,3.6vw,38px)", fontWeight: 700, marginBottom: 10 }}>Report a Crime</h2>
+          <div className="eyebrow">Guided Filing</div>
+          <h2 style={{ fontSize: "clamp(28px,3.6vw,38px)", fontWeight: 700, marginBottom: 10 }}>Book a Specialist to Register Crime</h2>
           <p style={{ color: "var(--text-dim)", maxWidth: 600, marginBottom: 40 }}>
-            Select the crime type below. We'll show you the full picture — what it means, and only the active, verified resources relevant to it.
-            For the complete guided flow with lawyer matching, use the full <Link to="/report-crime" style={{ color: "var(--gold-soft)" }}>Report a Crime</Link> page.
+            Don't file alone. Tell us what happened and a case-registration specialist is matched to you —
+            they help you draft, file, and follow up on your complaint with the right authority.
+            For the full step-by-step flow instead, use the dedicated <Link to="/report-crime" style={{ color: "var(--gold-soft)" }}>Report a Crime</Link> page.
           </p>
 
           <div className="report-grid">
@@ -239,7 +263,7 @@ export default function NyayShieldPage() {
               <div className="field">
                 <label htmlFor="crimeType">Type of Crime</label>
                 <select id="crimeType" required value={crimeType} onChange={(e) => setCrimeType(e.target.value)}>
-                  <option value="" disabled>Select the crime you want to report</option>
+                  <option value="" disabled>Select the crime you want to register</option>
                   {Object.entries(CRIME_DATA).map(([key, d]) => (
                     <option key={key} value={key}>{d.label}</option>
                   ))}
@@ -257,51 +281,57 @@ export default function NyayShieldPage() {
                 <label htmlFor="incidentDesc">Describe What Happened</label>
                 <textarea id="incidentDesc" placeholder="Share as much detail as you're comfortable with — date, place, people involved..." value={incidentDesc} onChange={(e) => setIncidentDesc(e.target.value)} />
               </div>
-              <button type="submit" className="submit-btn">Submit Report &amp; Get Guidance</button>
-              <p className="form-note">🔒 Your report is confidential. A lawyer can be assigned the same day.</p>
+              <button type="submit" className="submit-btn">Book a Specialist</button>
+              <p className="form-note">🔒 Your details are confidential. This is a free, demo booking flow.</p>
             </form>
 
             <div className="detail-panel" id="detailPanel">
-              {!activeData && (
+              {!activeBooking && (
                 <div className="detail-empty">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="9" /><path d="M12 8v5M12 16h.01" /></svg>
-                  <p>Choose a crime type on the left — its full description and verified action links will appear here instantly.</p>
+                  <p>Fill the form on the left — your matched specialist and booking details will appear here instantly.</p>
                 </div>
               )}
 
-              {activeData && (
+              {activeBooking && (
                 <div className="detail-content">
-                  <span className={`detail-badge sev-${activeData.severity}`}>{activeData.sevLabel}</span>
-                  <h3>{activeData.label}</h3>
-                  <p className="detail-desc">{activeData.description}</p>
+                  <span className="detail-badge sev-medium">Specialist Matched</span>
+                  <h3>{activeBooking.specialist}</h3>
+                  <p className="detail-desc">
+                    Matched for <b style={{ color: "var(--text)" }}>{activeBooking.crimeLabel}</b> cases.
+                    They'll reach out within approximately <b style={{ color: "var(--text)" }}>{activeBooking.etaHours} hours</b> to
+                    help you draft and file your complaint with the right authority.
+                  </p>
                   <div className="links-label" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                    <span>Relevant &amp; Active Resources</span>
+                    <span>Booking Details</span>
                     <span className="live-tag">
                       <span className="l-dot" style={{ width: 6, height: 6, borderRadius: "50%", background: "#2fbfa6", display: "inline-block" }} />
-                      All links verified live
+                      Demo booking
                     </span>
                   </div>
                   <div className="link-list">
-                    {activeData.links.map((link, i) => (
-                      <a
-                        key={link.url}
-                        className="link-item"
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{ animationDelay: `${i * 0.09 + 0.15}s` }}
-                      >
-                        <span className="l-left">
-                          <span className="l-dot" />
-                          <span className="l-text">
-                            <div className="l-title">{link.title}</div>
-                            <div className="l-url">{link.url.replace("https://", "")}</div>
-                          </span>
+                    <div className="link-item" style={{ cursor: "default" }}>
+                      <span className="l-left">
+                        <span className="l-dot" />
+                        <span className="l-text">
+                          <div className="l-title">Booking ID</div>
+                          <div className="l-url">{activeBooking.bookingId}</div>
                         </span>
-                        <span className="l-arrow">↗</span>
-                      </a>
-                    ))}
+                      </span>
+                    </div>
+                    <div className="link-item" style={{ cursor: "default" }}>
+                      <span className="l-left">
+                        <span className="l-dot" />
+                        <span className="l-text">
+                          <div className="l-title">Contact on File</div>
+                          <div className="l-url">{contact}</div>
+                        </span>
+                      </span>
+                    </div>
                   </div>
+                  <p className="form-note" style={{ marginTop: 18 }}>
+                    ⚠️ Demo flow — not yet connected to a live specialist network. Free, no penalty, no charges.
+                  </p>
                 </div>
               )}
             </div>

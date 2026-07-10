@@ -9,9 +9,9 @@
   --gold-soft:#e6c85c;
   --red:#e4483a;
   --teal:#2fbfa6;
-  --text:#edeff5;
-  --text-dim:#96a0b8;
-  --text-faint:#5b6479;
+  --text:#f5f6fa;
+  --text-dim:#aab4cc;
+  --text-faint:#7c86a1;
   --radius: 14px;
 }
 .home-root, .home-root *, .home-root *::before, .home-root *::after{ box-sizing:border-box; }
