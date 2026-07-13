@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import { Siren, Scale, ClipboardList, Microscope, Building2 } from "lucide-react";
+import { Siren, Scale, ClipboardList, Microscope, Building2, FileText } from "lucide-react";
 import "./NyayShieldPage.css";
 
 /* ══════════════════════════════════════════════════════════════════
    NYAYSHIELD — HOME PAGE
    Deliberately minimal: a nav with only a "back to home" link, an
-   ambient animated shield emblem in the background, and 5 quick-action
+   ambient animated shield emblem in the background, and 6 quick-action
    buttons that route to their own dedicated pages. Nothing else lives
    on this page by design.
 ══════════════════════════════════════════════════════════════════ */
@@ -42,7 +42,7 @@ export default function NyayShieldPage() {
         </div>
       </nav>
 
-      {/* ---------- QUICK ACTIONS — the 5 buttons ---------- */}
+      {/* ---------- QUICK ACTIONS — the 6 buttons ---------- */}
       <section className="quick-actions">
         <div className="wrap">
           <div className="quick-actions-head">
@@ -89,6 +89,14 @@ export default function NyayShieldPage() {
               <span>
                 <div className="qa-text-title">Nearby Police Station</div>
                 <div className="qa-text-sub">Find the closest station to you</div>
+              </span>
+            </Link>
+
+            <Link className="qa-btn qa-drafting" to="/legal-drafting">
+              <span className="qa-icon"><FileText size={22} /></span>
+              <span>
+                <div className="qa-text-title">Legal / Corporate Report Drafting</div>
+                <div className="qa-text-sub">Notices, contracts & compliance docs</div>
               </span>
             </Link>
           </div>

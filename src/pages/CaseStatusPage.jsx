@@ -1,7 +1,51 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, ClipboardList, User, Hash, Scale, Send, Info, RotateCcw } from "lucide-react";
+import {
+  ClipboardList, User, Hash, Scale, Send, Info, RotateCcw,
+  Gavel, BarChart3, BookOpen, Landmark, ScrollText, ShieldCheck, ExternalLink,
+} from "lucide-react";
 import "./CaseStatusPage.css";
+
+// Verified Government of India links relevant to tracking a case.
+// Official domains only — no redirectors, no embeds, no tracking.
+const GOVT_LINKS = [
+  {
+    title: "eCourts Services",
+    desc: "Official case status, cause lists & orders for district/high courts.",
+    url: "https://services.ecourts.gov.in",
+    icon: Gavel,
+  },
+  {
+    title: "National Judicial Data Grid (NJDG)",
+    desc: "Live pendency & disposal data for courts across India.",
+    url: "https://njdg.ecourts.gov.in",
+    icon: BarChart3,
+  },
+  {
+    title: "NALSA — Free Legal Aid",
+    desc: "Apply for free legal aid under the Legal Services Authorities Act.",
+    url: "https://nalsa.gov.in",
+    icon: BookOpen,
+  },
+  {
+    title: "Digital Police Portal",
+    desc: "NCRB / MHA portal for FIR status, verification & citizen services.",
+    url: "https://digitalpolice.gov.in",
+    icon: Landmark,
+  },
+  {
+    title: "India Code",
+    desc: "Official digital repository of all Central & State Acts.",
+    url: "https://www.indiacode.nic.in",
+    icon: ScrollText,
+  },
+  {
+    title: "National Cyber Crime Reporting Portal",
+    desc: "Report cybercrime directly to the Ministry of Home Affairs (I4C).",
+    url: "https://cybercrime.gov.in",
+    icon: ShieldCheck,
+  },
+];
 
 /* ══════════════════════════════════════════════════════════════════
    NYAYSHIELD — CASE INFORMATION / STATUS TRACKER
@@ -72,18 +116,25 @@ export default function CaseStatusPage() {
   };
 
   return (
-    <div className="cs-root">
-      <div className="cs-topbar">
-        <Link className="cs-back" to="/">
-          <ArrowLeft size={16} /> Back to Home
-        </Link>
-      </div>
+    <div className="home-root">
+      <nav className="topbar">
+        <div className="wrap" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+          <div className="brand">
+            <svg className="brand-mark" viewBox="0 0 48 48" fill="none">
+              <path d="M24 4L6 12v10c0 11 7.6 19.6 18 22 10.4-2.4 18-11 18-22V12L24 4z" stroke="#c9a227" strokeWidth="2" fill="rgba(201,162,39,0.08)" />
+              <path d="M24 14v20M17 20l7-4 7 4M17 20c0 3-2 6-4 6h8c-2 0-4-3-4-6M31 20c0 3-2 6-4 6h8c-2 0-4-3-4-6" stroke="#c9a227" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <div className="brand-name">Nyay<span>Shield</span></div>
+          </div>
+          <Link className="back-link" to="/">← Back to Home Page</Link>
+        </div>
+      </nav>
 
       <div className="cs-wrap">
         {!result && (
           <>
-            <div className="cs-hero">
-              <div className="cs-eyebrow">Case Information</div>
+            <div className="page-hero cs-hero">
+              <div className="eyebrow" style={{ justifyContent: "center" }}>Case Information</div>
               <h1>Track your <em>case status.</em></h1>
               <p>Enter your details and case number to see how far your case has progressed and your next hearing date.</p>
             </div>
@@ -140,7 +191,7 @@ export default function CaseStatusPage() {
               </div>
 
               <button type="submit" className="cs-submit"><Send size={16} /> Check Case Status</button>
-              <p className="cs-form-note">🔒 Free to use. No penalty or fee involved.</p>
+              <p className="form-note">🔒 Free to use. No penalty or fee involved.</p>
             </form>
           </>
         )}
@@ -195,6 +246,32 @@ export default function CaseStatusPage() {
             </div>
           </div>
         )}
+
+        <section className="govt-section">
+          <div className="govt-head">
+            <div className="eyebrow" style={{ justifyContent: "center" }}>Official Government Resources</div>
+            <h2>Verified links, straight from the source</h2>
+            <p>Every link below points to an official Government of India (.gov.in / .nic.in) portal. Nothing is proxied, embedded, or tracked — each opens directly in a new tab.</p>
+          </div>
+          <div className="govt-grid">
+            {GOVT_LINKS.map(({ title, desc, url, icon: Icon }) => (
+              <a
+                key={url}
+                className="govt-card"
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+              >
+                <span className="govt-icon"><Icon size={20} /></span>
+                <span className="govt-text">
+                  <span className="govt-title">{title} <ExternalLink size={13} className="govt-ext" /></span>
+                  <span className="govt-desc">{desc}</span>
+                  <span className="govt-url">{url.replace("https://", "")}</span>
+                </span>
+              </a>
+            ))}
+          </div>
+        </section>
       </div>
     </div>
   );

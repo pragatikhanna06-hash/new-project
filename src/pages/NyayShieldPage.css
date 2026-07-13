@@ -9,6 +9,7 @@
   --gold-soft:#e6c85c;
   --red:#e4483a;
   --teal:#2fbfa6;
+  --amber:#f2994a;
   --text:#f5f6fa;
   --text-dim:#aab4cc;
   --text-faint:#7c86a1;
@@ -98,11 +99,13 @@
 .quick-actions-head{ max-width:640px; margin:0 auto 40px; text-align:center; }
 .quick-actions-head h1{ font-size:clamp(28px,4vw,40px); font-weight:700; }
 .quick-actions-head p{ margin-top:14px; color:var(--text-dim); font-size:15.5px; }
+
+/* 6 buttons — 3 per row on wide screens, 2 per row mid-width, 1 on mobile */
 .quick-actions-inner{
-  display:grid; grid-template-columns:repeat(5,1fr); gap:16px;
+  display:grid; grid-template-columns:repeat(3,1fr); gap:16px;
 }
-@media (max-width:1080px){ .quick-actions-inner{ grid-template-columns:repeat(3,1fr); } }
-@media (max-width:640px){ .quick-actions-inner{ grid-template-columns:1fr; } }
+@media (max-width:900px){ .quick-actions-inner{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:560px){ .quick-actions-inner{ grid-template-columns:1fr; } }
 
 .qa-btn{
   display:flex; flex-direction:column; align-items:flex-start; gap:14px;
@@ -135,3 +138,6 @@
 
 .qa-police .qa-icon{ background:rgba(72,158,228,0.16); color:#6db2ec; }
 .qa-police:hover{ box-shadow:0 14px 30px -12px rgba(72,158,228,0.4); }
+
+.qa-drafting .qa-icon{ background:rgba(242,153,74,0.16); color:var(--amber); }
+.qa-drafting:hover{ box-shadow:0 14px 30px -12px rgba(242,153,74,0.4); }

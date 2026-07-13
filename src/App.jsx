@@ -96,6 +96,7 @@ import CaseStatusPage from "./pages/CaseStatusPage";
 import NyayShieldPage from "./pages/NyayShieldPage";
 import ForensicExpertPage from "./pages/ForensicExpertPage";
 import NearbyPoliceStationPage from "./pages/NearbyPoliceStationPage";
+import LegalDraftingPage from "./pages/LegalDraftingPage";
 
 import DataSecurityPage from "./pages/services/DataSecurityPage";
 import ForensicAuditPage from "./pages/services/ForensicAuditPage";
@@ -118,6 +119,7 @@ export default function App() {
         <Route path="/case-status" element={<CaseStatusPage />} />
         <Route path="/forensic-expert" element={<ForensicExpertPage />} />
         <Route path="/nearby-police-station" element={<NearbyPoliceStationPage />} />
+        <Route path="/legal-drafting" element={<LegalDraftingPage />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/services/data-security" element={<DataSecurityPage />} />
         <Route path="/services/forensic-audit" element={<ForensicAuditPage />} />
