@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Phone, MapPin } from "lucide-react";
-import "./NearbyPoliceStationPage.css";
+import "./NearByPoliceStationPage.css";
 
 /* NOTE: This is intentionally static, illustrative data — no live
    geolocation, no third-party maps API, no tracking. Swap STATIONS

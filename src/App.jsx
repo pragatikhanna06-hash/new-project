@@ -10,7 +10,7 @@ import BookLawyerInBetweenPage from "./pages/BookLawyerInBetweenPage";
 import CaseStatusPage from "./pages/CaseStatusPage";
 import NyayShieldPage from "./pages/NyayShieldPage";
 import ForensicExpertPage from "./pages/ForensicExpertPage";
-import NearbyPoliceStationPage from "./pages/NearByPoliceStationPage";
+import NearByPoliceStationPage from "./pages/NearByPoliceStationPage";
 import LegalDraftingPage from "./pages/LegalDraftingPage";
 
 import DataSecurityPage from "./pages/services/DataSecurityPage";
