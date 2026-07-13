@@ -380,6 +380,36 @@ img { display: block; max-width: 100%; }
   margin-top: 0.15rem;
 }
 
+/* ── NyayShield content embedded in the hero ──────────────────────────
+   NyayShieldPage.css scopes everything under .home-root, so importing
+   it doesn't affect the rest of the page. These overrides just adapt
+   sizing/positioning so it sits correctly inside .hero instead of
+   behaving like its own full standalone page.                        */
+.hero-nyay-embed.home-root {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  min-height: 0;
+  background: none;
+}
+.hero-nyay-embed .shield-bg {
+  /* was position:fixed on the standalone page (viewport-pinned bg);
+     absolute here so it stays confined to the hero section as you
+     scroll the homepage, instead of bleeding into other sections */
+  position: absolute;
+  inset: 0;
+}
+.hero-nyay-embed .shield-bg svg {
+  width: min(70vw, 760px);
+}
+.hero-nyay-embed .quick-actions {
+  min-height: 0;
+  padding: 2.5rem 0 4rem;
+}
+@media (max-width: 640px) {
+  .hero-nyay-embed .quick-actions { padding: 1.5rem 0 3rem; }
+}
+
 .hero-scroll-hint {
   position: absolute;
   bottom: 2rem;

@@ -8,7 +8,6 @@ import BookLawyerPage from "./pages/BookLawyerPage";
 import BookLawyerDay1Page from "./pages/BookLawyerDay1Page";
 import BookLawyerInBetweenPage from "./pages/BookLawyerInBetweenPage";
 import CaseStatusPage from "./pages/CaseStatusPage";
-import NyayShieldPage from "./pages/NyayShieldPage";
 import ForensicExpertPage from "./pages/ForensicExpertPage";
 import NearByPoliceStationPage from "./pages/NearByPoliceStationPage";
 import LegalDraftingPage from "./pages/LegalDraftingPage";
@@ -26,7 +25,6 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/nyay-shield" element={<NyayShieldPage />} />
         <Route path="/report-crime" element={<ReportCrimePage />} />
         <Route path="/book-lawyer" element={<BookLawyerPage />} />
         <Route path="/book-lawyer/day-1" element={<BookLawyerDay1Page />} />
