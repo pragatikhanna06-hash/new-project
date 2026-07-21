@@ -92,20 +92,16 @@ function buildCourtSearchUrl(city) {
   return `https://www.google.com/search?q=${encodeURIComponent(q)}+site:ecourts.gov.in`;
 }
 
+// The real, official case-status search page on the eCourts portal —
+// this is where an actual case can be tracked (by CNR number, case
+// number, party name, FIR number, etc). It's free and government-run.
+const ECOURTS_CASE_STATUS_URL = "https://services.ecourts.gov.in/ecourtindia_v6/?p=casestatus/index";
+
+
 export default function CaseStatusPage() {
   const [form, setForm] = useState(EMPTY_FORM);
   const [errors, setErrors] = useState({});
   const [result, setResult] = useState(null);
-  // Holds the govt link the user tapped, while we show a quick
-  // "you're leaving to an official, free govt site" confirmation.
-  const [pendingLink, setPendingLink] = useState(null);
-
-  const openPendingLink = () => {
-    if (pendingLink) {
-      window.open(pendingLink.url, "_blank", "noopener,noreferrer");
-    }
-    setPendingLink(null);
-  };
 
   const handleChange = (field) => (e) => {
     setForm((f) => ({ ...f, [field]: e.target.value }));
@@ -164,12 +160,27 @@ export default function CaseStatusPage() {
                 eCourts or any police/judicial system, so the result is illustrative only — 100%
                 free, no penalty, no real data is fetched or shared. For your actual case status,
                 use the official{" "}
-                <a href="https://services.ecourts.gov.in/" target="_blank" rel="noopener noreferrer" style={{ color: "var(--teal)" }}>
-                  eCourts India
+                <a href={ECOURTS_CASE_STATUS_URL} target="_blank" rel="noopener noreferrer" style={{ color: "var(--teal)" }}>
+                  eCourts India — Case Status
                 </a>{" "}
-                portal.
+                page.
               </span>
             </div>
+
+            <a
+              className="cs-track-official-btn"
+              href={ECOURTS_CASE_STATUS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <ExternalLink size={16} />
+              <span>
+                <span className="t">Track your real case on the official eCourts portal</span>
+                <span className="s">Free · Govt. of India · Opens in a new tab</span>
+              </span>
+            </a>
+
+            <div className="cs-or-divider"><span>or try the illustrative demo below</span></div>
 
             <form className="cs-form-card" onSubmit={handleSubmit}>
               <div className="cs-grid">
@@ -205,19 +216,14 @@ export default function CaseStatusPage() {
                 <div className="cs-field full">
                   <label><ClipboardList size={14} style={{ verticalAlign: -2, marginRight: 6 }} />City / Court (optional)</label>
                   <input type="text" placeholder="e.g. Ludhiana District Court" value={form.city} onChange={handleChange("city")} />
-                  <button
-                    type="button"
+                  <a
                     className="cs-court-link"
-                    onClick={() =>
-                      setPendingLink({
-                        title: form.city ? `"${form.city}" on eCourts` : "eCourts court search",
-                        url: buildCourtSearchUrl(form.city),
-                        type: "search",
-                      })
-                    }
+                    href={buildCourtSearchUrl(form.city)}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     <ExternalLink size={12} /> Find this court on eCourts
-                  </button>
+                  </a>
                 </div>
               </div>
 
@@ -237,10 +243,10 @@ export default function CaseStatusPage() {
                 typed. It is <b>not fetched from eCourts or any real court/police database</b> and
                 must not be used to plan your actual hearing date. For your real case status,
                 visit the official{" "}
-                <a href="https://services.ecourts.gov.in/" target="_blank" rel="noopener noreferrer">
-                  eCourts India
+                <a href={ECOURTS_CASE_STATUS_URL} target="_blank" rel="noopener noreferrer">
+                  eCourts India — Case Status
                 </a>{" "}
-                portal.
+                page.
               </span>
             </div>
             <div className="cs-result-head">
@@ -281,25 +287,29 @@ export default function CaseStatusPage() {
               <div className="cs-info-card">
                 <div className="k">City / Court</div>
                 <div className="v">{form.city || "Not specified"}</div>
-                <button
-                  type="button"
+                <a
                   className="cs-court-link"
-                  onClick={() =>
-                    setPendingLink({
-                      title: form.city ? `"${form.city}" on eCourts` : "eCourts court search",
-                      url: buildCourtSearchUrl(form.city),
-                      type: "search",
-                    })
-                  }
+                  href={buildCourtSearchUrl(form.city)}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <ExternalLink size={12} /> Find this court on eCourts
-                </button>
+                </a>
               </div>
             </div>
 
             <div className="cs-result-actions">
+              <a
+                className="cs-gold-btn"
+                href={ECOURTS_CASE_STATUS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <ExternalLink size={14} style={{ verticalAlign: -2, marginRight: 6 }} />
+                Track on Official eCourts Portal
+              </a>
               <button className="cs-ghost-btn" onClick={resetForm}><RotateCcw size={15} style={{ verticalAlign: -2, marginRight: 6 }} />Check Another Case</button>
-              <Link className="cs-gold-btn" to="/">Back to Home</Link>
+              <Link className="cs-ghost-btn" to="/">Back to Home</Link>
             </div>
           </div>
         )}
@@ -312,11 +322,12 @@ export default function CaseStatusPage() {
           </div>
           <div className="govt-list">
             {GOVT_LINKS.map(({ title, desc, url, icon: Icon }) => (
-              <button
+              <a
                 key={url}
-                type="button"
                 className="govt-card"
-                onClick={() => setPendingLink({ title, url })}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <span className="govt-icon"><Icon size={20} /></span>
                 <span className="govt-text">
@@ -325,46 +336,12 @@ export default function CaseStatusPage() {
                   <span className="govt-url">{url.replace("https://", "")}</span>
                 </span>
                 <span className="govt-free-tag">Free · No charges</span>
-              </button>
+              </a>
             ))}
           </div>
         </section>
       </div>
 
-      {pendingLink && (
-        <div className="govt-modal-overlay" onClick={() => setPendingLink(null)}>
-          <div className="govt-modal" onClick={(e) => e.stopPropagation()}>
-            <span className="govt-modal-icon"><ShieldCheck size={22} /></span>
-            {pendingLink.type === "search" ? (
-              <>
-                <h3>Searching eCourts for this court</h3>
-                <p>
-                  This opens a Google search for <b>{pendingLink.title}</b>, restricted to results
-                  from the official <b>ecourts.gov.in</b> domain only — no other sites can show up.
-                  It's free, and nothing you've typed here is sent anywhere except as your search text.
-                </p>
-              </>
-            ) : (
-              <>
-                <h3>Opening an official Govt. of India site</h3>
-                <p>
-                  You're being taken to <b>{pendingLink.title}</b> at{" "}
-                  <span className="govt-modal-url">{pendingLink.url.replace("https://", "")}</span>.
-                  It's a verified <b>.gov.in / .nic.in</b> portal — 100% free, no charges, and this
-                  site is not collecting or forwarding any of your data to it.
-                </p>
-              </>
-            )}
-            <div className="govt-modal-actions">
-              <button className="cs-ghost-btn" onClick={() => setPendingLink(null)}>Cancel</button>
-              <button className="cs-gold-btn govt-modal-go" onClick={openPendingLink}>
-                <ExternalLink size={14} style={{ verticalAlign: -2, marginRight: 6 }} />
-                Continue to site
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
