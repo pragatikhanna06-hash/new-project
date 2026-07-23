@@ -20,6 +20,8 @@ import InvestigationsPage from "./pages/services/InvestigationsPage";
 import LegalConsultationPage from "./pages/services/LegalConsultationPage";
 import DocumentExaminationPage from "./pages/services/DocumentExaminationPage";
 
+import WhatsAppButton from "./pages/WhatsAppButton";
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -43,6 +45,7 @@ export default function App() {
         <Route path="/services/document-examination" element={<DocumentExaminationPage />} />
         <Route path="*" element={<HomePage />} />
       </Routes>
+      <WhatsAppButton />
     </BrowserRouter>
   );
 }
