@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ShieldCheck, FileSearch, FileCheck2 } from "lucide-react";
 import "./ForensicExpertPage.css";
+import { sendFormToWhatsApp } from "../utils/whatsapp";
 
 const EXPERT_POOL = [
   "Dr. A. Krishnan — Digital Forensics Examiner",
@@ -31,11 +32,20 @@ export default function ForensicExpertPage() {
     if (!evidenceType) return;
     // DEMO ONLY — replace with a real matching API call.
     const seed = hashString(name + contact + evidenceType);
-    setMatch({
+    const newMatch = {
       expert: EXPERT_POOL[seed % EXPERT_POOL.length],
       etaHours: 2 + (seed % 8),
       bookingId: "NS-FX-" + String(seed % 100000).padStart(5, "0"),
-    });
+    };
+    setMatch(newMatch);
+
+    sendFormToWhatsApp("Forensic Expert Booking — NyayShield", [
+      ["Evidence Type", evidenceType],
+      ["Name", name],
+      ["Phone / Email", contact],
+      ["Notes", notes],
+      ["Booking ID", newMatch.bookingId],
+    ]);
   };
 
   return (

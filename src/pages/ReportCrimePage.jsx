@@ -6,6 +6,7 @@ import {
   ArrowLeft, Info, PhoneCall, Monitor, Banknote, ShoppingBag,
   Building2, Landmark, UserSearch, RotateCcw, Radar,
 } from "lucide-react";
+import { sendFormToWhatsApp } from "../utils/whatsapp";
 
 /* ══════════════════════════════════════════════════════════════════
    FORFRA SOLUTIONS — REPORT A CRIME
@@ -257,6 +258,18 @@ export default function ReportCrimePage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!validate()) return;
+
+    const matchedCategory = CATEGORIES.find((c) => c.id === form.crimeType);
+    sendFormToWhatsApp("New Crime Report — NyayShield", [
+      ["Name", form.name],
+      ["Phone", form.phone],
+      ["Email", form.email],
+      ["Location", form.location],
+      ["Crime Type", matchedCategory ? matchedCategory.title : form.crimeType],
+      ["Date of Incident", form.date],
+      ["Description", form.description],
+    ]);
+
     setStep("processing");
   };
 
@@ -807,9 +820,11 @@ export default function ReportCrimePage() {
             <Reveal delay={100} className="rc-disclaimer">
               <PhoneCall size={20} />
               <p>
-                <strong>This is not an FIR filing system.</strong> Your details above were
-                not sent anywhere — this tool only helps you find the correct official
-                portal. For urgent, life-threatening emergencies, call{" "}
+                <strong>This is not an FIR filing system.</strong> The details you
+                shared were sent to our team over WhatsApp so we can follow up —
+                but they are not filed with police or any court. This tool only
+                helps you find the correct official portal. For urgent,
+                life-threatening emergencies, call{" "}
                 <strong>112</strong> (India's national emergency number) immediately, or
                 visit your nearest police station.
               </p>

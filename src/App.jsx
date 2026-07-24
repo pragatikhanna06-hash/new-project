@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { LanguageProvider } from "./pages/LanguageContext";
 
 import HomePage from "./HomePage";
 import ServicesPage from "./ServicesPage";
@@ -24,28 +25,30 @@ import WhatsAppButton from "./pages/WhatsAppButton";
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/report-crime" element={<ReportCrimePage />} />
-        <Route path="/book-lawyer" element={<BookLawyerPage />} />
-        <Route path="/book-lawyer/day-1" element={<BookLawyerDay1Page />} />
-        <Route path="/book-lawyer/in-between" element={<BookLawyerInBetweenPage />} />
-        <Route path="/case-status" element={<CaseStatusPage />} />
-        <Route path="/forensic-expert" element={<ForensicExpertPage />} />
-        <Route path="/nearby-police-station" element={<NearByPoliceStationPage />} />
-        <Route path="/legal-drafting" element={<LegalDraftingPage />} />
-        <Route path="/services" element={<ServicesPage />} />
-        <Route path="/services/data-security" element={<DataSecurityPage />} />
-        <Route path="/services/forensic-audit" element={<ForensicAuditPage />} />
-        <Route path="/services/digital-forensics" element={<DigitalForensicsPage />} />
-        <Route path="/services/fraud-investigation" element={<FraudInvestigationPage />} />
-        <Route path="/services/investigations" element={<InvestigationsPage />} />
-        <Route path="/services/legal-consultation" element={<LegalConsultationPage />} />
-        <Route path="/services/document-examination" element={<DocumentExaminationPage />} />
-        <Route path="*" element={<HomePage />} />
-      </Routes>
-      <WhatsAppButton />
-    </BrowserRouter>
+    <LanguageProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/report-crime" element={<ReportCrimePage />} />
+          <Route path="/book-lawyer" element={<BookLawyerPage />} />
+          <Route path="/book-lawyer/day-1" element={<BookLawyerDay1Page />} />
+          <Route path="/book-lawyer/in-between" element={<BookLawyerInBetweenPage />} />
+          <Route path="/case-status" element={<CaseStatusPage />} />
+          <Route path="/forensic-expert" element={<ForensicExpertPage />} />
+          <Route path="/nearby-police-station" element={<NearByPoliceStationPage />} />
+          <Route path="/legal-drafting" element={<LegalDraftingPage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/services/data-security" element={<DataSecurityPage />} />
+          <Route path="/services/forensic-audit" element={<ForensicAuditPage />} />
+          <Route path="/services/digital-forensics" element={<DigitalForensicsPage />} />
+          <Route path="/services/fraud-investigation" element={<FraudInvestigationPage />} />
+          <Route path="/services/investigations" element={<InvestigationsPage />} />
+          <Route path="/services/legal-consultation" element={<LegalConsultationPage />} />
+          <Route path="/services/document-examination" element={<DocumentExaminationPage />} />
+          <Route path="*" element={<HomePage />} />
+        </Routes>
+        <WhatsAppButton />
+      </BrowserRouter>
+    </LanguageProvider>
   );
 }

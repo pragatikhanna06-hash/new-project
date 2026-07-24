@@ -1,82 +1,84 @@
 import { useState } from "react";
-import { BUSINESS_WHATSAPP_NUMBER } from "./config";
-import "./WhatsAppButton.css";
+import { WHATSAPP_BUSINESS_NUMBER } from "../utils/whatsapp";
 
-// ── EDIT THIS in src/config.js, not here ────────────────────────────────────
-const WHATSAPP_NUMBER = BUSINESS_WHATSAPP_NUMBER;
+/* ══════════════════════════════════════════════════════════════════
+   FLOATING WHATSAPP BUTTON
+══════════════════════════════════════════════════════════════════ */
+
 const DEFAULT_MESSAGE =
-  "Hi NyayShield, I'd like to know more about your services.";
-// ─────────────────────────────────────────────────────────────────────────────
+  "Hi Forfra Solutions, I'd like to know more about your services.";
 
-const QUICK_OPTIONS = [
-  { label: "Book a Lawyer", message: "Hi, I'd like to book a lawyer." },
-  { label: "Forensic / Evidence Help", message: "Hi, I need forensic/evidence handling help." },
-  { label: "Legal Drafting", message: "Hi, I need a legal document drafted." },
-  { label: "Something Else", message: DEFAULT_MESSAGE },
-];
+export default function WhatsAppButton({ message = DEFAULT_MESSAGE }) {
+  const [hovered, setHovered] = useState(false);
 
-function waLink(message) {
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-}
-
-export default function WhatsAppButton() {
-  const [open, setOpen] = useState(false);
+  const href = `https://wa.me/${WHATSAPP_BUSINESS_NUMBER}?text=${encodeURIComponent(
+    message
+  )}`;
 
   return (
-    <div className="wa-fab-wrap">
-      {open && (
-        <div className="wa-panel" role="menu">
-          <div className="wa-panel-head">
-            <div className="wa-panel-avatar">💬</div>
-            <div>
-              <div className="wa-panel-title">NyayShield Support</div>
-              <div className="wa-panel-sub">Typically replies within minutes</div>
-            </div>
-            <button
-              className="wa-panel-close"
-              aria-label="Close"
-              onClick={() => setOpen(false)}
-            >
-              ✕
-            </button>
-          </div>
-
-          <p className="wa-panel-prompt">What do you need help with?</p>
-
-          <div className="wa-panel-options">
-            {QUICK_OPTIONS.map((opt) => (
-              <a
-                key={opt.label}
-                href={waLink(opt.message)}
-                target="_blank"
-                rel="noreferrer"
-                className="wa-option"
-                onClick={() => setOpen(false)}
-              >
-                {opt.label}
-              </a>
-            ))}
-          </div>
-        </div>
-      )}
-
-      <button
-        className={`wa-fab ${open ? "wa-fab--open" : ""}`}
-        onClick={() => setOpen((o) => !o)}
-        aria-label={open ? "Close WhatsApp chat" : "Chat with us on WhatsApp"}
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Chat with us on WhatsApp"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        position: "fixed",
+        bottom: "24px",
+        right: "24px",
+        zIndex: 999,
+        display: "flex",
+        alignItems: "center",
+        gap: "0.6rem",
+        background: "#25D366",
+        color: "#0A1628",
+        fontFamily: "'Inter', sans-serif",
+        fontWeight: 700,
+        fontSize: "0.9rem",
+        padding: hovered ? "0.85rem 1.3rem" : "0.85rem",
+        borderRadius: "999px",
+        boxShadow: hovered
+          ? "0 10px 32px rgba(37, 211, 102, 0.45)"
+          : "0 6px 20px rgba(37, 211, 102, 0.35)",
+        textDecoration: "none",
+        transition:
+          "padding 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease",
+        transform: hovered ? "translateY(-3px)" : "translateY(0)",
+      }}
+    >
+      <svg
+        width="26"
+        height="26"
+        viewBox="0 0 32 32"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        style={{ flexShrink: 0 }}
       >
-        {open ? (
-          <span className="wa-fab-icon-close">✕</span>
-        ) : (
-          <svg viewBox="0 0 32 32" className="wa-fab-icon" aria-hidden="true">
-            <path
-              fill="currentColor"
-              d="M16.001 2.667c-7.364 0-13.334 5.97-13.334 13.333 0 2.353.615 4.66 1.782 6.687L2.7 29.333l6.82-1.789a13.27 13.27 0 0 0 6.48 1.652h.006c7.363 0 13.333-5.97 13.333-13.334 0-3.562-1.388-6.911-3.907-9.43a13.246 13.246 0 0 0-9.431-3.765zm0 24.4h-.005a11.05 11.05 0 0 1-5.63-1.542l-.404-.24-4.049 1.062 1.081-3.947-.263-.406a11.02 11.02 0 0 1-1.69-5.894c0-6.104 4.966-11.07 11.066-11.07a11.02 11.02 0 0 1 7.826 3.24 10.98 10.98 0 0 1 3.238 7.83c0 6.104-4.966 11.07-11.07 11.07zm6.07-8.29c-.332-.166-1.965-.97-2.27-1.08-.305-.112-.527-.166-.75.166-.222.333-.86 1.08-1.054 1.302-.194.222-.388.25-.72.083-.332-.166-1.403-.517-2.673-1.65-.988-.882-1.655-1.97-1.849-2.303-.194-.332-.02-.512.146-.677.15-.15.332-.388.5-.583.166-.194.221-.333.332-.555.111-.222.055-.417-.028-.583-.083-.166-.75-1.808-1.028-2.475-.27-.65-.545-.562-.75-.572l-.638-.012c-.222 0-.583.083-.888.417-.305.332-1.165 1.138-1.165 2.777s1.192 3.223 1.358 3.446c.166.222 2.347 3.584 5.687 5.026.795.343 1.415.548 1.898.702.797.253 1.523.217 2.097.132.64-.095 1.965-.803 2.242-1.58.277-.777.277-1.442.194-1.58-.083-.138-.305-.222-.638-.388z"
-            />
-          </svg>
-        )}
-        {!open && <span className="wa-fab-pulse" />}
-      </button>
-    </div>
+        <path
+          d="M16 3C9.373 3 4 8.373 4 15c0 2.29.635 4.435 1.737 6.264L4 29l7.938-1.678A11.93 11.93 0 0 0 16 27c6.627 0 12-5.373 12-12S22.627 3 16 3Z"
+          fill="#0A1628"
+        />
+        <path
+          d="M16 4.4C10.146 4.4 5.4 9.146 5.4 15c0 2.02.556 3.912 1.523 5.53L5.4 26.6l6.24-1.487A10.56 10.56 0 0 0 16 25.6c5.854 0 10.6-4.746 10.6-10.6S21.854 4.4 16 4.4Z"
+          fill="#25D366"
+        />
+        <path
+          d="M12.4 10.2c-.28-.62-.574-.633-.84-.644-.217-.01-.466-.009-.715-.009-.25 0-.653.093-.995.467-.342.373-1.307 1.278-1.307 3.117 0 1.84 1.338 3.618 1.524 3.867.187.25 2.586 4.147 6.39 5.646 3.16 1.245 3.804.998 4.492.936.687-.062 2.219-.906 2.532-1.782.312-.875.312-1.626.218-1.783-.093-.156-.343-.25-.716-.437-.374-.187-2.22-1.096-2.563-1.221-.343-.125-.593-.187-.842.187-.25.374-.965 1.221-1.183 1.471-.218.25-.436.281-.81.094-.374-.187-1.578-.582-3.007-1.856-1.111-.99-1.862-2.213-2.08-2.587-.218-.374-.023-.576.164-.762.169-.169.374-.437.561-.656.187-.219.25-.375.374-.625.125-.25.062-.469-.031-.656-.093-.187-.822-2.05-1.161-2.795Z"
+          fill="#0A1628"
+        />
+      </svg>
+
+      {hovered && (
+        <span
+          style={{
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+          }}
+        >
+          Chat on WhatsApp
+        </span>
+      )}
+    </a>
   );
 }

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./BookLawyerDay1Page.css";
+import { sendFormToWhatsApp } from "../utils/whatsapp";
 
 const LAWYER_POOL = [
   "Adv. K. Rao — Criminal Defence, Day-1 Response Team",
@@ -28,11 +29,19 @@ export default function BookLawyerDay1Page() {
     e.preventDefault();
     // DEMO ONLY — replace with a real matching API call.
     const seed = hashString(name + contact + caseDesc);
-    setMatch({
+    const newMatch = {
       lawyer: LAWYER_POOL[seed % LAWYER_POOL.length],
       etaHours: 1 + (seed % 4),
       bookingId: "NS-D1-" + String(seed % 100000).padStart(5, "0"),
-    });
+    };
+    setMatch(newMatch);
+
+    sendFormToWhatsApp("Book a Lawyer (Day 1) — NyayShield", [
+      ["Name", name],
+      ["Phone / Email", contact],
+      ["Case Description", caseDesc],
+      ["Booking ID", newMatch.bookingId],
+    ]);
   };
 
   return (

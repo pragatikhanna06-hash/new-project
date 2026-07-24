@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./BookLawyerInBetweenPage.css";
+import { sendFormToWhatsApp } from "../utils/whatsapp";
 
 const LAWYER_POOL = [
   "Adv. R. Menon — Mid-Case Transition Specialist",
@@ -29,11 +30,20 @@ export default function BookLawyerInBetweenPage() {
     e.preventDefault();
     // DEMO ONLY — replace with a real matching API call.
     const seed = hashString(name + contact + caseDesc + stage);
-    setMatch({
+    const newMatch = {
       lawyer: LAWYER_POOL[seed % LAWYER_POOL.length],
       etaHours: 3 + (seed % 12),
       bookingId: "NS-MC-" + String(seed % 100000).padStart(5, "0"),
-    });
+    };
+    setMatch(newMatch);
+
+    sendFormToWhatsApp("Book a Lawyer (Mid-Case) — NyayShield", [
+      ["Name", name],
+      ["Phone / Email", contact],
+      ["Current Stage", stage],
+      ["Case Description", caseDesc],
+      ["Booking ID", newMatch.bookingId],
+    ]);
   };
 
   return (

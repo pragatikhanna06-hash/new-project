@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FilePenLine, FileSearch2, FileCheck2 } from "lucide-react";
 import "./LegalDraftingPage.css";
+import { sendFormToWhatsApp } from "../utils/whatsapp";
 
 const DRAFTER_POOL = [
   "Adv. N. Iyer — Corporate & Legal Drafting",
@@ -31,11 +32,20 @@ export default function LegalDraftingPage() {
     if (!docType) return;
     // DEMO ONLY — replace with a real matching API call.
     const seed = hashString(orgName + contact + docType);
-    setMatch({
+    const newMatch = {
       drafter: DRAFTER_POOL[seed % DRAFTER_POOL.length],
       etaHours: 4 + (seed % 20),
       bookingId: "NS-LD-" + String(seed % 100000).padStart(5, "0"),
-    });
+    };
+    setMatch(newMatch);
+
+    sendFormToWhatsApp("Legal / Corporate Drafting Request — NyayShield", [
+      ["Document Type", docType],
+      ["Name / Organization", orgName],
+      ["Phone / Email", contact],
+      ["Requirements", requirements],
+      ["Booking ID", newMatch.bookingId],
+    ]);
   };
 
   return (

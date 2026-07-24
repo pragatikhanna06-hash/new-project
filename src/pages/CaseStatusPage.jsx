@@ -5,6 +5,7 @@ import {
   Gavel, BarChart3, BookOpen, Landmark, ScrollText, ShieldCheck, ExternalLink,
 } from "lucide-react";
 import "./CaseStatusPage.css";
+import { sendFormToWhatsApp } from "../utils/whatsapp";
 
 // Verified Government of India links relevant to tracking a case.
 // Official domains only — no redirectors, no embeds, no tracking.
@@ -120,6 +121,14 @@ export default function CaseStatusPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!validate()) return;
+
+    sendFormToWhatsApp("Case Status Check — NyayShield", [
+      ["Name", form.name],
+      ["Case / FIR Number", form.caseNumber],
+      ["Case Type", form.caseType],
+      ["City", form.city],
+    ]);
+
     setResult(fetchCaseStatus(form));
   };
 
@@ -157,8 +166,9 @@ export default function CaseStatusPage() {
               <Info size={18} />
               <span>
                 <b>This is a demo tracker, not a live court database.</b> It is not connected to
-                eCourts or any police/judicial system, so the result is illustrative only — 100%
-                free, no penalty, no real data is fetched or shared. For your actual case status,
+                eCourts or any police/judicial system, so the result shown below is illustrative
+                only. What you enter is sent to our team over WhatsApp so we can follow up, but
+                no real case data is fetched from any court. For your actual case status,
                 use the official{" "}
                 <a href={ECOURTS_CASE_STATUS_URL} target="_blank" rel="noopener noreferrer" style={{ color: "var(--teal)" }}>
                   eCourts India — Case Status
