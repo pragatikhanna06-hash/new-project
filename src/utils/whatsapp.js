@@ -90,7 +90,7 @@
 // that should receive these messages, in country-code format with NO
 // leading "+", spaces, or dashes (e.g. India: 91XXXXXXXXXX).
 
-export const WHATSAPP_BUSINESS_NUMBER = "919217970978"; // ⚠️ replace with your real WhatsApp number
+export const WHATSAPP_BUSINESS_NUMBER = "919711015337"; // ⚠️ replace with your real WhatsApp number
 
 /**
  * Builds a WhatsApp deep-link and opens it in a new tab, pre-filled with the
