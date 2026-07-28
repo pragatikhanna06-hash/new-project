@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import {
   ClipboardList, User, Hash, Scale, Send, Info, RotateCcw,
   Gavel, BarChart3, BookOpen, Landmark, ScrollText, ShieldCheck, ExternalLink,
+  Mail, Phone, MapPin, Paperclip,
 } from "lucide-react";
 import "./CaseStatusPage.css";
 import { sendFormToWhatsApp } from "../utils/whatsapp";
@@ -60,7 +61,16 @@ const GOVT_LINKS = [
 
 const STAGES = ["FIR Filed", "Investigation", "Chargesheet", "Trial", "Judgment"];
 
-const EMPTY_FORM = { name: "", caseNumber: "", caseType: "", city: "" };
+const EMPTY_FORM = {
+  name: "",
+  email: "",
+  phone: "",
+  address: "",
+  crimeLocation: "",
+  caseNumber: "",
+  caseType: "",
+  city: "",
+};
 
 // Simple deterministic hash so the same case number always produces the same demo result.
 function hashString(str) {
@@ -101,6 +111,7 @@ const ECOURTS_CASE_STATUS_URL = "https://services.ecourts.gov.in/ecourtindia_v6/
 
 export default function CaseStatusPage() {
   const [form, setForm] = useState(EMPTY_FORM);
+  const [caseDoc, setCaseDoc] = useState(null);
   const [errors, setErrors] = useState({});
   const [result, setResult] = useState(null);
 
@@ -112,6 +123,11 @@ export default function CaseStatusPage() {
   const validate = () => {
     const er = {};
     if (!form.name.trim()) er.name = "Please enter your name.";
+    if (!form.email.trim()) er.email = "Please enter your email.";
+    else if (!/^\S+@\S+\.\S+$/.test(form.email.trim())) er.email = "Please enter a valid email.";
+    if (!form.phone.trim()) er.phone = "Please enter your phone number.";
+    if (!form.address.trim()) er.address = "Please enter your address.";
+    if (!form.crimeLocation.trim()) er.crimeLocation = "Please enter the location of the crime.";
     if (!form.caseNumber.trim()) er.caseNumber = "Please enter your case / FIR number.";
     if (!form.caseType) er.caseType = "Please select a case type.";
     setErrors(er);
@@ -124,9 +140,14 @@ export default function CaseStatusPage() {
 
     sendFormToWhatsApp("Case Status Check — NyayShield", [
       ["Name", form.name],
+      ["Email", form.email],
+      ["Phone Number", form.phone],
+      ["Address", form.address],
+      ["Location of Crime", form.crimeLocation],
       ["Case / FIR Number", form.caseNumber],
       ["Case Type", form.caseType],
       ["City", form.city],
+      ["Case Document", caseDoc ? caseDoc.name + " (please attach this file in the chat)" : ""],
     ]);
 
     setResult(fetchCaseStatus(form));
@@ -134,6 +155,7 @@ export default function CaseStatusPage() {
 
   const resetForm = () => {
     setForm(EMPTY_FORM);
+    setCaseDoc(null);
     setErrors({});
     setResult(null);
   };
@@ -201,9 +223,38 @@ export default function CaseStatusPage() {
                 </div>
 
                 <div className="cs-field">
+                  <label><Mail size={14} style={{ verticalAlign: -2, marginRight: 6 }} />Email</label>
+                  <input type="email" placeholder="you@example.com" value={form.email} onChange={handleChange("email")} />
+                  {errors.email && <div className="cs-error"><Info size={12} /> {errors.email}</div>}
+                </div>
+
+                <div className="cs-field">
+                  <label><Phone size={14} style={{ verticalAlign: -2, marginRight: 6 }} />Phone Number</label>
+                  <input type="tel" placeholder="Your phone number" value={form.phone} onChange={handleChange("phone")} />
+                  {errors.phone && <div className="cs-error"><Info size={12} /> {errors.phone}</div>}
+                </div>
+
+                <div className="cs-field">
+                  <label><MapPin size={14} style={{ verticalAlign: -2, marginRight: 6 }} />Address</label>
+                  <input type="text" placeholder="Your current address" value={form.address} onChange={handleChange("address")} />
+                  {errors.address && <div className="cs-error"><Info size={12} /> {errors.address}</div>}
+                </div>
+
+                <div className="cs-field">
+                  <label><MapPin size={14} style={{ verticalAlign: -2, marginRight: 6 }} />Location of Crime</label>
+                  <input type="text" placeholder="Where did it happen?" value={form.crimeLocation} onChange={handleChange("crimeLocation")} />
+                  {errors.crimeLocation && <div className="cs-error"><Info size={12} /> {errors.crimeLocation}</div>}
+                </div>
+
+                <div className="cs-field">
                   <label><Hash size={14} style={{ verticalAlign: -2, marginRight: 6 }} />Case / FIR Number</label>
                   <input type="text" placeholder="e.g. FIR-2026-00231" value={form.caseNumber} onChange={handleChange("caseNumber")} />
                   {errors.caseNumber && <div className="cs-error"><Info size={12} /> {errors.caseNumber}</div>}
+                </div>
+
+                <div className="cs-field full">
+                  <label><Paperclip size={14} style={{ verticalAlign: -2, marginRight: 6 }} />Case Document (optional)</label>
+                  <input type="file" onChange={(e) => setCaseDoc(e.target.files?.[0] || null)} />
                 </div>
 
                 <div className="cs-field full">

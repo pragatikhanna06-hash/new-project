@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, useMemo, useCallback } from "react";
 import { translations } from "./translations";
+import { uiStrings } from "./uiStrings";
 
 const LanguageContext = createContext(null);
 
@@ -36,9 +37,18 @@ export function LanguageProvider({ children }) {
 
   const t = useMemo(() => translations[lang], [lang]);
 
+  // Flat lookup translator for pages that use inline English strings
+  // (as opposed to HomePage's structured `t` object). Pass the English
+  // string as written in the JSX; returns the Hindi version when
+  // lang === "hi", or the original string in English mode / if missing.
+  const tr = useCallback(
+    (str) => (lang === "hi" ? uiStrings[str] || str : str),
+    [lang]
+  );
+
   const value = useMemo(
-    () => ({ lang, setLang, toggleLang, t }),
-    [lang, toggleLang, t]
+    () => ({ lang, setLang, toggleLang, t, tr }),
+    [lang, toggleLang, t, tr]
   );
 
   return (

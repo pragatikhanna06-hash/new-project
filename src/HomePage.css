@@ -186,28 +186,31 @@ img { display: block; max-width: 100%; }
 .navbar-brand {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
   text-decoration: none;
 }
-.brand-icon {
-  font-size: 1.4rem;
-  color: var(--gold);
+
+.brand-logo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
+
 .brand-name {
   font-family: var(--ff-display);
   font-size: 1.5rem;
   letter-spacing: 0.1em;
   color: var(--white);
 }
+
+/* styled exactly like .brand-name, gold-toned for a two-tone logotype look */
 .brand-sub {
-  font-family: var(--ff-body);
-  font-size: 0.62rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-family: var(--ff-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.1em;
   color: var(--gold);
-  opacity: 0.9;
-  margin-top: 0.2rem;
+  margin-top: 0;
 }
 
 .navbar-links {

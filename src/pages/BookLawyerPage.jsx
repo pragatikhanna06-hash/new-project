@@ -1,14 +1,11 @@
 import { Link } from "react-router-dom";
+import { useLanguage } from "./LanguageContext";
+import LangToggle from "./LangToggle";
 import { CalendarClock, History, ArrowRight } from "lucide-react";
 import "./BookLawyerPage.css";
 
-/* ══════════════════════════════════════════════════════════════════
-   BOOK A LAWYER — choice page
-   Splits into two dedicated flows: a lawyer from Day 1 of the case,
-   or a lawyer joining a case that's already in progress.
-══════════════════════════════════════════════════════════════════ */
-
 export default function BookLawyerPage() {
+  const { tr } = useLanguage();
   return (
     <div className="home-root">
       <nav className="topbar">
@@ -20,15 +17,18 @@ export default function BookLawyerPage() {
             </svg>
             <div className="brand-name">Nyay<span>Shield</span></div>
           </div>
-          <Link className="back-link" to="/">← Back to Home Page</Link>
+          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+            <Link className="back-link" to="/">{tr("← Back to Home Page")}</Link>
+            <LangToggle />
+          </div>
         </div>
       </nav>
 
       <section className="page-hero">
         <div className="wrap">
-          <div className="eyebrow">Book a Lawyer</div>
-          <h1>When does your case need a lawyer — <em>now, or already underway?</em></h1>
-          <p>Pick the path that matches where you are. Both connect you to a verified criminal lawyer — the only difference is where in the case they step in.</p>
+          <div className="eyebrow">{tr("Book a Lawyer")}</div>
+          <h1>{tr("When does your case need a lawyer —")} <em>{tr("now, or already underway?")}</em></h1>
+          <p>{tr("Pick the path that matches where you are. Both connect you to a verified criminal lawyer — the only difference is where in the case they step in.")}</p>
         </div>
       </section>
 
@@ -36,19 +36,19 @@ export default function BookLawyerPage() {
         <div className="wrap">
           <div className="choice-cards">
             <Link to="/book-lawyer/day-1" className="choice-card featured">
-              <span className="tag">Flagship</span>
+              <span className="tag">{tr("Flagship")}</span>
               <div className="icon-box"><CalendarClock size={26} /></div>
-              <h3>Lawyer from Day 1 of the Case</h3>
-              <p>File your report and get a lawyer assigned the same day — before evidence goes cold and while every detail is still fresh.</p>
-              <span className="go">Start this path <ArrowRight size={15} /></span>
+              <h3>{tr("Lawyer from Day 1 of the Case")}</h3>
+              <p>{tr("File your report and get a lawyer assigned the same day — before evidence goes cold and while every detail is still fresh.")}</p>
+              <span className="go">{tr("Start this path")} <ArrowRight size={15} /></span>
             </Link>
 
             <Link to="/book-lawyer/in-between" className="choice-card alt">
-              <span className="tag" style={{ background: "#2fbfa6" }}>Mid-Case</span>
+              <span className="tag" style={{ background: "#2fbfa6" }}>{tr("Mid-Case")}</span>
               <div className="icon-box"><History size={26} /></div>
-              <h3>Lawyer in Between the Case</h3>
-              <p>Already have an ongoing case — with or without a lawyer — and need someone to step in now? Get matched based on where things currently stand.</p>
-              <span className="go">Start this path <ArrowRight size={15} /></span>
+              <h3>{tr("Lawyer in Between the Case")}</h3>
+              <p>{tr("Already have an ongoing case — with or without a lawyer — and need someone to step in now? Get matched based on where things currently stand.")}</p>
+              <span className="go">{tr("Start this path")} <ArrowRight size={15} /></span>
             </Link>
           </div>
         </div>

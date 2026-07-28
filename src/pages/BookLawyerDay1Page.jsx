@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./BookLawyerDay1Page.css";
+import { useLanguage } from "./LanguageContext";
+import LangToggle from "./LangToggle";
 import { sendFormToWhatsApp } from "../utils/whatsapp";
 
 const LAWYER_POOL = [
@@ -20,15 +22,20 @@ function hashString(str) {
 }
 
 export default function BookLawyerDay1Page() {
-  const [name, setName] = useState("");
-  const [contact, setContact] = useState("");
+  const { tr } = useLanguage();
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [crimeLocation, setCrimeLocation] = useState("");
+  const [firNumber, setFirNumber] = useState("");
+  const [caseDoc, setCaseDoc] = useState(null);
   const [caseDesc, setCaseDesc] = useState("");
   const [match, setMatch] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // DEMO ONLY — replace with a real matching API call.
-    const seed = hashString(name + contact + caseDesc);
+    const seed = hashString(email + phone + caseDesc);
     const newMatch = {
       lawyer: LAWYER_POOL[seed % LAWYER_POOL.length],
       etaHours: 1 + (seed % 4),
@@ -37,8 +44,12 @@ export default function BookLawyerDay1Page() {
     setMatch(newMatch);
 
     sendFormToWhatsApp("Book a Lawyer (Day 1) — NyayShield", [
-      ["Name", name],
-      ["Phone / Email", contact],
+      ["Email", email],
+      ["Phone Number", phone],
+      ["Address", address],
+      ["Location of Crime", crimeLocation],
+      ["FIR Number", firNumber],
+      ["Case Document", caseDoc ? caseDoc.name + " (please attach this file in the chat)" : ""],
       ["Case Description", caseDesc],
       ["Booking ID", newMatch.bookingId],
     ]);
@@ -55,15 +66,18 @@ export default function BookLawyerDay1Page() {
             </svg>
             <div className="brand-name">Nyay<span>Shield</span></div>
           </div>
-          <Link className="back-link" to="/">← Back to Home Page</Link>
+          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+            <Link className="back-link" to="/">{tr("← Back to Home Page")}</Link>
+            <LangToggle />
+          </div>
         </div>
       </nav>
 
       <section className="page-hero">
         <div className="wrap">
-          <div className="eyebrow">Lawyer · Day 1</div>
-          <h1>Get a lawyer assigned <em>the same day you report.</em></h1>
-          <p>Tell us the basics and a criminal defence lawyer from our Day-1 response team is matched to your case immediately.</p>
+          <div className="eyebrow">{tr("Lawyer · Day 1")}</div>
+          <h1>{tr("Get a lawyer assigned")} <em>{tr("the same day you report.")}</em></h1>
+          <p>{tr("Tell us the basics and a criminal defence lawyer from our Day-1 response team is matched to your case immediately.")}</p>
         </div>
       </section>
 
@@ -71,51 +85,66 @@ export default function BookLawyerDay1Page() {
         <div className="wrap booking-grid">
           <form className="report-form" onSubmit={handleSubmit}>
             <div className="field">
-              <label htmlFor="d1name">Your Name</label>
-              <input id="d1name" type="text" required value={name} onChange={(e) => setName(e.target.value)} placeholder="Full name" />
+              <label htmlFor="d1email">{tr("Email")}</label>
+              <input id="d1email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder={tr("you@example.com")} />
             </div>
             <div className="field">
-              <label htmlFor="d1contact">Phone / Email</label>
-              <input id="d1contact" type="text" required value={contact} onChange={(e) => setContact(e.target.value)} placeholder="How can we reach you?" />
+              <label htmlFor="d1phone">{tr("Phone Number")}</label>
+              <input id="d1phone" type="tel" required value={phone} onChange={(e) => setPhone(e.target.value)} placeholder={tr("How can we reach you?")} />
             </div>
             <div className="field">
-              <label htmlFor="d1desc">Briefly Describe the Case</label>
-              <textarea id="d1desc" value={caseDesc} onChange={(e) => setCaseDesc(e.target.value)} placeholder="What happened, and when?" />
+              <label htmlFor="d1address">{tr("Address")}</label>
+              <input id="d1address" type="text" required value={address} onChange={(e) => setAddress(e.target.value)} placeholder={tr("Your current address")} />
             </div>
-            <button type="submit" className="submit-btn gold">Assign a Lawyer Now</button>
-            <p className="form-note">🔒 Confidential. Free, demo booking flow — no charges, no obligation.</p>
+            <div className="field">
+              <label htmlFor="d1location">{tr("Location of Crime")}</label>
+              <input id="d1location" type="text" required value={crimeLocation} onChange={(e) => setCrimeLocation(e.target.value)} placeholder={tr("Where did it happen?")} />
+            </div>
+            <div className="field">
+              <label htmlFor="d1fir">{tr("FIR Number (if already filed)")}</label>
+              <input id="d1fir" type="text" value={firNumber} onChange={(e) => setFirNumber(e.target.value)} placeholder={tr("e.g. FIR-2026-00231")} />
+            </div>
+            <div className="field">
+              <label htmlFor="d1doc">{tr("Case Document")}</label>
+              <input id="d1doc" type="file" onChange={(e) => setCaseDoc(e.target.files?.[0] || null)} />
+            </div>
+            <div className="field">
+              <label htmlFor="d1desc">{tr("Briefly Describe the Case")}</label>
+              <textarea id="d1desc" value={caseDesc} onChange={(e) => setCaseDesc(e.target.value)} placeholder={tr("What happened, and when?")} />
+            </div>
+            <button type="submit" className="submit-btn gold">{tr("Assign a Lawyer Now")}</button>
+            <p className="form-note">🔒 {tr("Confidential. Free, demo booking flow — no charges, no obligation.")}</p>
           </form>
 
           <div className="detail-panel">
             {!match && (
               <div className="detail-empty">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="9" /><path d="M12 8v5M12 16h.01" /></svg>
-                <p>Fill the form — your assigned lawyer and booking ID will appear here right away.</p>
+                <p>{tr("Fill the form — your assigned lawyer and booking ID will appear here right away.")}</p>
               </div>
             )}
             {match && (
               <div className="detail-content">
-                <span className="detail-badge sev-medium">Lawyer Assigned</span>
+                <span className="detail-badge sev-medium">{tr("Lawyer Assigned")}</span>
                 <h3>{match.lawyer}</h3>
                 <p className="detail-desc">
-                  They'll reach out within approximately <b style={{ color: "var(--text)" }}>{match.etaHours} hour(s)</b> to
-                  begin building your defence while the case is still fresh.
+                  {tr("They'll reach out within approximately")} <b style={{ color: "var(--text)" }}>{match.etaHours} {tr("hour(s)")}</b> {tr("to begin building your defence while the case is still fresh.")}
                 </p>
                 <div className="links-label">
-                  <span>Booking Details</span>
+                  <span>{tr("Booking Details")}</span>
                 </div>
                 <div className="link-list">
                   <div className="link-item" style={{ cursor: "default" }}>
                     <span className="l-left">
                       <span className="l-dot" />
                       <span className="l-text">
-                        <div className="l-title">Booking ID</div>
+                        <div className="l-title">{tr("Booking ID")}</div>
                         <div className="l-url">{match.bookingId}</div>
                       </span>
                     </span>
                   </div>
                 </div>
-                <p className="form-note" style={{ marginTop: 18 }}>⚠️ Demo flow — not yet connected to a live lawyer network.</p>
+                <p className="form-note" style={{ marginTop: 18 }}>⚠️ {tr("Demo flow — not yet connected to a live lawyer network.")}</p>
               </div>
             )}
           </div>

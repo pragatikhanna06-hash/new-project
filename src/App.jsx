@@ -10,7 +10,6 @@ import BookLawyerDay1Page from "./pages/BookLawyerDay1Page";
 import BookLawyerInBetweenPage from "./pages/BookLawyerInBetweenPage";
 import CaseStatusPage from "./pages/CaseStatusPage";
 import ForensicExpertPage from "./pages/ForensicExpertPage";
-import NearByPoliceStationPage from "./pages/NearByPoliceStationPage";
 import LegalDraftingPage from "./pages/LegalDraftingPage";
 
 import DataSecurityPage from "./pages/services/DataSecurityPage";
@@ -35,7 +34,6 @@ export default function App() {
           <Route path="/book-lawyer/in-between" element={<BookLawyerInBetweenPage />} />
           <Route path="/case-status" element={<CaseStatusPage />} />
           <Route path="/forensic-expert" element={<ForensicExpertPage />} />
-          <Route path="/nearby-police-station" element={<NearByPoliceStationPage />} />
           <Route path="/legal-drafting" element={<LegalDraftingPage />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/services/data-security" element={<DataSecurityPage />} />
