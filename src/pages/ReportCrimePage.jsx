@@ -7,10 +7,12 @@ import {
   Building2, Landmark, UserSearch, RotateCcw, Radar,
 } from "lucide-react";
 import { sendFormToWhatsApp } from "../utils/whatsapp";
+import { useLanguage } from "./LanguageContext";
+import LangToggle from "./LangToggle";
 
 /* ══════════════════════════════════════════════════════════════════
    FORFRA SOLUTIONS — REPORT A CRIME
-   Theme matches HomePage: navy + gold, Bebas Neue display / Inter body.
+   Theme matches HomePage: navy + gold, Inter throughout.
    Flow: intro → form → processing (scan animation) → results (govt links)
 ══════════════════════════════════════════════════════════════════ */
 
@@ -31,6 +33,12 @@ const SLATE = "#94A3B8";
   authority (e.g. all cyber crime nationwide goes through cybercrime.gov.in).
   Every link below is a real, verified official government portal — we do not
   pad any category with duplicate or fabricated entries just to inflate a count.
+
+  NOTE ON TRANSLATION:
+  Category titles/descriptions are translated via tr(). Official portal/link
+  names are left in English (they are proper nouns / official titles as they
+  appear on the government sites themselves), matching how eCourts is handled
+  elsewhere on the site.
 */
 const CATEGORIES = [
   {
@@ -212,6 +220,7 @@ const EMPTY_FORM = {
 };
 
 export default function ReportCrimePage() {
+  const { tr } = useLanguage();
   const [step, setStep] = useState("intro"); // intro | form | processing | results
   const [form, setForm] = useState(EMPTY_FORM);
   const [errors, setErrors] = useState({});
@@ -284,7 +293,7 @@ export default function ReportCrimePage() {
   return (
     <div className="rc-root">
       <style>{`
-        @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap");
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
 
         .rc-root, .rc-root *, .rc-root *::before, .rc-root *::after { box-sizing: border-box; }
         .rc-root {
@@ -296,7 +305,7 @@ export default function ReportCrimePage() {
           position: relative;
         }
         .rc-root h1, .rc-root h2, .rc-root h3, .rc-root .rc-display {
-          font-family: "Bebas Neue", sans-serif;
+          font-family: "Inter", sans-serif;
         }
 
         /* ---------- TOP BAR ---------- */
@@ -316,13 +325,16 @@ export default function ReportCrimePage() {
         }
         .rc-back:hover { color: ${GOLD}; }
         .rc-topbar-brand {
-          font-family: "Bebas Neue", sans-serif;
+          font-family: "Inter", sans-serif;
           letter-spacing: 0.1em;
           font-size: 1.1rem;
           color: #fff;
           display: flex; align-items: center; gap: 0.4rem;
         }
         .rc-topbar-brand span { color: ${GOLD}; font-size: 0.62rem; letter-spacing: 0.18em; }
+        .rc-topbar-right {
+          display: flex; align-items: center; gap: 1rem;
+        }
 
         /* ---------- INTRO HERO ---------- */
         .rc-hero {
@@ -428,7 +440,7 @@ export default function ReportCrimePage() {
           margin-top: 3rem;
         }
         .rc-stat { text-align: center; }
-        .rc-stat-val { font-family: "Bebas Neue", sans-serif; font-size: 2.2rem; color: ${GOLD}; line-height: 1; }
+        .rc-stat-val { font-family: "Inter", sans-serif; font-size: 2.2rem; color: ${GOLD}; line-height: 1; }
         .rc-stat-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: ${SLATE}; margin-top: 0.3rem; }
 
         /* ---------- FORM ---------- */
@@ -590,7 +602,7 @@ export default function ReportCrimePage() {
           display: flex; align-items: center; justify-content: center;
           color: ${GOLD};
         }
-        .rc-cat-card h4 { font-family: "Bebas Neue", sans-serif; font-size: 1.3rem; letter-spacing: 0.03em; }
+        .rc-cat-card h4 { font-family: "Inter", sans-serif; font-size: 1.3rem; letter-spacing: 0.03em; }
         .rc-cat-card p { font-size: 0.86rem; color: rgba(255,255,255,0.62); line-height: 1.6; }
         .rc-link-count {
           font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
@@ -638,10 +650,13 @@ export default function ReportCrimePage() {
       {/* TOP BAR */}
       <div className="rc-topbar">
         <Link to="/" className="rc-back">
-          <ArrowLeft size={16} /> Back to Home
+          <ArrowLeft size={16} /> {tr("Back to Home")}
         </Link>
-        <div className="rc-topbar-brand">
-          FORFRA <span>SOLUTIONS</span>
+        <div className="rc-topbar-right">
+          <div className="rc-topbar-brand">
+            FORFRA <span>SOLUTIONS</span>
+          </div>
+          <LangToggle />
         </div>
       </div>
 
@@ -649,7 +664,7 @@ export default function ReportCrimePage() {
       {step === "intro" && (
         <section className="rc-hero">
           <div className="rc-hero-grid" />
-          <span className="rc-eyebrow">Not sure where to report?</span>
+          <span className="rc-eyebrow">{tr("Not sure where to report?")}</span>
           <div className="rc-siren-wrap">
             <div className="rc-siren-ring r1" />
             <div className="rc-siren-ring r2" />
@@ -659,29 +674,27 @@ export default function ReportCrimePage() {
             </div>
           </div>
           <h1>
-            Report a Crime.<br />
-            Get to the <em>right authority</em>, fast.
+            {tr("Report a Crime.")}<br />
+            {tr("Get to the")} <em>{tr("right authority")}</em>{tr(", fast.")}
           </h1>
           <p>
-            Tell us what happened, and we'll match you with the correct official
-            government portal — whether it's cyber crime, financial fraud, or a
-            general police complaint.
+            {tr("Tell us what happened, and we'll match you with the correct official government portal — whether it's cyber crime, financial fraud, or a general police complaint.")}
           </p>
           <button className="rc-btn-primary" onClick={() => setStep("form")}>
-            <AlertTriangle size={18} /> Register a Crime
+            <AlertTriangle size={18} /> {tr("Register a Crime")}
           </button>
           <div className="rc-hero-stats">
             <div className="rc-stat">
               <div className="rc-stat-val">8</div>
-              <div className="rc-stat-label">Crime Categories Covered</div>
+              <div className="rc-stat-label">{tr("Crime Categories Covered")}</div>
             </div>
             <div className="rc-stat">
               <div className="rc-stat-val">100%</div>
-              <div className="rc-stat-label">Official Government Links</div>
+              <div className="rc-stat-label">{tr("Official Government Links")}</div>
             </div>
             <div className="rc-stat">
-              <div className="rc-stat-val">2 Min</div>
-              <div className="rc-stat-label">To Find the Right Portal</div>
+              <div className="rc-stat-val">2 {tr("Min")}</div>
+              <div className="rc-stat-label">{tr("To Find the Right Portal")}</div>
             </div>
           </div>
         </section>
@@ -693,91 +706,91 @@ export default function ReportCrimePage() {
           <Reveal>
             <div className="rc-form-card">
               <div className="rc-form-head">
-                <h2>Tell Us What Happened</h2>
-                <p>These details help us point you to the correct government authority. This form does not file a police report on your behalf.</p>
+                <h2>{tr("Tell Us What Happened")}</h2>
+                <p>{tr("These details help us point you to the correct government authority. This form does not file a police report on your behalf.")}</p>
               </div>
 
               <form onSubmit={handleSubmit} noValidate>
                 <div className="rc-grid">
                   <div className={`rc-field ${errors.name ? "error" : ""}`}>
-                    <label><User size={14} /> Full Name</label>
+                    <label><User size={14} /> {tr("Full Name")}</label>
                     <input
                       type="text"
-                      placeholder="Your full name"
+                      placeholder={tr("Your full name")}
                       value={form.name}
                       onChange={handleChange("name")}
                     />
-                    {errors.name && <span className="rc-error-msg"><Info size={12} /> {errors.name}</span>}
+                    {errors.name && <span className="rc-error-msg"><Info size={12} /> {tr(errors.name)}</span>}
                   </div>
 
                   <div className={`rc-field ${errors.phone ? "error" : ""}`}>
-                    <label><Phone size={14} /> Phone Number</label>
+                    <label><Phone size={14} /> {tr("Phone Number")}</label>
                     <input
                       type="tel"
-                      placeholder="e.g. +91 98765 43210"
+                      placeholder={tr("e.g. +91 98765 43210")}
                       value={form.phone}
                       onChange={handleChange("phone")}
                     />
-                    {errors.phone && <span className="rc-error-msg"><Info size={12} /> {errors.phone}</span>}
+                    {errors.phone && <span className="rc-error-msg"><Info size={12} /> {tr(errors.phone)}</span>}
                   </div>
 
                   <div className={`rc-field ${errors.email ? "error" : ""}`}>
-                    <label><Mail size={14} /> Email (optional)</label>
+                    <label><Mail size={14} /> {tr("Email (optional)")}</label>
                     <input
                       type="email"
-                      placeholder="you@example.com"
+                      placeholder={tr("you@example.com")}
                       value={form.email}
                       onChange={handleChange("email")}
                     />
-                    {errors.email && <span className="rc-error-msg"><Info size={12} /> {errors.email}</span>}
+                    {errors.email && <span className="rc-error-msg"><Info size={12} /> {tr(errors.email)}</span>}
                   </div>
 
                   <div className={`rc-field ${errors.location ? "error" : ""}`}>
-                    <label><MapPin size={14} /> Location of Incident</label>
+                    <label><MapPin size={14} /> {tr("Location of Incident")}</label>
                     <input
                       type="text"
-                      placeholder="City, State"
+                      placeholder={tr("City, State")}
                       value={form.location}
                       onChange={handleChange("location")}
                     />
-                    {errors.location && <span className="rc-error-msg"><Info size={12} /> {errors.location}</span>}
+                    {errors.location && <span className="rc-error-msg"><Info size={12} /> {tr(errors.location)}</span>}
                   </div>
 
                   <div className={`rc-field ${errors.crimeType ? "error" : ""}`}>
-                    <label><ShieldAlert size={14} /> Type of Crime</label>
+                    <label><ShieldAlert size={14} /> {tr("Type of Crime")}</label>
                     <select value={form.crimeType} onChange={handleChange("crimeType")}>
-                      <option value="">Select a category</option>
+                      <option value="">{tr("Select a category")}</option>
                       {CATEGORIES.map((c) => (
-                        <option key={c.id} value={c.id}>{c.title}</option>
+                        <option key={c.id} value={c.id}>{tr(c.title)}</option>
                       ))}
                     </select>
-                    {errors.crimeType && <span className="rc-error-msg"><Info size={12} /> {errors.crimeType}</span>}
+                    {errors.crimeType && <span className="rc-error-msg"><Info size={12} /> {tr(errors.crimeType)}</span>}
                   </div>
 
                   <div className={`rc-field ${errors.date ? "error" : ""}`}>
-                    <label><Calendar size={14} /> Date of Incident</label>
+                    <label><Calendar size={14} /> {tr("Date of Incident")}</label>
                     <input
                       type="date"
                       value={form.date}
                       onChange={handleChange("date")}
                     />
-                    {errors.date && <span className="rc-error-msg"><Info size={12} /> {errors.date}</span>}
+                    {errors.date && <span className="rc-error-msg"><Info size={12} /> {tr(errors.date)}</span>}
                   </div>
 
                   <div className={`rc-field full ${errors.description ? "error" : ""}`}>
-                    <label><FileText size={14} /> What Happened?</label>
+                    <label><FileText size={14} /> {tr("What Happened?")}</label>
                     <textarea
-                      placeholder="Briefly describe the incident..."
+                      placeholder={tr("Briefly describe the incident...")}
                       value={form.description}
                       onChange={handleChange("description")}
                     />
-                    {errors.description && <span className="rc-error-msg"><Info size={12} /> {errors.description}</span>}
+                    {errors.description && <span className="rc-error-msg"><Info size={12} /> {tr(errors.description)}</span>}
                   </div>
                 </div>
 
                 <div className="rc-submit-row">
                   <button type="submit" className="rc-btn-primary">
-                    <Send size={17} /> Submit & Find Authorities
+                    <Send size={17} /> {tr("Submit & Find Authorities")}
                   </button>
                 </div>
               </form>
@@ -796,8 +809,8 @@ export default function ReportCrimePage() {
               <Radar size={40} />
             </div>
           </div>
-          <h3>Processing Your Report</h3>
-          <p>{scanMessages[scanMsgIndex]}</p>
+          <h3>{tr("Processing Your Report")}</h3>
+          <p>{tr(scanMessages[scanMsgIndex])}</p>
         </section>
       )}
 
@@ -809,24 +822,20 @@ export default function ReportCrimePage() {
               <div className="rc-check">
                 <CheckCircle2 size={28} />
               </div>
-              <h2>Thank You{form.name ? `, ${form.name}` : ""}.</h2>
+              <h2>{tr("Thank You")}{form.name ? `, ${form.name}` : ""}.</h2>
               <p>
                 {matched
-                  ? <>Based on what you shared, this looks like a <strong style={{ color: GOLD }}>{matched.title}</strong> case. We've highlighted the right authority below — you can also browse all categories.</>
-                  : "Here are the official government authorities for every major crime category. Find the one that matches your situation."}
+                  ? <>{tr("Based on what you shared, this looks like a")} <strong style={{ color: GOLD }}>{tr(matched.title)}</strong> {tr("case. We've highlighted the right authority below — you can also browse all categories.")}</>
+                  : tr("Here are the official government authorities for every major crime category. Find the one that matches your situation.")}
               </p>
             </Reveal>
 
             <Reveal delay={100} className="rc-disclaimer">
               <PhoneCall size={20} />
               <p>
-                <strong>This is not an FIR filing system.</strong> The details you
-                shared were sent to our team over WhatsApp so we can follow up —
-                but they are not filed with police or any court. This tool only
-                helps you find the correct official portal. For urgent,
-                life-threatening emergencies, call{" "}
-                <strong>112</strong> (India's national emergency number) immediately, or
-                visit your nearest police station.
+                <strong>{tr("This is not an FIR filing system.")}</strong>{" "}
+                {tr("The details you shared were sent to our team over WhatsApp so we can follow up — but they are not filed with police or any court. This tool only helps you find the correct official portal. For urgent, life-threatening emergencies, call")}{" "}
+                <strong>112</strong> {tr("(India's national emergency number) immediately, or visit your nearest police station.")}
               </p>
             </Reveal>
 
@@ -837,14 +846,14 @@ export default function ReportCrimePage() {
                 return (
                   <Reveal key={c.id} delay={150 + i * 70}>
                     <div className={`rc-cat-card ${isMatch ? "matched" : ""}`}>
-                      {isMatch && <span className="rc-matched-badge">Recommended</span>}
+                      {isMatch && <span className="rc-matched-badge">{tr("Recommended")}</span>}
                       <div className="rc-cat-icon">
                         <Icon size={22} />
                       </div>
-                      <h4>{c.title}</h4>
-                      <p>{c.desc}</p>
+                      <h4>{tr(c.title)}</h4>
+                      <p>{tr(c.desc)}</p>
                       <span className="rc-link-count">
-                        {c.govLinks.length} official resource{c.govLinks.length > 1 ? "s" : ""}
+                        {c.govLinks.length} {c.govLinks.length > 1 ? tr("official resources") : tr("official resource")}
                       </span>
                       <div className={`rc-cat-links ${c.govLinks.length > 6 ? "scrollable" : ""}`}>
                         {c.govLinks.map((g, gi) => (
@@ -867,10 +876,10 @@ export default function ReportCrimePage() {
 
             <div className="rc-results-actions">
               <button className="rc-btn-ghost" onClick={resetAll}>
-                <RotateCcw size={16} /> File Another Report
+                <RotateCcw size={16} /> {tr("File Another Report")}
               </button>
               <Link to="/" className="rc-btn-primary" style={{ textDecoration: "none" }}>
-                Back to Home
+                {tr("Back to Home")}
               </Link>
             </div>
           </div>

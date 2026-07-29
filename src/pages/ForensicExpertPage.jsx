@@ -154,7 +154,7 @@ export default function ForensicExpertPage() {
                 <textarea id="fxnotes" value={notes} onChange={(e) => setNotes(e.target.value)} placeholder={tr("Briefly describe the evidence and where it currently is")} />
               </div>
               <button type="submit" className="submit-btn">{tr("Book a Forensic Expert")}</button>
-              <p className="form-note">🔒 {tr("Confidential. Free, demo booking flow — no charges, no obligation.")}</p>
+              <p className="form-note">{tr("Confidential. Free, demo booking flow — no charges, no obligation.")}</p>
             </form>
 
             <div className="detail-panel" aria-live="polite">
@@ -183,7 +183,7 @@ export default function ForensicExpertPage() {
                       </span>
                     </div>
                   </div>
-                  <p className="form-note" style={{ marginTop: 18 }}>⚠️ {tr("Demo flow — not yet connected to a live forensic network.")}</p>
+                  <p className="form-note" style={{ marginTop: 18 }}>{tr("Demo flow — not yet connected to a live forensic network.")}</p>
                 </div>
               )}
             </div>

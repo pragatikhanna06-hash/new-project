@@ -260,4 +260,91 @@ export const uiStrings = {
   "Secure evidence before it's gone": "सबूत खोने से पहले सुरक्षित करें",
   "Legal / Corporate Report Drafting": "कानूनी / कॉर्पोरेट रिपोर्ट ड्राफ्टिंग",
   "Notices, contracts & compliance docs": "नोटिस, अनुबंध और अनुपालन दस्तावेज़",
+
+  // ReportCrimePage.jsx — hero
+  "Not sure where to report?": "पता नहीं कहाँ रिपोर्ट करें?",
+  "Report a Crime.": "अपराध की रिपोर्ट करें।",
+  "Get to the": "सही प्राधिकरण तक",
+  "right authority": "पहुंचें",
+  ", fast.": ", तेज़ी से।",
+  "Tell us what happened, and we'll match you with the correct official government portal — whether it's cyber crime, financial fraud, or a general police complaint.":
+    "हमें बताएं क्या हुआ, और हम आपको सही आधिकारिक सरकारी पोर्टल से जोड़ देंगे — चाहे वह साइबर अपराध हो, वित्तीय धोखाधड़ी हो, या सामान्य पुलिस शिकायत।",
+  "Register a Crime": "अपराध दर्ज करें",
+  "Crime Categories Covered": "अपराध श्रेणियाँ शामिल",
+  "Official Government Links": "आधिकारिक सरकारी लिंक",
+  Min: "मिनट",
+  "To Find the Right Portal": "सही पोर्टल खोजने में",
+
+  // ReportCrimePage.jsx — form
+  "Tell Us What Happened": "हमें बताएं क्या हुआ",
+  "These details help us point you to the correct government authority. This form does not file a police report on your behalf.":
+    "ये विवरण हमें आपको सही सरकारी प्राधिकरण तक पहुंचाने में मदद करते हैं। यह फॉर्म आपकी ओर से पुलिस रिपोर्ट दर्ज नहीं करता।",
+  "Full Name": "पूरा नाम",
+  "Your full name": "आपका पूरा नाम",
+  "e.g. +91 98765 43210": "उदा. +91 98765 43210",
+  "Email (optional)": "ईमेल (वैकल्पिक)",
+  "Location of Incident": "घटना का स्थान",
+  "City, State": "शहर, राज्य",
+  "Type of Crime": "अपराध का प्रकार",
+  "Select a category": "एक श्रेणी चुनें",
+  "Date of Incident": "घटना की तारीख",
+  "What Happened?": "क्या हुआ?",
+  "Briefly describe the incident...": "घटना का संक्षेप में विवरण दें...",
+  "Submit & Find Authorities": "जमा करें और प्राधिकरण खोजें",
+
+  // ReportCrimePage.jsx — validation
+  "Please enter a valid phone number.": "कृपया एक मान्य फ़ोन नंबर दर्ज करें।",
+  "Please enter the location of the incident.": "कृपया घटना का स्थान दर्ज करें।",
+  "Please select a crime type.": "कृपया अपराध का प्रकार चुनें।",
+  "Please select the date of the incident.": "कृपया घटना की तारीख चुनें।",
+  "Please describe what happened.": "कृपया बताएं क्या हुआ।",
+
+  // ReportCrimePage.jsx — processing
+  "Processing Your Report": "आपकी रिपोर्ट प्रोसेस हो रही है",
+  "Reviewing the details you provided...": "आपके द्वारा दी गई जानकारी की समीक्षा हो रही है...",
+  "Matching your case to the right authority...": "आपके केस को सही प्राधिकरण से मिलाया जा रहा है...",
+  "Preparing your resource list...": "आपकी संसाधन सूची तैयार की जा रही है...",
+
+  // ReportCrimePage.jsx — results
+  "Thank You": "धन्यवाद",
+  "Based on what you shared, this looks like a": "आपने जो साझा किया उसके आधार पर, यह एक",
+  "case. We've highlighted the right authority below — you can also browse all categories.":
+    "केस लगता है। हमने नीचे सही प्राधिकरण को हाइलाइट किया है — आप सभी श्रेणियां भी देख सकते हैं।",
+  "Here are the official government authorities for every major crime category. Find the one that matches your situation.":
+    "यहाँ हर प्रमुख अपराध श्रेणी के लिए आधिकारिक सरकारी प्राधिकरण हैं। अपनी स्थिति से मेल खाने वाला चुनें।",
+  "This is not an FIR filing system.": "यह एक एफआईआर दाखिल करने की प्रणाली नहीं है।",
+  "The details you shared were sent to our team over WhatsApp so we can follow up — but they are not filed with police or any court. This tool only helps you find the correct official portal. For urgent, life-threatening emergencies, call":
+    "आपने जो विवरण साझा किए, वे हमारी टीम को व्हाट्सएप पर भेज दिए गए हैं ताकि हम फॉलो-अप कर सकें — लेकिन वे पुलिस या किसी अदालत में दर्ज नहीं किए गए हैं। यह टूल केवल आपको सही आधिकारिक पोर्टल खोजने में मदद करता है। तत्काल, जानलेवा आपात स्थिति के लिए, कॉल करें",
+  "(India's national emergency number) immediately, or visit your nearest police station.":
+    "(भारत का राष्ट्रीय आपातकालीन नंबर) तुरंत, या अपने नज़दीकी पुलिस स्टेशन पर जाएं।",
+  Recommended: "अनुशंसित",
+  "official resources": "आधिकारिक संसाधन",
+  "official resource": "आधिकारिक संसाधन",
+  "File Another Report": "एक और रिपोर्ट दर्ज करें",
+
+  // ReportCrimePage.jsx — CATEGORIES (title / desc)
+  "Cyber Crime": "साइबर अपराध",
+  "Hacking, online fraud, phishing, identity theft, social media harassment, or any internet-based crime.":
+    "हैकिंग, ऑनलाइन धोखाधड़ी, फ़िशिंग, पहचान की चोरी, सोशल मीडिया उत्पीड़न, या कोई भी इंटरनेट-आधारित अपराध।",
+  "Women's Safety & Harassment": "महिला सुरक्षा और उत्पीड़न",
+  "Harassment, domestic violence, stalking, or any crime against women.":
+    "उत्पीड़न, घरेलू हिंसा, पीछा करना, या महिलाओं के खिलाफ कोई भी अपराध।",
+  "Financial & Banking Fraud": "वित्तीय और बैंकिंग धोखाधड़ी",
+  "Unauthorised transactions, loan scams, UPI fraud, or suspicious banking activity.":
+    "अनधिकृत लेनदेन, ऋण घोटाले, यूपीआई धोखाधड़ी, या संदिग्ध बैंकिंग गतिविधि।",
+  "Consumer Fraud": "उपभोक्ता धोखाधड़ी",
+  "Fake products, defective goods, unfair trade practices, or e-commerce scams.":
+    "नकली उत्पाद, दोषपूर्ण सामान, अनुचित व्यापार प्रथाएं, या ई-कॉमर्स घोटाले।",
+  "Corporate & Financial Crime": "कॉर्पोरेट और वित्तीय अपराध",
+  "Company fraud, embezzlement, or serious financial irregularities within an organisation.":
+    "कंपनी धोखाधड़ी, गबन, या किसी संगठन के भीतर गंभीर वित्तीय अनियमितताएं।",
+  "Tax Evasion": "कर चोरी",
+  "Undisclosed income, GST fraud, or tax-related offences.":
+    "अघोषित आय, जीएसटी धोखाधड़ी, या कर-संबंधी अपराध।",
+  "General FIR / Local Crime": "सामान्य एफआईआर / स्थानीय अपराध",
+  "Theft, assault, property crime, or anything that needs a First Information Report (FIR) — every state runs its own police portal.":
+    "चोरी, हमला, संपत्ति अपराध, या कोई भी ऐसी चीज़ जिसके लिए प्रथम सूचना रिपोर्ट (एफआईआर) की आवश्यकता है — हर राज्य अपना पुलिस पोर्टल चलाता है।",
+  "Missing Person / Child Safety": "लापता व्यक्ति / बाल सुरक्षा",
+  "A missing person, missing child, or child-safety concern.":
+    "एक लापता व्यक्ति, लापता बच्चा, या बाल-सुरक्षा संबंधी चिंता।",
 };

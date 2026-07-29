@@ -7,6 +7,8 @@ import {
 } from "lucide-react";
 import "./CaseStatusPage.css";
 import { sendFormToWhatsApp } from "../utils/whatsapp";
+import { useLanguage } from "./LanguageContext";
+import LangToggle from "./LangToggle";
 
 // Verified Government of India links relevant to tracking a case.
 // Official domains only — no redirectors, no embeds, no tracking.
@@ -110,6 +112,7 @@ const ECOURTS_CASE_STATUS_URL = "https://services.ecourts.gov.in/ecourtindia_v6/
 
 
 export default function CaseStatusPage() {
+  const { tr } = useLanguage();
   const [form, setForm] = useState(EMPTY_FORM);
   const [caseDoc, setCaseDoc] = useState(null);
   const [errors, setErrors] = useState({});
@@ -171,7 +174,10 @@ export default function CaseStatusPage() {
             </svg>
             <div className="brand-name">Nyay<span>Shield</span></div>
           </div>
-          <Link className="back-link" to="/">← Back to Home Page</Link>
+          <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
+            <Link className="back-link" to="/">← {tr("Back to Home Page")}</Link>
+            <LangToggle />
+          </div>
         </div>
       </nav>
 
@@ -179,23 +185,20 @@ export default function CaseStatusPage() {
         {!result && (
           <>
             <div className="page-hero cs-hero">
-              <div className="eyebrow" style={{ justifyContent: "center" }}>Case Information</div>
-              <h1>Track your <em>case status.</em></h1>
-              <p>Enter your details and case number to see how far your case has progressed and your next hearing date.</p>
+              <div className="eyebrow" style={{ justifyContent: "center" }}>{tr("Case Information")}</div>
+              <h1>{tr("Track your")} <em>{tr("case status.")}</em></h1>
+              <p>{tr("Enter your details and case number to see how far your case has progressed and your next hearing date.")}</p>
             </div>
 
             <div className="cs-disclaimer">
               <Info size={18} />
               <span>
-                <b>This is a demo tracker, not a live court database.</b> It is not connected to
-                eCourts or any police/judicial system, so the result shown below is illustrative
-                only. What you enter is sent to our team over WhatsApp so we can follow up, but
-                no real case data is fetched from any court. For your actual case status,
-                use the official{" "}
+                <b>{tr("This is a demo tracker, not a live court database.")}</b>{" "}
+                {tr("It is not connected to eCourts or any police/judicial system, so the result shown below is illustrative only. What you enter is sent to our team over WhatsApp so we can follow up, but no real case data is fetched from any court. For your actual case status, use the official")}{" "}
                 <a href={ECOURTS_CASE_STATUS_URL} target="_blank" rel="noopener noreferrer" style={{ color: "var(--teal)" }}>
-                  eCourts India — Case Status
+                  {tr("eCourts India — Case Status")}
                 </a>{" "}
-                page.
+                {tr("page.")}
               </span>
             </div>
 
@@ -207,117 +210,117 @@ export default function CaseStatusPage() {
             >
               <ExternalLink size={16} />
               <span>
-                <span className="t">Track your real case on the official eCourts portal</span>
-                <span className="s">Free · Govt. of India · Opens in a new tab</span>
+                <span className="t">{tr("Track your real case on the official eCourts portal")}</span>
+                <span className="s">{tr("Free · Govt. of India · Opens in a new tab")}</span>
               </span>
             </a>
 
-            <div className="cs-or-divider"><span>or try the illustrative demo below</span></div>
+            <div className="cs-or-divider"><span>{tr("or try the illustrative demo below")}</span></div>
 
             <form className="cs-form-card" onSubmit={handleSubmit}>
               <div className="cs-grid">
                 <div className="cs-field">
-                  <label><User size={14} style={{ verticalAlign: -2, marginRight: 6 }} />Your Name</label>
-                  <input type="text" placeholder="Full name" value={form.name} onChange={handleChange("name")} />
-                  {errors.name && <div className="cs-error"><Info size={12} /> {errors.name}</div>}
+                  <label><User size={14} style={{ verticalAlign: -2, marginRight: 6 }} />{tr("Your Name")}</label>
+                  <input type="text" placeholder={tr("Full name")} value={form.name} onChange={handleChange("name")} />
+                  {errors.name && <div className="cs-error"><Info size={12} /> {tr(errors.name)}</div>}
                 </div>
 
                 <div className="cs-field">
-                  <label><Mail size={14} style={{ verticalAlign: -2, marginRight: 6 }} />Email</label>
-                  <input type="email" placeholder="you@example.com" value={form.email} onChange={handleChange("email")} />
-                  {errors.email && <div className="cs-error"><Info size={12} /> {errors.email}</div>}
+                  <label><Mail size={14} style={{ verticalAlign: -2, marginRight: 6 }} />{tr("Email")}</label>
+                  <input type="email" placeholder={tr("you@example.com")} value={form.email} onChange={handleChange("email")} />
+                  {errors.email && <div className="cs-error"><Info size={12} /> {tr(errors.email)}</div>}
                 </div>
 
                 <div className="cs-field">
-                  <label><Phone size={14} style={{ verticalAlign: -2, marginRight: 6 }} />Phone Number</label>
-                  <input type="tel" placeholder="Your phone number" value={form.phone} onChange={handleChange("phone")} />
-                  {errors.phone && <div className="cs-error"><Info size={12} /> {errors.phone}</div>}
+                  <label><Phone size={14} style={{ verticalAlign: -2, marginRight: 6 }} />{tr("Phone Number")}</label>
+                  <input type="tel" placeholder={tr("Your phone number")} value={form.phone} onChange={handleChange("phone")} />
+                  {errors.phone && <div className="cs-error"><Info size={12} /> {tr(errors.phone)}</div>}
                 </div>
 
                 <div className="cs-field">
-                  <label><MapPin size={14} style={{ verticalAlign: -2, marginRight: 6 }} />Address</label>
-                  <input type="text" placeholder="Your current address" value={form.address} onChange={handleChange("address")} />
-                  {errors.address && <div className="cs-error"><Info size={12} /> {errors.address}</div>}
+                  <label><MapPin size={14} style={{ verticalAlign: -2, marginRight: 6 }} />{tr("Address")}</label>
+                  <input type="text" placeholder={tr("Your current address")} value={form.address} onChange={handleChange("address")} />
+                  {errors.address && <div className="cs-error"><Info size={12} /> {tr(errors.address)}</div>}
                 </div>
 
                 <div className="cs-field">
-                  <label><MapPin size={14} style={{ verticalAlign: -2, marginRight: 6 }} />Location of Crime</label>
-                  <input type="text" placeholder="Where did it happen?" value={form.crimeLocation} onChange={handleChange("crimeLocation")} />
-                  {errors.crimeLocation && <div className="cs-error"><Info size={12} /> {errors.crimeLocation}</div>}
+                  <label><MapPin size={14} style={{ verticalAlign: -2, marginRight: 6 }} />{tr("Location of Crime")}</label>
+                  <input type="text" placeholder={tr("Where did it happen?")} value={form.crimeLocation} onChange={handleChange("crimeLocation")} />
+                  {errors.crimeLocation && <div className="cs-error"><Info size={12} /> {tr(errors.crimeLocation)}</div>}
                 </div>
 
                 <div className="cs-field">
-                  <label><Hash size={14} style={{ verticalAlign: -2, marginRight: 6 }} />Case / FIR Number</label>
-                  <input type="text" placeholder="e.g. FIR-2026-00231" value={form.caseNumber} onChange={handleChange("caseNumber")} />
-                  {errors.caseNumber && <div className="cs-error"><Info size={12} /> {errors.caseNumber}</div>}
+                  <label><Hash size={14} style={{ verticalAlign: -2, marginRight: 6 }} />{tr("Case / FIR Number")}</label>
+                  <input type="text" placeholder={tr("e.g. FIR-2026-00231")} value={form.caseNumber} onChange={handleChange("caseNumber")} />
+                  {errors.caseNumber && <div className="cs-error"><Info size={12} /> {tr(errors.caseNumber)}</div>}
                 </div>
 
                 <div className="cs-field full">
-                  <label><Paperclip size={14} style={{ verticalAlign: -2, marginRight: 6 }} />Case Document (optional)</label>
+                  <label><Paperclip size={14} style={{ verticalAlign: -2, marginRight: 6 }} />{tr("Case Document (optional)")}</label>
                   <input type="file" onChange={(e) => setCaseDoc(e.target.files?.[0] || null)} />
                 </div>
 
                 <div className="cs-field full">
-                  <label><Scale size={14} style={{ verticalAlign: -2, marginRight: 6 }} />Type of Case</label>
+                  <label><Scale size={14} style={{ verticalAlign: -2, marginRight: 6 }} />{tr("Type of Case")}</label>
                   <select value={form.caseType} onChange={handleChange("caseType")}>
-                    <option value="">Select a case type</option>
-                    <option>Cybercrime / Online Fraud</option>
-                    <option>Theft / Burglary</option>
-                    <option>Assault / Physical Violence</option>
-                    <option>Domestic Violence</option>
-                    <option>Missing Person / Child</option>
-                    <option>Harassment / Cyberbullying</option>
-                    <option>Financial Fraud / Cheating</option>
-                    <option>Drug-Related Crime</option>
-                    <option>Other</option>
+                    <option value="">{tr("Select a case type")}</option>
+                    <option>{tr("Cybercrime / Online Fraud")}</option>
+                    <option>{tr("Theft / Burglary")}</option>
+                    <option>{tr("Assault / Physical Violence")}</option>
+                    <option>{tr("Domestic Violence")}</option>
+                    <option>{tr("Missing Person / Child")}</option>
+                    <option>{tr("Harassment / Cyberbullying")}</option>
+                    <option>{tr("Financial Fraud / Cheating")}</option>
+                    <option>{tr("Drug-Related Crime")}</option>
+                    <option>{tr("Other")}</option>
                   </select>
-                  {errors.caseType && <div className="cs-error"><Info size={12} /> {errors.caseType}</div>}
+                  {errors.caseType && <div className="cs-error"><Info size={12} /> {tr(errors.caseType)}</div>}
                 </div>
 
                 <div className="cs-field full">
-                  <label><ClipboardList size={14} style={{ verticalAlign: -2, marginRight: 6 }} />City / Court (optional)</label>
-                  <input type="text" placeholder="e.g. Ludhiana District Court" value={form.city} onChange={handleChange("city")} />
+                  <label><ClipboardList size={14} style={{ verticalAlign: -2, marginRight: 6 }} />{tr("City / Court (optional)")}</label>
+                  <input type="text" placeholder={tr("e.g. Ludhiana District Court")} value={form.city} onChange={handleChange("city")} />
                   <a
                     className="cs-court-link"
                     href={buildCourtSearchUrl(form.city)}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <ExternalLink size={12} /> Find this court on eCourts
+                    <ExternalLink size={12} /> {tr("Find this court on eCourts")}
                   </a>
                 </div>
               </div>
 
-              <button type="submit" className="cs-submit"><Send size={16} /> Check Case Status</button>
-              <p className="form-note">🔒 Free to use. No penalty or fee involved.</p>
+              <button type="submit" className="cs-submit"><Send size={16} /> {tr("Check Case Status")}</button>
+              <p className="form-note">{tr("Free to use. No penalty or fee involved.")}</p>
             </form>
           </>
         )}
 
         {result && (
           <div className="cs-result">
-            <span className="cs-demo-tag">Demo Result — Not Live Court Data</span>
+            <span className="cs-demo-tag">{tr("Demo Result — Not Live Court Data")}</span>
             <div className="cs-demo-banner">
               <Info size={16} />
               <span>
-                This is a <b>simulated demo result</b>, generated only from the case number you
-                typed. It is <b>not fetched from eCourts or any real court/police database</b> and
-                must not be used to plan your actual hearing date. For your real case status,
-                visit the official{" "}
+                {tr("This is a")} <b>{tr("simulated demo result")}</b>,{" "}
+                {tr("generated only from the case number you typed. It is")}{" "}
+                <b>{tr("not fetched from eCourts or any real court/police database")}</b>{" "}
+                {tr("and must not be used to plan your actual hearing date. For your real case status, visit the official")}{" "}
                 <a href={ECOURTS_CASE_STATUS_URL} target="_blank" rel="noopener noreferrer">
-                  eCourts India — Case Status
+                  {tr("eCourts India — Case Status")}
                 </a>{" "}
-                page.
+                {tr("page.")}
               </span>
             </div>
             <div className="cs-result-head">
-              <h2>Case Status{form.name ? ` for ${form.name}` : ""}</h2>
+              <h2>{tr("Case Status")}{form.name ? ` ${tr("for")} ${form.name}` : ""}</h2>
               <span className="cs-case-id">{form.caseNumber}</span>
             </div>
 
             <div className="cs-progress-wrap">
               <div className="cs-progress-label">
-                <span>Progress</span>
+                <span>{tr("Progress")}</span>
                 <span>{result.progress}%</span>
               </div>
               <div className="cs-progress-track">
@@ -326,7 +329,7 @@ export default function CaseStatusPage() {
               <div className="cs-stage-row">
                 {STAGES.map((s, i) => (
                   <div key={s} className={`cs-stage ${i < result.stageIndex ? "done" : i === result.stageIndex ? "current" : ""}`}>
-                    {s}
+                    {tr(s)}
                   </div>
                 ))}
               </div>
@@ -334,27 +337,27 @@ export default function CaseStatusPage() {
 
             <div className="cs-info-grid">
               <div className="cs-info-card">
-                <div className="k">Current Stage</div>
-                <div className="v">{STAGES[result.stageIndex]}</div>
+                <div className="k">{tr("Current Stage")}</div>
+                <div className="v">{tr(STAGES[result.stageIndex])}</div>
               </div>
               <div className="cs-info-card next-date">
-                <div className="k">Next Hearing Date</div>
+                <div className="k">{tr("Next Hearing Date")}</div>
                 <div className="v">{result.nextDate}</div>
               </div>
               <div className="cs-info-card">
-                <div className="k">Case Type</div>
-                <div className="v">{form.caseType}</div>
+                <div className="k">{tr("Case Type")}</div>
+                <div className="v">{tr(form.caseType)}</div>
               </div>
               <div className="cs-info-card">
-                <div className="k">City / Court</div>
-                <div className="v">{form.city || "Not specified"}</div>
+                <div className="k">{tr("City / Court")}</div>
+                <div className="v">{form.city || tr("Not specified")}</div>
                 <a
                   className="cs-court-link"
                   href={buildCourtSearchUrl(form.city)}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <ExternalLink size={12} /> Find this court on eCourts
+                  <ExternalLink size={12} /> {tr("Find this court on eCourts")}
                 </a>
               </div>
             </div>
@@ -367,19 +370,19 @@ export default function CaseStatusPage() {
                 rel="noopener noreferrer"
               >
                 <ExternalLink size={14} style={{ verticalAlign: -2, marginRight: 6 }} />
-                Track on Official eCourts Portal
+                {tr("Track on Official eCourts Portal")}
               </a>
-              <button className="cs-ghost-btn" onClick={resetForm}><RotateCcw size={15} style={{ verticalAlign: -2, marginRight: 6 }} />Check Another Case</button>
-              <Link className="cs-ghost-btn" to="/">Back to Home</Link>
+              <button className="cs-ghost-btn" onClick={resetForm}><RotateCcw size={15} style={{ verticalAlign: -2, marginRight: 6 }} />{tr("Check Another Case")}</button>
+              <Link className="cs-ghost-btn" to="/">{tr("Back to Home")}</Link>
             </div>
           </div>
         )}
 
         <section className="govt-section">
           <div className="govt-head">
-            <div className="eyebrow" style={{ justifyContent: "center" }}>Official Government Resources</div>
-            <h2>Verified links, straight from the source</h2>
-            <p>Every link below points to an official Government of India (.gov.in / .nic.in) portal. Nothing is proxied, embedded, or tracked — each opens directly in a new tab.</p>
+            <div className="eyebrow" style={{ justifyContent: "center" }}>{tr("Official Government Resources")}</div>
+            <h2>{tr("Verified links, straight from the source")}</h2>
+            <p>{tr("Every link below points to an official Government of India (.gov.in / .nic.in) portal. Nothing is proxied, embedded, or tracked — each opens directly in a new tab.")}</p>
           </div>
           <div className="govt-list">
             {GOVT_LINKS.map(({ title, desc, url, icon: Icon }) => (
@@ -392,11 +395,11 @@ export default function CaseStatusPage() {
               >
                 <span className="govt-icon"><Icon size={20} /></span>
                 <span className="govt-text">
-                  <span className="govt-title">{title} <ExternalLink size={13} className="govt-ext" /></span>
-                  <span className="govt-desc">{desc}</span>
+                  <span className="govt-title">{tr(title)} <ExternalLink size={13} className="govt-ext" /></span>
+                  <span className="govt-desc">{tr(desc)}</span>
                   <span className="govt-url">{url.replace("https://", "")}</span>
                 </span>
-                <span className="govt-free-tag">Free · No charges</span>
+                <span className="govt-free-tag">{tr("Free · No charges")}</span>
               </a>
             ))}
           </div>

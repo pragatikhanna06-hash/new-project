@@ -156,7 +156,7 @@ export default function LegalDraftingPage() {
                 <textarea id="ldreq" value={requirements} onChange={(e) => setRequirements(e.target.value)} placeholder={tr("Key terms, parties involved, purpose, deadlines, etc.")} />
               </div>
               <button type="submit" className="submit-btn">{tr("Request a Draft")}</button>
-              <p className="form-note">🔒 {tr("Confidential. Free, demo booking flow — no charges, no obligation.")}</p>
+              <p className="form-note">{tr("Confidential. Free, demo booking flow — no charges, no obligation.")}</p>
             </form>
 
             <div className="detail-panel" aria-live="polite">
@@ -185,7 +185,7 @@ export default function LegalDraftingPage() {
                       </span>
                     </div>
                   </div>
-                  <p className="form-note" style={{ marginTop: 18 }}>⚠️ {tr("Demo flow — not yet connected to a live drafting network.")}</p>
+                  <p className="form-note" style={{ marginTop: 18 }}>{tr("Demo flow — not yet connected to a live drafting network.")}</p>
                 </div>
               )}
             </div>

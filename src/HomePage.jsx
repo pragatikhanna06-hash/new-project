@@ -2,7 +2,7 @@
 // // // import { useNavigate, Link } from "react-router-dom";
 // // // import { Siren, Scale, ClipboardList, Microscope, Building2, FileText } from "lucide-react";
 // // // import "./HomePage.css";
-// // // import "./pages/NyayShieldPage.css"; // ⚠️ adjust this path to wherever NyayShieldPage.css actually sits relative to HomePage.jsx (per your App.jsx, it's in "./pages/")
+// // // import "./pages/NyayShieldPage.css"; // adjust this path to wherever NyayShieldPage.css actually sits relative to HomePage.jsx (per your App.jsx, it's in "./pages/")
 // // // import { useLanguage } from "./pages/LanguageContext";
 
 // // // // ── data ──────────────────────────────────────────────────────────────────────
@@ -327,7 +327,7 @@
 // // //             navigate("/");
 // // //           }}
 // // //         >
-// // //           <span className="brand-icon">⚔</span>
+// // //           <span className="brand-icon"></span>
 // // //           <span className="brand-name">FORFRA</span>
 // // //           <span className="brand-sub">SOLUTIONS</span>
 // // //         </a>
@@ -471,7 +471,7 @@
 // // //             <div className="shield-ring ring-1" />
 // // //             <div className="shield-ring ring-2" />
 // // //             <div className="shield-ring ring-3" />
-// // //             <div className="shield-center">⚔</div>
+// // //             <div className="shield-center"></div>
 // // //           </div>
 // // //         </div>
 // // //       </div>
@@ -681,16 +681,16 @@
 // // //           <p>{t.contact.desc}</p>
 // // //           <div className="contact-links">
 // // //             <a href="https://www.forfrasolutions.com" className="contact-link" target="_blank" rel="noreferrer">
-// // //               🌐 www.forfrasolutions.com
+// // //               www.forfrasolutions.com
 // // //             </a>
 // // //             <a href="mailto:hello@forfrasolutions.com" className="contact-link">
-// // //               ✉️ hello@forfrasolutions.com
+// // //               hello@forfrasolutions.com
 // // //             </a>
 // // //             <a href="tel:+919711015337" className="contact-link">
-// // //               📞 +91 97110 15337
+// // //               +91 97110 15337
 // // //             </a>
 // // //             <a href="tel:+918982307608" className="contact-link">
-// // //               📞 +91 89823 07608
+// // //               +91 89823 07608
 // // //             </a>
 // // //           </div>
 // // //         </div>
@@ -714,7 +714,7 @@
 // // //     <footer className="footer">
 // // //       <div className="footer-inner">
 // // //         <div className="footer-brand">
-// // //           <span className="brand-icon">⚔</span>
+// // //           <span className="brand-icon"></span>
 // // //           <span>FORFRA SOLUTIONS</span>
 // // //         </div>
 // // //         <p className="footer-tagline">{t.footer.tagline}</p>
@@ -801,7 +801,7 @@
 // // import { useNavigate, Link } from "react-router-dom";
 // // import { Siren, Scale, ClipboardList, Microscope, FileText } from "lucide-react";
 // // import "./HomePage.css";
-// // import "./pages/NyayShieldPage.css"; // ⚠️ adjust this path to wherever NyayShieldPage.css actually sits relative to HomePage.jsx (per your App.jsx, it's in "./pages/")
+// // import "./pages/NyayShieldPage.css"; // adjust this path to wherever NyayShieldPage.css actually sits relative to HomePage.jsx (per your App.jsx, it's in "./pages/")
 // // import { useLanguage } from "./pages/LanguageContext";
 
 // // // ── data ──────────────────────────────────────────────────────────────────────
@@ -1126,7 +1126,7 @@
 // //             navigate("/");
 // //           }}
 // //         >
-// //           <span className="brand-icon">⚔</span>
+// //           <span className="brand-icon"></span>
 // //           <span className="brand-name">FORFRA</span>
 // //           <span className="brand-sub">SOLUTIONS</span>
 // //         </a>
@@ -1269,7 +1269,7 @@
 // //             <div className="shield-ring ring-1" />
 // //             <div className="shield-ring ring-2" />
 // //             <div className="shield-ring ring-3" />
-// //             <div className="shield-center">⚔</div>
+// //             <div className="shield-center"></div>
 // //           </div>
 // //         </div>
 // //       </div>
@@ -1479,16 +1479,16 @@
 // //           <p>{t.contact.desc}</p>
 // //           <div className="contact-links">
 // //             <a href="https://www.forfrasolutions.com" className="contact-link" target="_blank" rel="noreferrer">
-// //               🌐 www.forfrasolutions.com
+// //               www.forfrasolutions.com
 // //             </a>
 // //             <a href="mailto:hello@forfrasolutions.com" className="contact-link">
-// //               ✉️ hello@forfrasolutions.com
+// //               hello@forfrasolutions.com
 // //             </a>
 // //             <a href="tel:+919711015337" className="contact-link">
-// //               📞 +91 97110 15337
+// //               +91 97110 15337
 // //             </a>
 // //             <a href="tel:+918982307608" className="contact-link">
-// //               📞 +91 89823 07608
+// //               +91 89823 07608
 // //             </a>
 // //           </div>
 // //         </div>
@@ -1512,7 +1512,7 @@
 // //     <footer className="footer">
 // //       <div className="footer-inner">
 // //         <div className="footer-brand">
-// //           <span className="brand-icon">⚔</span>
+// //           <span className="brand-icon"></span>
 // //           <span>FORFRA SOLUTIONS</span>
 // //         </div>
 // //         <p className="footer-tagline">{t.footer.tagline}</p>
@@ -1593,9 +1593,9 @@
 // import { useNavigate, Link } from "react-router-dom";
 // import { Siren, Scale, ClipboardList, Microscope, FileText } from "lucide-react";
 // import "./HomePage.css";
-// import "./pages/NyayShieldPage.css"; // ⚠️ adjust this path to wherever NyayShieldPage.css actually sits relative to HomePage.jsx (per your App.jsx, it's in "./pages/")
+// import "./pages/NyayShieldPage.css"; // adjust this path to wherever NyayShieldPage.css actually sits relative to HomePage.jsx (per your App.jsx, it's in "./pages/")
 // import { useLanguage } from "./pages/LanguageContext";
-// import forfraLogo from "./assets/forfra-logo.png"; // ⚠️ adjust this path to wherever you saved the logo image
+// import forfraLogo from "./assets/forfra-logo.png"; // adjust this path to wherever you saved the logo image
 
 // // ── data ──────────────────────────────────────────────────────────────────────
 // // NAV_LINKS keeps stable English keys (used for #anchors and translation lookup);
@@ -2054,7 +2054,7 @@
 //             <div className="shield-ring ring-1" />
 //             <div className="shield-ring ring-2" />
 //             <div className="shield-ring ring-3" />
-//             <div className="shield-center">⚔</div>
+//             <div className="shield-center"></div>
 //           </div>
 //         </div>
 //       </div>
@@ -2264,16 +2264,16 @@
 //           <p>{t.contact.desc}</p>
 //           <div className="contact-links">
 //             <a href="https://www.forfrasolutions.com" className="contact-link" target="_blank" rel="noreferrer">
-//               🌐 www.forfrasolutions.com
+//               www.forfrasolutions.com
 //             </a>
 //             <a href="mailto:hello@forfrasolutions.com" className="contact-link">
-//               ✉️ hello@forfrasolutions.com
+//               hello@forfrasolutions.com
 //             </a>
 //             <a href="tel:+919711015337" className="contact-link">
-//               📞 +91 97110 15337
+//               +91 97110 15337
 //             </a>
 //             <a href="tel:+918982307608" className="contact-link">
-//               📞 +91 89823 07608
+//               +91 89823 07608
 //             </a>
 //           </div>
 //         </div>
@@ -2297,7 +2297,7 @@
 //     <footer className="footer">
 //       <div className="footer-inner">
 //         <div className="footer-brand">
-//           <span className="brand-icon">⚔</span>
+//           <span className="brand-icon"></span>
 //           <span>FORFRA SOLUTIONS</span>
 //         </div>
 //         <p className="footer-tagline">{t.footer.tagline}</p>
@@ -2505,11 +2505,11 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Siren, Scale, ClipboardList, Microscope, FileText } from "lucide-react";
+import { Siren, Scale, ClipboardList, Microscope, FileText, ShieldCheck, FileCheck2, Fingerprint, Landmark, Building2, Briefcase } from "lucide-react";
 import "./HomePage.css";
-import "./pages/NyayShieldPage.css"; // ⚠️ adjust this path to wherever NyayShieldPage.css actually sits relative to HomePage.jsx (per your App.jsx, it's in "./pages/")
+import "./pages/NyayShieldPage.css"; // adjust this path to wherever NyayShieldPage.css actually sits relative to HomePage.jsx (per your App.jsx, it's in "./pages/")
 import { useLanguage } from "./pages/LanguageContext";
-import forfraLogo from "./assets/forfra-logo.png"; // ⚠️ adjust this path to wherever you saved the logo image
+import forfraLogo from "./assets/forfra-logo.png"; // adjust this path to wherever you saved the logo image
 
 // ── data ──────────────────────────────────────────────────────────────────────
 // NAV_LINKS keeps stable English keys (used for #anchors and translation lookup);
@@ -2972,7 +2972,7 @@ function AboutSection() {
             <div className="shield-ring ring-1" />
             <div className="shield-ring ring-2" />
             <div className="shield-ring ring-3" />
-            <div className="shield-center">⚔</div>
+            <div className="shield-center"></div>
           </div>
         </div>
       </div>
@@ -3076,6 +3076,10 @@ function CapabilitiesSection() {
   );
 }
 
+// Position-indexed icons for the differentiator cards (order matches
+// t.differentiator.points in both EN and HI translations).
+const DIFFERENTIATOR_ICONS = [ShieldCheck, Scale, FileCheck2, Fingerprint];
+
 function DifferentiatorSection() {
   const [ref, inView] = useInView();
   const { t } = useLanguage();
@@ -3090,22 +3094,29 @@ function DifferentiatorSection() {
           </h2>
         </div>
         <div className="diff-grid">
-          {t.differentiator.points.map((p, i) => (
-            <div
-              className="diff-card"
-              key={p.title}
-              style={{ animationDelay: `${i * 0.1}s` }}
-            >
-              <div className="diff-icon">{p.icon}</div>
-              <h4>{p.title}</h4>
-              <p>{p.desc}</p>
-            </div>
-          ))}
+          {t.differentiator.points.map((p, i) => {
+            const Icon = DIFFERENTIATOR_ICONS[i];
+            return (
+              <div
+                className="diff-card"
+                key={p.title}
+                style={{ animationDelay: `${i * 0.1}s` }}
+              >
+                <div className="diff-icon"><Icon size={22} /></div>
+                <h4>{p.title}</h4>
+                <p>{p.desc}</p>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
+
+// Position-indexed icons for the client category pills (order matches
+// t.clients.categories in both EN and HI translations).
+const CLIENT_CATEGORY_ICONS = [Landmark, Siren, Building2, Briefcase, FileText];
 
 function ClientsSection() {
   const [ref, inView] = useInView();
@@ -3124,11 +3135,14 @@ function ClientsSection() {
         </div>
       </div>
       <div className={`client-categories ${inView ? "reveal" : ""}`}>
-        {t.clients.categories.map((cat) => (
-          <div key={cat.label} className="cat-pill">
-            <span>{cat.icon}</span> {cat.label}
-          </div>
-        ))}
+        {t.clients.categories.map((cat, i) => {
+          const Icon = CLIENT_CATEGORY_ICONS[i];
+          return (
+            <div key={cat.label} className="cat-pill">
+              <span><Icon size={16} /></span> {cat.label}
+            </div>
+          );
+        })}
       </div>
     </section>
   );
@@ -3182,16 +3196,22 @@ function ContactSection() {
           <p>{t.contact.desc}</p>
           <div className="contact-links">
             <a href="https://www.forfrasolutions.com" className="contact-link" target="_blank" rel="noreferrer">
-              🌐 www.forfrasolutions.com
+              www.forfrasolutions.com
             </a>
             <a href="mailto:hello@forfrasolutions.com" className="contact-link">
-              ✉️ hello@forfrasolutions.com
+              hello@forfrasolutions.com
             </a>
             <a href="tel:+919711015337" className="contact-link">
-              📞 +91 97110 15337
+              +91 97110 15337
             </a>
             <a href="tel:+918982307608" className="contact-link">
-              📞 +91 89823 07608
+              +91 89823 07608
+            </a>
+            <a href="https://instagram.com/forfrasolutions" className="contact-link" target="_blank" rel="noopener noreferrer">
+              Instagram
+            </a>
+            <a href="https://linkedin.com/company/forfra-solutions" className="contact-link" target="_blank" rel="noopener noreferrer">
+              LinkedIn
             </a>
           </div>
         </div>
@@ -3215,7 +3235,7 @@ function Footer() {
     <footer className="footer">
       <div className="footer-inner">
         <div className="footer-brand">
-          <span className="brand-icon">⚔</span>
+          <span className="brand-icon"></span>
           <span>FORFRA SOLUTIONS</span>
         </div>
         <p className="footer-tagline">{t.footer.tagline}</p>

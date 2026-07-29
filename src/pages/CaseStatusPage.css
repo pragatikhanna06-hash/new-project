@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 .home-root{
   --ink:#0a0d16;
@@ -28,7 +28,7 @@
   overflow-x:hidden;
   min-height:100vh;
 }
-.home-root h1, .home-root h2, .home-root h3, .home-root h4{ font-family:'Fraunces', serif; margin:0; letter-spacing:-0.01em; }
+.home-root h1, .home-root h2, .home-root h3, .home-root h4{ font-family:'Inter', sans-serif; margin:0; letter-spacing:-0.01em; }
 .home-root p{ margin:0; }
 .home-root .wrap{ max-width:1180px; margin:0 auto; padding:0 28px; position:relative; z-index:1; }
 .home-root a{ color:inherit; }
@@ -41,7 +41,7 @@
 }
 .home-root .brand{ display:flex; align-items:center; gap:12px; }
 .home-root .brand-mark{ width:34px; height:34px; flex-shrink:0; }
-.home-root .brand-name{ font-family:'Fraunces', serif; font-weight:700; font-size:20px; letter-spacing:0.01em; }
+.home-root .brand-name{ font-family:'Inter', sans-serif; font-weight:700; font-size:20px; letter-spacing:0.01em; }
 .home-root .brand-name span{ color:var(--gold); }
 .home-root .back-link{
   display:inline-flex; align-items:center; gap:8px;
@@ -52,7 +52,7 @@
 
 .home-root .eyebrow{
   display:inline-flex; align-items:center; gap:8px;
-  font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:0.14em;
+  font-family:'Inter', sans-serif; font-size:12px; letter-spacing:0.14em;
   text-transform:uppercase; color:var(--teal);
   margin-bottom:18px;
 }
@@ -99,7 +99,7 @@
   display:flex; align-items:center; gap:12px;
   margin:26px 0 -4px;
   color:var(--text-faint); font-size:12px; text-transform:uppercase; letter-spacing:.06em;
-  font-family:'JetBrains Mono', monospace;
+  font-family:'Inter', sans-serif;
 }
 .cs-or-divider::before, .cs-or-divider::after{ content:''; flex:1; height:1px; background:var(--line); }
 
@@ -147,7 +147,7 @@
 }
 .cs-result-head{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:24px; }
 .cs-result-head h2{ font-size:24px; }
-.cs-case-id{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text-faint); }
+.cs-case-id{ font-family:'Inter', sans-serif; font-size:12px; color:var(--text-faint); }
 
 .cs-progress-wrap{ margin-bottom:28px; }
 .cs-progress-label{ display:flex; justify-content:space-between; font-size:13px; color:var(--text-dim); margin-bottom:8px; }
@@ -175,7 +175,7 @@
 .cs-gold-btn:hover{ background:var(--gold-soft); transform:translateY(-1px); }
 
 .cs-demo-tag{
-  display:inline-flex; align-items:center; gap:6px; font-family:'JetBrains Mono',monospace; font-size:10.5px;
+  display:inline-flex; align-items:center; gap:6px; font-family:'Inter', sans-serif; font-size:10.5px;
   letter-spacing:.08em; text-transform:uppercase; color:var(--gold-soft);
   background:rgba(201,162,39,0.12); padding:4px 10px; border-radius:999px; margin-bottom:16px; font-weight:700;
 }
@@ -236,7 +236,7 @@
 .govt-free-tag{
   margin-left:auto;
   flex-shrink:0;
-  font-family:'JetBrains Mono', monospace;
+  font-family:'Inter', sans-serif;
   font-size:10.5px;
   letter-spacing:.06em;
   text-transform:uppercase;
@@ -264,7 +264,7 @@
 .govt-ext{ color:var(--text-faint); flex-shrink:0; }
 .govt-desc{ font-size:12px; color:var(--text-dim); line-height:1.5; }
 .govt-url{
-  font-family:'JetBrains Mono', monospace;
+  font-family:'Inter', sans-serif;
   font-size:11px;
   color:var(--gold-soft);
   margin-top:2px;
@@ -301,6 +301,6 @@
 }
 .govt-modal h3{ font-size:18px; margin-bottom:10px; }
 .govt-modal p{ font-size:13.5px; color:var(--text-dim); line-height:1.65; }
-.govt-modal-url{ color:var(--gold-soft); font-family:'JetBrains Mono', monospace; font-size:12.5px; }
+.govt-modal-url{ color:var(--gold-soft); font-family:'Inter', sans-serif; font-size:12.5px; }
 .govt-modal-actions{ display:flex; gap:10px; justify-content:center; margin-top:22px; }
 .govt-modal-go{ display:inline-flex; align-items:center; }

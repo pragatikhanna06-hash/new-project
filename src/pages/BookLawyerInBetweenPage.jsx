@@ -23,6 +23,7 @@ function hashString(str) {
 
 export default function BookLawyerInBetweenPage() {
   const { tr } = useLanguage();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
@@ -45,6 +46,7 @@ export default function BookLawyerInBetweenPage() {
     setMatch(newMatch);
 
     sendFormToWhatsApp("Book a Lawyer (Mid-Case) — NyayShield", [
+      ["Name", name],
       ["Email", email],
       ["Phone Number", phone],
       ["Address", address],
@@ -87,6 +89,10 @@ export default function BookLawyerInBetweenPage() {
         <div className="wrap booking-grid">
           <form className="report-form" onSubmit={handleSubmit}>
             <div className="field">
+              <label htmlFor="mcname">{tr("Full Name")}</label>
+              <input id="mcname" type="text" required value={name} onChange={(e) => setName(e.target.value)} placeholder={tr("Your full name")} />
+            </div>
+            <div className="field">
               <label htmlFor="mcemail">{tr("Email")}</label>
               <input id="mcemail" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder={tr("you@example.com")} />
             </div>
@@ -124,8 +130,8 @@ export default function BookLawyerInBetweenPage() {
               <label htmlFor="mcdesc">{tr("Briefly Describe the Case")}</label>
               <textarea id="mcdesc" value={caseDesc} onChange={(e) => setCaseDesc(e.target.value)} placeholder={tr("What's the case about, and where does it stand?")} />
             </div>
-            <button type="submit" className="submit-btn gold">{tr("Find a Lawyer for My Stage")}</button>
-            <p className="form-note">🔒 {tr("Confidential. Free, demo booking flow — no charges, no obligation.")}</p>
+            <button type="submit" className="submit-btn gold">{tr("Submit your details through Whatsapp")}</button>
+            <p className="form-note">{tr("Confidential. Free, demo booking flow — no charges, no obligation.")}</p>
           </form>
 
           <div className="detail-panel">
@@ -138,7 +144,7 @@ export default function BookLawyerInBetweenPage() {
             {match && (
               <div className="detail-content">
                 <span className="detail-badge sev-cyber">{tr("Lawyer Matched")}</span>
-                <h3>{match.lawyer}</h3>
+                <h3>{tr("A lawyer has been matched to your case")}</h3>
                 <p className="detail-desc">
                   {tr("They'll review your case stage and reach out within approximately")} <b style={{ color: "var(--text)" }}>{match.etaHours} {tr("hours")}</b> {tr("to discuss next steps.")}
                 </p>
@@ -156,7 +162,7 @@ export default function BookLawyerInBetweenPage() {
                     </span>
                   </div>
                 </div>
-                <p className="form-note" style={{ marginTop: 18 }}>⚠️ {tr("Demo flow — not yet connected to a live lawyer network.")}</p>
+                <p className="form-note" style={{ marginTop: 18 }}>{tr("Demo flow — not yet connected to a live lawyer network.")}</p>
               </div>
             )}
           </div>

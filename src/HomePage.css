@@ -1,9 +1,9 @@
 /* ═══════════════════════════════════════════════════════════════════
    FORFRA SOLUTIONS — HomePage.css
-   Theme: Deep navy + electric gold | Bebas Neue display + Inter body
+   Theme: Deep navy + electric gold | Inter throughout
    ═══════════════════════════════════════════════════════════════════ */
 
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
 
 /* ── tokens ──────────────────────────────────────────────────────── */
 :root {
@@ -18,7 +18,7 @@
   --slate:       #94A3B8;
   --text-dim:    #64748B;
 
-  --ff-display:  "Bebas Neue", sans-serif;
+  --ff-display:  "Inter", sans-serif;
   --ff-body:     "Inter", sans-serif;
 
   --radius-sm:   6px;

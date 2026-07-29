@@ -23,6 +23,7 @@ function hashString(str) {
 
 export default function BookLawyerDay1Page() {
   const { tr } = useLanguage();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
@@ -44,6 +45,7 @@ export default function BookLawyerDay1Page() {
     setMatch(newMatch);
 
     sendFormToWhatsApp("Book a Lawyer (Day 1) — NyayShield", [
+      ["Name", name],
       ["Email", email],
       ["Phone Number", phone],
       ["Address", address],
@@ -85,6 +87,10 @@ export default function BookLawyerDay1Page() {
         <div className="wrap booking-grid">
           <form className="report-form" onSubmit={handleSubmit}>
             <div className="field">
+              <label htmlFor="d1name">{tr("Full Name")}</label>
+              <input id="d1name" type="text" required value={name} onChange={(e) => setName(e.target.value)} placeholder={tr("Your full name")} />
+            </div>
+            <div className="field">
               <label htmlFor="d1email">{tr("Email")}</label>
               <input id="d1email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder={tr("you@example.com")} />
             </div>
@@ -112,8 +118,8 @@ export default function BookLawyerDay1Page() {
               <label htmlFor="d1desc">{tr("Briefly Describe the Case")}</label>
               <textarea id="d1desc" value={caseDesc} onChange={(e) => setCaseDesc(e.target.value)} placeholder={tr("What happened, and when?")} />
             </div>
-            <button type="submit" className="submit-btn gold">{tr("Assign a Lawyer Now")}</button>
-            <p className="form-note">🔒 {tr("Confidential. Free, demo booking flow — no charges, no obligation.")}</p>
+            <button type="submit" className="submit-btn gold">{tr("Submit your details through Whatsapp")}</button>
+            <p className="form-note">{tr("Confidential. Free, demo booking flow — no charges, no obligation.")}</p>
           </form>
 
           <div className="detail-panel">
@@ -126,7 +132,7 @@ export default function BookLawyerDay1Page() {
             {match && (
               <div className="detail-content">
                 <span className="detail-badge sev-medium">{tr("Lawyer Assigned")}</span>
-                <h3>{match.lawyer}</h3>
+                <h3>{tr("A criminal defence lawyer has been assigned to your case")}</h3>
                 <p className="detail-desc">
                   {tr("They'll reach out within approximately")} <b style={{ color: "var(--text)" }}>{match.etaHours} {tr("hour(s)")}</b> {tr("to begin building your defence while the case is still fresh.")}
                 </p>
@@ -144,7 +150,7 @@ export default function BookLawyerDay1Page() {
                     </span>
                   </div>
                 </div>
-                <p className="form-note" style={{ marginTop: 18 }}>⚠️ {tr("Demo flow — not yet connected to a live lawyer network.")}</p>
+                <p className="form-note" style={{ marginTop: 18 }}>{tr("Demo flow — not yet connected to a live lawyer network.")}</p>
               </div>
             )}
           </div>

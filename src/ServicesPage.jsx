@@ -4,11 +4,11 @@ import { useState, useEffect, useRef } from "react";
    GLOBAL STYLES
 ══════════════════════════════════════════ */
 const GLOBAL_CSS = `
-  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
-  body { font-family: 'Barlow', sans-serif; background: #090f1e; color: #fff; overflow-x: hidden; }
+  body { font-family: 'Inter', sans-serif; background: #090f1e; color: #fff; overflow-x: hidden; }
 
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
@@ -46,25 +46,25 @@ const GLOBAL_CSS = `
   .cli:hover  { border-color:rgba(232,151,26,.35) !important; transform:translateY(-3px); }
   .prog:hover { transform:translateY(-5px); border-color:rgba(232,151,26,.3) !important; box-shadow:0 20px 50px rgba(0,0,0,.3); }
 
-  .nbtn { background:none; border:none; cursor:pointer; padding:0; color:rgba(255,255,255,.78); font-family:'Barlow',sans-serif; font-size:.9rem; font-weight:500; letter-spacing:.3px; transition:color .2s; }
+  .nbtn { background:none; border:none; cursor:pointer; padding:0; color:rgba(255,255,255,.78); font-family:'Inter',sans-serif; font-size:.9rem; font-weight:500; letter-spacing:.3px; transition:color .2s; }
   .nbtn:hover { color:#fff; }
 
-  .hpill { border:1px solid rgba(232,151,26,.35); color:rgba(255,255,255,.75); font-family:'Barlow Condensed',sans-serif; font-size:.8rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; padding:8px 16px; border-radius:3px; cursor:pointer; background:transparent; transition:all .25s; }
+  .hpill { border:1px solid rgba(232,151,26,.35); color:rgba(255,255,255,.75); font-family:'Inter',sans-serif; font-size:.8rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; padding:8px 16px; border-radius:3px; cursor:pointer; background:transparent; transition:all .25s; }
   .hpill:hover { background:#e8971a; border-color:#e8971a; color:#000; }
 
-  .ncta { background:#e8971a; color:#000; font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:.9rem; letter-spacing:1px; text-transform:uppercase; padding:9px 22px; border-radius:4px; cursor:pointer; border:none; transition:background .2s,transform .2s; white-space:nowrap; }
+  .ncta { background:#e8971a; color:#000; font-family:'Inter',sans-serif; font-weight:700; font-size:.9rem; letter-spacing:1px; text-transform:uppercase; padding:9px 22px; border-radius:4px; cursor:pointer; border:none; transition:background .2s,transform .2s; white-space:nowrap; }
   .ncta:hover { background:#f5a623; transform:translateY(-1px); }
 
-  .bgold { background:#e8971a; color:#000; font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:.95rem; letter-spacing:1.5px; text-transform:uppercase; padding:14px 34px; border-radius:4px; text-decoration:none; display:inline-block; transition:background .2s,transform .2s; }
+  .bgold { background:#e8971a; color:#000; font-family:'Inter',sans-serif; font-weight:800; font-size:.95rem; letter-spacing:1.5px; text-transform:uppercase; padding:14px 34px; border-radius:4px; text-decoration:none; display:inline-block; transition:background .2s,transform .2s; }
   .bgold:hover { background:#f5a623; transform:translateY(-2px); }
 
-  .bgh { background:transparent; color:#fff; border:1px solid rgba(255,255,255,.3); font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:.95rem; letter-spacing:1.5px; text-transform:uppercase; padding:14px 34px; border-radius:4px; text-decoration:none; display:inline-block; transition:border-color .2s,background .2s,transform .2s; }
+  .bgh { background:transparent; color:#fff; border:1px solid rgba(255,255,255,.3); font-family:'Inter',sans-serif; font-weight:700; font-size:.95rem; letter-spacing:1.5px; text-transform:uppercase; padding:14px 34px; border-radius:4px; text-decoration:none; display:inline-block; transition:border-color .2s,background .2s,transform .2s; }
   .bgh:hover { border-color:#e8971a; background:rgba(232,151,26,.08); transform:translateY(-2px); }
 
   .flink { color:rgba(255,255,255,.45); font-size:.8rem; text-decoration:none; transition:color .2s; }
   .flink:hover { color:#e8971a; }
 
-  .moba { color:rgba(255,255,255,.82); text-decoration:none; font-family:'Barlow Condensed',sans-serif; font-size:1.15rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:10px 0; border-bottom:1px solid rgba(255,255,255,.07); transition:color .2s; display:block; background:none; border-top:none; border-left:none; border-right:none; cursor:pointer; text-align:left; width:100%; }
+  .moba { color:rgba(255,255,255,.82); text-decoration:none; font-family:'Inter',sans-serif; font-size:1.15rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:10px 0; border-bottom:1px solid rgba(255,255,255,.07); transition:color .2s; display:block; background:none; border-top:none; border-left:none; border-right:none; cursor:pointer; text-align:left; width:100%; }
   .moba:hover { color:#e8971a; }
 
   @media (max-width:960px) {
@@ -107,13 +107,13 @@ const PILLS = [
 ];
 
 const CARDS = [
-  {num:"01",icon:"🔐",sub:"ROYAL VAULT APPROACH",    title:"Data Security",                   body:"Air-gapped systems, strong encryption, and strict access controls keep your data completely isolated, private, and tamper-proof.",                                                               id:"data-security"},
-  {num:"02",icon:"🔬",sub:"BEYOND TRADITIONAL AUDITS",title:"Forensic Audit",                 body:"Uncover fraud, financial irregularities, and hidden risks with investigative expertise and advanced analytics. Court-admissible reports guaranteed.",                                           id:"forensic-audit"},
-  {num:"03",icon:"💻",sub:"END-TO-END INVESTIGATION", title:"Digital Forensics",              body:"Data imaging, extraction, and in-depth analysis from mobile devices, computers, and networks with full chain of custody.",                                                                     id:"digital-forensics"},
-  {num:"04",icon:"💰",sub:"FOLLOW THE MONEY",         title:"Financial & Fraud Investigation",body:"Uncover financial irregularities, trace complex transactions, and track fraud across banking systems — including cryptocurrency tracing.",                                                     id:"fraud"},
-  {num:"05",icon:"🕵️",sub:"OSINT & DUE DILIGENCE",   title:"Investigations & Intelligence", body:"Background verification, corporate & private investigations, OSINT, litigation support, and business risk assessment.",                                                                         id:"investigations"},
-  {num:"06",icon:"⚖️",sub:"FORENSIC-LEGAL BRIDGE",   title:"Legal Consultation",             body:"Translating digital and physical evidence into legally admissible insights — bridging forensic science and courtroom strategy.",                                                               id:"legal"},
-  {num:"07",icon:"📄",sub:"VERIFY. AUTHENTICATE.",   title:"Document Examination",           body:"Handwriting authentication, forgery detection, metadata inspection, and tamper checks — scientifically verified and court-ready.",                                                             id:"document"},
+  {num:"01",icon:"",sub:"ROYAL VAULT APPROACH",    title:"Data Security",                   body:"Air-gapped systems, strong encryption, and strict access controls keep your data completely isolated, private, and tamper-proof.",                                                               id:"data-security"},
+  {num:"02",icon:"",sub:"BEYOND TRADITIONAL AUDITS",title:"Forensic Audit",                 body:"Uncover fraud, financial irregularities, and hidden risks with investigative expertise and advanced analytics. Court-admissible reports guaranteed.",                                           id:"forensic-audit"},
+  {num:"03",icon:"",sub:"END-TO-END INVESTIGATION", title:"Digital Forensics",              body:"Data imaging, extraction, and in-depth analysis from mobile devices, computers, and networks with full chain of custody.",                                                                     id:"digital-forensics"},
+  {num:"04",icon:"",sub:"FOLLOW THE MONEY",         title:"Financial & Fraud Investigation",body:"Uncover financial irregularities, trace complex transactions, and track fraud across banking systems — including cryptocurrency tracing.",                                                     id:"fraud"},
+  {num:"05",icon:"",sub:"OSINT & DUE DILIGENCE",   title:"Investigations & Intelligence", body:"Background verification, corporate & private investigations, OSINT, litigation support, and business risk assessment.",                                                                         id:"investigations"},
+  {num:"06",icon:"",sub:"FORENSIC-LEGAL BRIDGE",   title:"Legal Consultation",             body:"Translating digital and physical evidence into legally admissible insights — bridging forensic science and courtroom strategy.",                                                               id:"legal"},
+  {num:"07",icon:"",sub:"VERIFY. AUTHENTICATE.",   title:"Document Examination",           body:"Handwriting authentication, forgery detection, metadata inspection, and tamper checks — scientifically verified and court-ready.",                                                             id:"document"},
 ];
 
 const STATS = [
@@ -126,43 +126,43 @@ const STATS = [
 const DETAILS = [
   {id:"data-security",   bg:"#0d1635",flip:false,
    eyebrow:"DATA SECURITY",hw:"AIR-GAPPED.",hg:"ENCRYPTED.\nCOMPLIANT.",
-   cert:"ISO 27001:2022 Certified",icon:"🏰",vt:"Royal Vault Approach",
+   cert:"ISO 27001:2022 Certified",icon:"",vt:"Royal Vault Approach",
    vb:"Data treated as high-value assets — hidden, isolated, and accessible only to verified authorities.",
    body:"Combining secrecy, layered control, and modern air-gapped systems to create environments where data is not just stored — it is protected with discipline and zero exposure.",
    feats:["Isolated air-gapped environments with no internet connectivity","Strong encryption protocols for data at rest","Role-based and device-based access with multi-layer authentication","Safe offline transfer via encrypted drives and controlled ports","Full chain of custody — admissible and traceable in court","Aligned with DPDP Act 2023 and Section 63(4)(c) compliance"]},
   {id:"forensic-audit",  bg:"#090f1e",flip:true,
    eyebrow:"FORENSIC AUDIT",hw:"UNCOVER WHAT",hg:"OTHERS MISS.",
-   icon:"🔬",vt:"10+ Targeted Industries",
+   icon:"",vt:"10+ Targeted Industries",
    vb:"Banking, fintech, healthcare, real estate, NGOs, government PSU projects, and more.",
    body:"Beyond traditional audits — identifying fraud, financial irregularities, and hidden risks using investigative expertise and advanced analytics across 10+ targeted industries.",
    feats:["Fraud detection and financial irregularity identification","Advanced analytics to trace discrepancies and hidden risks","Banking, Manufacturing, Real Estate, Healthcare & E-commerce","Government & PSU projects, NGOs, Insurance companies","Court-admissible, litigation-ready documentation"]},
   {id:"digital-forensics",bg:"#0d1635",flip:false,
    eyebrow:"DIGITAL FORENSICS",hw:"EVIDENCE.",hg:"INTEGRITY.\nJUSTICE.",
-   icon:"🖥️",vt:"Multi-Platform Forensics",
+   icon:"",vt:"Multi-Platform Forensics",
    vb:"Computers, mobiles, cloud, CCTV, audio — every digital surface covered with evidence integrity guaranteed.",
    body:"End-to-end investigations for law enforcement and corporate clients — evidence acquisition, analysis, and expert reporting with proper chain of custody.",
    feats:["Computer Forensics — desktops, laptops, servers","Mobile Device Forensics — smartphones, SIM cards, WhatsApp, call logs","Email & Communication Forensics — phishing detection, deleted recovery","Cloud Forensics — Google Drive, AWS, OneDrive","CCTV & Video Forensics — enhancement and authentication","Audio Forensics — voice analysis and tampering detection","Expert Witness & Litigation Support"]},
   {id:"fraud",            bg:"#090f1e",flip:true,
    eyebrow:"FINANCIAL & FRAUD INVESTIGATION",hw:"TRACE THE MONEY.",hg:"EXPOSE THE FRAUD.",
-   icon:"🔎",vt:"Financial Crime Specialists",
+   icon:"",vt:"Financial Crime Specialists",
    vb:"Forensic accounting, cryptocurrency tracing, benami entities, transaction trail analysis.",
    body:"Tracing digital evidence, reconstructing transactions, and identifying fraudulent intent — supporting organizations and authorities in cases of fraud, embezzlement, bribery, and corporate misconduct.",
    feats:["Transaction Trail Analysis — bank statements and digital ledgers","Forensic Accounting — detecting manipulation and fund diversion","Data Manipulation Detection — altered or fabricated records","Benami & Shell Entity Investigation — hidden ownership tracing","Insider Fraud — system logs and access history analysis","Cryptocurrency tracing across banking and digital platforms"]},
   {id:"investigations",   bg:"#0d1635",flip:false,
    eyebrow:"INVESTIGATIONS & INTELLIGENCE",hw:"VERIFY.",hg:"INVESTIGATE.\nMITIGATE.",
-   icon:"🌐",vt:"OSINT & Beyond",
+   icon:"",vt:"OSINT & Beyond",
    vb:"Professional intelligence combined with investigative services for accurate, confident decisions.",
    body:"Helping businesses and individuals verify information, identify risks, and make informed decisions — accurate, confidential, and built for security and compliance.",
    feats:["Background Verification — identity, employment, education, criminal records","Corporate & Private Detective Services — misconduct, asset tracing, surveillance","Litigation Support — fact-finding, document review, case strategy","Due Diligence — financial integrity, corporate history, reputation","Open-Source Intelligence (OSINT) — social media, corporate records","Business Intelligence & Risk Assessment"]},
   {id:"legal",            bg:"#090f1e",flip:true,
    eyebrow:"LEGAL CONSULTATION",hw:"EVIDENCE TO",hg:"COURTROOM.",
-   icon:"⚖️",vt:"Forensic-Legal Bridge",
+   icon:"",vt:"Forensic-Legal Bridge",
    vb:"Technical evidence translated into legally admissible insights — every case structured and court-ready.",
    body:"Strategic legal consultation backed by forensic insights — bridging the gap between technical evidence and legal strategy, ensuring every case is compliant and court-ready.",
    feats:["Forensic-Legal Advisory — digital and physical evidence to admissible insights","Regulatory Compliance — DPDP Act 2023, IT Act 2000, financial regulations","Expert Witness Services — courtroom testimony and technical explanations","Corporate Fraud & Risk Advisory","Litigation Support & Case Strategy"]},
   {id:"document",         bg:"#0d1635",flip:false,
    eyebrow:"DOCUMENT EXAMINATION & VALIDATION",hw:"AUTHENTIC OR",hg:"FORGED?\nWE KNOW.",
-   icon:"📄",vt:"Document Validation",
+   icon:"",vt:"Document Validation",
    vb:"Physical and digital document forensics — detecting forgery, tampering, and manipulation scientifically.",
    body:"Comprehensive forensic examination of physical and digital documents — combining scientific analysis with advanced digital forensics to support legal proceedings and fraud investigations.",
    feats:["Handwriting & Signature Authentication","Forgery & Alteration Detection","Metadata & Digital Document Inspection — timestamps, backdating","Paper, Ink & Print Analysis","Tamper & Manipulation Checks","Evidentiary File Preparation — chain of custody compliance"]},
@@ -177,10 +177,10 @@ const CLIENTS = [
 ];
 
 const PROGRAMS = [
-  {icon:"🏢",title:"Corporate Crime Awareness",
+  {icon:"",title:"Corporate Crime Awareness",
    sub:"Equipping organizations to detect, prevent, and respond to modern financial and digital threats.",
    items:["Payment gateway manipulation & refund scams","Business Email Compromise (BEC) attacks","CEO/CFO impersonation & social engineering","Insider data theft & confidential leaks","Legal & regulatory compliance obligations","POSH Act awareness & workplace ethics"]},
-  {icon:"🏫",title:"School Crime Awareness",
+  {icon:"",title:"School Crime Awareness",
    sub:"Building safer schools by educating students, teachers, and parents about digital safety and protection.",
    items:["Cyberbullying, phishing & online scams","Social media safety & privacy protection","Stranger danger & substance abuse awareness","Juvenile laws & student responsibilities","Mental health & peer pressure management","POSH & safe school environment"]},
 ];
@@ -270,8 +270,8 @@ function Nav() {
   return(<>
     <nav style={{position:"fixed",top:0,left:0,right:0,zIndex:100,background:sc?"rgba(9,15,30,.98)":"rgba(9,15,30,.92)",backdropFilter:"blur(12px)",borderBottom:`1px solid ${BORD}`,display:"flex",alignItems:"center",justifyContent:"space-between",padding:"0 48px",height:64,transition:"background .3s"}}>
       <a href="/" style={{display:"flex",alignItems:"center",gap:10,textDecoration:"none"}}>
-        <span style={{color:G,fontFamily:"'Barlow Condensed',sans-serif",fontWeight:900,fontSize:20}}>✕</span>
-        <span style={{fontFamily:"'Barlow Condensed',sans-serif",fontWeight:800,fontSize:"1.15rem",letterSpacing:2,textTransform:"uppercase",color:"#fff"}}>FORFRA<span style={{color:G,fontWeight:500,fontSize:".82rem",letterSpacing:3,marginLeft:6}}>SOLUTIONS</span></span>
+        <span style={{color:G,fontFamily:"'Inter',sans-serif",fontWeight:900,fontSize:20}}></span>
+        <span style={{fontFamily:"'Inter',sans-serif",fontWeight:800,fontSize:"1.15rem",letterSpacing:2,textTransform:"uppercase",color:"#fff"}}>FORFRA<span style={{color:G,fontWeight:500,fontSize:".82rem",letterSpacing:3,marginLeft:6}}>SOLUTIONS</span></span>
       </a>
       <ul className="dn" id="dnav" style={{display:"flex",gap:34,listStyle:"none"}}>
         {links.map(([l,id])=><li key={l}><button className="nbtn" onClick={()=>go(id)}>{l}</button></li>)}
@@ -295,18 +295,18 @@ function Nav() {
 function Hero() {
   return(
     <section className="hpad" style={{minHeight:"100vh",background:"linear-gradient(160deg,#090f1e 0%,#0d1635 50%,#0a1a42 100%)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",padding:"120px 48px 80px",position:"relative",overflow:"hidden",zIndex:1}}>
-      <span className="au1" style={{display:"inline-block",border:"1px solid rgba(232,151,26,.5)",color:G,fontFamily:"'Barlow Condensed',sans-serif",fontSize:".75rem",fontWeight:600,letterSpacing:4,textTransform:"uppercase",padding:"7px 22px",borderRadius:20,marginBottom:32}}>DETECT. PROTECT. EVOLVE.</span>
-      <h1 className="au2" style={{fontFamily:"'Barlow Condensed',sans-serif",fontWeight:900,fontSize:"clamp(3.2rem,8vw,6.5rem)",lineHeight:.95,letterSpacing:-1,textTransform:"uppercase",color:"#fff"}}>
+      <span className="au1" style={{display:"inline-block",border:"1px solid rgba(232,151,26,.5)",color:G,fontFamily:"'Inter',sans-serif",fontSize:".75rem",fontWeight:600,letterSpacing:4,textTransform:"uppercase",padding:"7px 22px",borderRadius:20,marginBottom:32}}>DETECT. PROTECT. EVOLVE.</span>
+      <h1 className="au2" style={{fontFamily:"'Inter',sans-serif",fontWeight:900,fontSize:"clamp(3.2rem,8vw,6.5rem)",lineHeight:.95,letterSpacing:-1,textTransform:"uppercase",color:"#fff"}}>
         EVERY THREAT.<br/><span style={{color:G}}>ONE PARTNER.</span>
       </h1>
-      <p className="au3" style={{fontFamily:"'Barlow',sans-serif",fontWeight:400,fontSize:"1.05rem",color:BODY,maxWidth:560,margin:"28px auto 0",lineHeight:1.7}}>
+      <p className="au3" style={{fontFamily:"'Inter',sans-serif",fontWeight:400,fontSize:"1.05rem",color:BODY,maxWidth:560,margin:"28px auto 0",lineHeight:1.7}}>
         Comprehensive forensic, security, and investigation solutions — court-ready, legally defensible, and backed by ISO-certified expertise.
       </p>
       <div className="au4" style={{display:"flex",flexWrap:"wrap",gap:10,justifyContent:"center",marginTop:44}}>
         {PILLS.map(p=><button key={p.id} className="hpill" onClick={()=>document.getElementById(p.id)?.scrollIntoView({behavior:"smooth"})}>{p.label}</button>)}
       </div>
       <div className="au5" style={{position:"absolute",bottom:32,left:"50%",transform:"translateX(-50%)",display:"flex",flexDirection:"column",alignItems:"center",gap:8}}>
-        <span style={{color:"rgba(255,255,255,.45)",fontFamily:"'Barlow Condensed',sans-serif",fontSize:".68rem",letterSpacing:3,textTransform:"uppercase"}}>Scroll</span>
+        <span style={{color:"rgba(255,255,255,.45)",fontFamily:"'Inter',sans-serif",fontSize:".68rem",letterSpacing:3,textTransform:"uppercase"}}>Scroll</span>
         <div className="pulse" style={{width:1,height:48,background:`linear-gradient(to bottom,${G},transparent)`}}/>
       </div>
     </section>
@@ -328,10 +328,10 @@ function SvcCard({d}) {
     <div ref={ref}>
       <div className="sc" onClick={()=>document.getElementById(d.id)?.scrollIntoView({behavior:"smooth"})}
         style={{background:CBKG,border:`1px solid ${BORD}`,borderRadius:12,padding:"36px 30px 32px",cursor:"pointer"}}>
-        <span className="sc-num" style={{position:"absolute",top:18,right:24,fontFamily:"'Barlow Condensed',sans-serif",fontWeight:900,fontSize:"3.5rem",color:"rgba(255,255,255,.04)",lineHeight:1,pointerEvents:"none",transition:"color .35s"}}>{d.num}</span>
+        <span className="sc-num" style={{position:"absolute",top:18,right:24,fontFamily:"'Inter',sans-serif",fontWeight:900,fontSize:"3.5rem",color:"rgba(255,255,255,.04)",lineHeight:1,pointerEvents:"none",transition:"color .35s"}}>{d.num}</span>
         <span style={{fontSize:28,marginBottom:18,display:"block"}}>{d.icon}</span>
-        <span style={{fontFamily:"'Barlow Condensed',sans-serif",fontSize:".65rem",fontWeight:700,letterSpacing:3,textTransform:"uppercase",color:G,marginBottom:8,display:"block"}}>{d.sub}</span>
-        <h3 style={{fontFamily:"'Barlow Condensed',sans-serif",fontWeight:800,fontSize:"1.3rem",textTransform:"uppercase",letterSpacing:.5,color:"#fff",marginBottom:14,lineHeight:1.15}}>{d.title}</h3>
+        <span style={{fontFamily:"'Inter',sans-serif",fontSize:".65rem",fontWeight:700,letterSpacing:3,textTransform:"uppercase",color:G,marginBottom:8,display:"block"}}>{d.sub}</span>
+        <h3 style={{fontFamily:"'Inter',sans-serif",fontWeight:800,fontSize:"1.3rem",textTransform:"uppercase",letterSpacing:.5,color:"#fff",marginBottom:14,lineHeight:1.15}}>{d.title}</h3>
         <p style={{fontSize:".88rem",color:BODY,lineHeight:1.65,marginBottom:24}}>{d.body}</p>
         <span className="sc-arr" style={{color:G,fontSize:"1.2rem",display:"inline-block",transition:"transform .25s"}}>→</span>
       </div>
@@ -349,22 +349,22 @@ function Detail({d}) {
     <div ref={vizRef}>
       <div className="floaty" style={{background:CBKG,border:`1px solid ${BORD}`,borderRadius:16,padding:"52px 40px",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",gap:16,minHeight:300,position:"relative",overflow:"hidden"}}>
         <div style={{position:"absolute",inset:0,background:"radial-gradient(circle at 50% 0%,rgba(232,151,26,.08) 0%,transparent 65%)"}}/>
-        {d.cert&&<span style={{background:G,color:"#000",fontFamily:"'Barlow Condensed',sans-serif",fontSize:".65rem",fontWeight:800,letterSpacing:2,textTransform:"uppercase",padding:"5px 14px",borderRadius:3,position:"relative"}}>{d.cert}</span>}
+        {d.cert&&<span style={{background:G,color:"#000",fontFamily:"'Inter',sans-serif",fontSize:".65rem",fontWeight:800,letterSpacing:2,textTransform:"uppercase",padding:"5px 14px",borderRadius:3,position:"relative"}}>{d.cert}</span>}
         <span style={{fontSize:68,position:"relative"}}>{d.icon}</span>
-        <h4 style={{fontFamily:"'Barlow Condensed',sans-serif",fontWeight:800,fontSize:"1.1rem",textTransform:"uppercase",color:"#fff",position:"relative"}}>{d.vt}</h4>
+        <h4 style={{fontFamily:"'Inter',sans-serif",fontWeight:800,fontSize:"1.1rem",textTransform:"uppercase",color:"#fff",position:"relative"}}>{d.vt}</h4>
         <p style={{fontSize:".85rem",color:BODY,lineHeight:1.6,position:"relative",maxWidth:240}}>{d.vb}</p>
       </div>
     </div>
   );
   const Content=(
     <div ref={conRef}>
-      <span style={{fontFamily:"'Barlow Condensed',sans-serif",fontSize:".72rem",fontWeight:700,letterSpacing:4,textTransform:"uppercase",color:G,marginBottom:10,display:"block"}}>{d.eyebrow}</span>
-      <h2 style={{fontFamily:"'Barlow Condensed',sans-serif",fontWeight:900,fontSize:"clamp(1.8rem,3vw,2.8rem)",textTransform:"uppercase",lineHeight:1,color:"#fff",marginBottom:16}}>
+      <span style={{fontFamily:"'Inter',sans-serif",fontSize:".72rem",fontWeight:700,letterSpacing:4,textTransform:"uppercase",color:G,marginBottom:10,display:"block"}}>{d.eyebrow}</span>
+      <h2 style={{fontFamily:"'Inter',sans-serif",fontWeight:900,fontSize:"clamp(1.8rem,3vw,2.8rem)",textTransform:"uppercase",lineHeight:1,color:"#fff",marginBottom:16}}>
         {d.hw}<br/>
         <span style={{color:G}}>{d.hg.split("\n").map((l,i,a)=><span key={i}>{l}{i<a.length-1&&<br/>}</span>)}</span>
       </h2>
       <div style={{width:48,height:3,background:G,borderRadius:2,margin:"18px 0 22px"}}/>
-      <p style={{fontFamily:"'Barlow',sans-serif",fontSize:".95rem",color:BODY,lineHeight:1.75,marginBottom:28}}>{d.body}</p>
+      <p style={{fontFamily:"'Inter',sans-serif",fontSize:".95rem",color:BODY,lineHeight:1.75,marginBottom:28}}>{d.body}</p>
       <ul style={{listStyle:"none",display:"flex",flexDirection:"column",gap:11}}>
         {d.feats.map((f,i)=>(
           <li key={i} style={{display:"flex",alignItems:"flex-start",gap:12,fontSize:".9rem",color:BODY,lineHeight:1.55}}>
@@ -417,8 +417,8 @@ export default function ServicesPage() {
       {/* OVERVIEW */}
       <section id="overview" className="sp" style={{background:"#090f1e",padding:"100px 48px",position:"relative",zIndex:1}}>
         <Rev style={{maxWidth:1300,margin:"0 auto 64px"}}>
-          <span style={{fontFamily:"'Barlow Condensed',sans-serif",fontSize:".75rem",fontWeight:700,letterSpacing:4,textTransform:"uppercase",color:G,marginBottom:12,display:"block"}}>OUR SERVICES</span>
-          <h2 style={{fontFamily:"'Barlow Condensed',sans-serif",fontWeight:900,fontSize:"clamp(2.2rem,4.5vw,3.8rem)",textTransform:"uppercase",lineHeight:1,color:"#fff"}}>
+          <span style={{fontFamily:"'Inter',sans-serif",fontSize:".75rem",fontWeight:700,letterSpacing:4,textTransform:"uppercase",color:G,marginBottom:12,display:"block"}}>OUR SERVICES</span>
+          <h2 style={{fontFamily:"'Inter',sans-serif",fontWeight:900,fontSize:"clamp(2.2rem,4.5vw,3.8rem)",textTransform:"uppercase",lineHeight:1,color:"#fff"}}>
             EVERY THREAT. <span style={{color:G}}>ONE PARTNER.</span>
           </h2>
         </Rev>
@@ -431,8 +431,8 @@ export default function ServicesPage() {
       <div ref={statsRef} className="stsp sg" style={{background:G,padding:"36px 48px",display:"flex",justifyContent:"center",gap:80,flexWrap:"wrap",position:"relative",zIndex:1}}>
         {STATS.map(s=>(
           <div key={s.label} style={{textAlign:"center"}}>
-            <div style={{fontFamily:"'Barlow Condensed',sans-serif",fontWeight:900,fontSize:"2.8rem",color:"#000",lineHeight:1}}>{s.num}</div>
-            <div style={{fontFamily:"'Barlow Condensed',sans-serif",fontSize:".72rem",fontWeight:700,letterSpacing:3,textTransform:"uppercase",color:"rgba(0,0,0,.65)",marginTop:4}}>{s.label}</div>
+            <div style={{fontFamily:"'Inter',sans-serif",fontWeight:900,fontSize:"2.8rem",color:"#000",lineHeight:1}}>{s.num}</div>
+            <div style={{fontFamily:"'Inter',sans-serif",fontSize:".72rem",fontWeight:700,letterSpacing:3,textTransform:"uppercase",color:"rgba(0,0,0,.65)",marginTop:4}}>{s.label}</div>
           </div>
         ))}
       </div>
@@ -444,15 +444,15 @@ export default function ServicesPage() {
       <section id="clients" className="sp" style={{background:"#090f1e",padding:"100px 48px",position:"relative",zIndex:1}}>
         <div style={{maxWidth:1200,margin:"0 auto"}}>
           <Rev style={{marginBottom:56}}>
-            <span style={{fontFamily:"'Barlow Condensed',sans-serif",fontSize:".75rem",fontWeight:700,letterSpacing:4,textTransform:"uppercase",color:G,marginBottom:12,display:"block"}}>WHO WE SERVE</span>
-            <h2 style={{fontFamily:"'Barlow Condensed',sans-serif",fontWeight:900,fontSize:"clamp(2.2rem,4.5vw,3.8rem)",textTransform:"uppercase",color:"#fff"}}>OUR <span style={{color:G}}>CLIENTS</span></h2>
+            <span style={{fontFamily:"'Inter',sans-serif",fontSize:".75rem",fontWeight:700,letterSpacing:4,textTransform:"uppercase",color:G,marginBottom:12,display:"block"}}>WHO WE SERVE</span>
+            <h2 style={{fontFamily:"'Inter',sans-serif",fontWeight:900,fontSize:"clamp(2.2rem,4.5vw,3.8rem)",textTransform:"uppercase",color:"#fff"}}>OUR <span style={{color:G}}>CLIENTS</span></h2>
             <div style={{width:48,height:3,background:G,borderRadius:2,marginTop:18}}/>
           </Rev>
           <div ref={clientsRef} className="g1" style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(210px,1fr))",gap:16}}>
             {CLIENTS.map(c=>(
               <div key={c.title}>
                 <div className="cli" style={{background:CBKG,border:`1px solid ${BORD}`,borderRadius:10,padding:"24px 20px",transition:"border-color .25s,transform .25s"}}>
-                  <h4 style={{fontFamily:"'Barlow Condensed',sans-serif",fontSize:".68rem",fontWeight:700,letterSpacing:3,textTransform:"uppercase",color:G,marginBottom:14}}>{c.title}</h4>
+                  <h4 style={{fontFamily:"'Inter',sans-serif",fontSize:".68rem",fontWeight:700,letterSpacing:3,textTransform:"uppercase",color:G,marginBottom:14}}>{c.title}</h4>
                   <ul style={{listStyle:"none",display:"flex",flexDirection:"column",gap:7}}>
                     {c.items.map(item=>(
                       <li key={item} style={{color:BODY,fontSize:".84rem",paddingLeft:14,position:"relative",lineHeight:1.4}}>
@@ -471,12 +471,12 @@ export default function ServicesPage() {
       <section id="programs" className="sp" style={{background:"#0d1635",padding:"100px 48px",position:"relative",zIndex:1}}>
         <div style={{maxWidth:1200,margin:"0 auto"}}>
           <Rev style={{marginBottom:56}}>
-            <span style={{fontFamily:"'Barlow Condensed',sans-serif",fontSize:".75rem",fontWeight:700,letterSpacing:4,textTransform:"uppercase",color:G,marginBottom:12,display:"block"}}>AWARENESS PROGRAMS</span>
-            <h2 style={{fontFamily:"'Barlow Condensed',sans-serif",fontWeight:900,fontSize:"clamp(2.2rem,4.5vw,3.8rem)",textTransform:"uppercase",color:"#fff",lineHeight:1}}>
+            <span style={{fontFamily:"'Inter',sans-serif",fontSize:".75rem",fontWeight:700,letterSpacing:4,textTransform:"uppercase",color:G,marginBottom:12,display:"block"}}>AWARENESS PROGRAMS</span>
+            <h2 style={{fontFamily:"'Inter',sans-serif",fontWeight:900,fontSize:"clamp(2.2rem,4.5vw,3.8rem)",textTransform:"uppercase",color:"#fff",lineHeight:1}}>
               EDUCATION IS THE <span style={{color:G}}>FIRST DEFENSE.</span>
             </h2>
             <div style={{width:48,height:3,background:G,borderRadius:2,margin:"18px 0 20px"}}/>
-            <p style={{fontFamily:"'Barlow',sans-serif",fontSize:".95rem",color:BODY,lineHeight:1.75,maxWidth:560}}>We extend our expertise beyond investigations into proactive crime prevention through structured awareness programs.</p>
+            <p style={{fontFamily:"'Inter',sans-serif",fontSize:".95rem",color:BODY,lineHeight:1.75,maxWidth:560}}>We extend our expertise beyond investigations into proactive crime prevention through structured awareness programs.</p>
           </Rev>
           <div ref={progsRef} className="g1" style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(320px,1fr))",gap:24}}>
             {PROGRAMS.map(p=>(
@@ -485,7 +485,7 @@ export default function ServicesPage() {
                   <div style={{padding:"32px 30px 28px",borderBottom:`1px solid ${BORD}`,background:`linear-gradient(135deg,${CBKG} 0%,rgba(17,29,64,.5) 100%)`,position:"relative"}}>
                     <div style={{position:"absolute",top:0,left:0,right:0,height:2,background:G}}/>
                     <span style={{fontSize:36,marginBottom:14,display:"block"}}>{p.icon}</span>
-                    <h3 style={{fontFamily:"'Barlow Condensed',sans-serif",fontWeight:800,fontSize:"1.25rem",textTransform:"uppercase",color:"#fff",marginBottom:8}}>{p.title}</h3>
+                    <h3 style={{fontFamily:"'Inter',sans-serif",fontWeight:800,fontSize:"1.25rem",textTransform:"uppercase",color:"#fff",marginBottom:8}}>{p.title}</h3>
                     <p style={{fontSize:".85rem",color:BODY,lineHeight:1.6}}>{p.sub}</p>
                   </div>
                   <div style={{padding:"24px 30px"}}>
@@ -509,10 +509,10 @@ export default function ServicesPage() {
       <section id="contact" className="sp" style={{padding:"110px 48px",background:"#090f1e",textAlign:"center",position:"relative",zIndex:1,overflow:"hidden"}}>
         <div style={{position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",width:600,height:600,background:"radial-gradient(circle,rgba(232,151,26,.07) 0%,transparent 65%)",pointerEvents:"none"}}/>
         <Rev>
-          <h2 style={{fontFamily:"'Barlow Condensed',sans-serif",fontWeight:900,fontSize:"clamp(2.5rem,5vw,4.5rem)",textTransform:"uppercase",color:"#fff",marginBottom:20,position:"relative"}}>
+          <h2 style={{fontFamily:"'Inter',sans-serif",fontWeight:900,fontSize:"clamp(2.5rem,5vw,4.5rem)",textTransform:"uppercase",color:"#fff",marginBottom:20,position:"relative"}}>
             READY TO PROTECT<br/><span style={{color:G}}>WHAT MATTERS?</span>
           </h2>
-          <p style={{fontFamily:"'Barlow',sans-serif",fontSize:".95rem",color:BODY,lineHeight:1.75,maxWidth:520,margin:"0 auto 40px",position:"relative"}}>
+          <p style={{fontFamily:"'Inter',sans-serif",fontSize:".95rem",color:BODY,lineHeight:1.75,maxWidth:520,margin:"0 auto 40px",position:"relative"}}>
             Whether you need digital forensics, fraud investigation, or document validation — our certified team delivers court-admissible solutions when it matters most.
           </p>
           <div style={{display:"flex",gap:16,justifyContent:"center",flexWrap:"wrap",position:"relative"}}>
