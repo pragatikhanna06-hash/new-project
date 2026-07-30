@@ -18,6 +18,8 @@ import {
   Building2,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useLanguage } from "../LanguageContext";
+import LanguageToggle from "../LanguageToggle";
 
 /* ----------------------------------------------------------------------
    FORFRA SOLUTIONS — LEGAL CONSULTATION PAGE
@@ -105,53 +107,21 @@ function StatCounter({ value, suffix = "", label }) {
   );
 }
 
-const SERVICES = [
-  {
-    n: "01",
-    title: "Forensic-Legal Advisory",
-    text: "We translate digital and physical evidence into legally admissible insights, helping legal teams build a stronger, fact-grounded case from the outset.",
-    icon: FileSearch,
-  },
-  {
-    n: "02",
-    title: "Litigation Support & Case Strategy",
-    text: "Our examiners assist legal teams with evidence structuring, documentation, and technical inputs for ongoing or upcoming cases.",
-    icon: Briefcase,
-  },
-  {
-    n: "03",
-    title: "Regulatory Compliance Advisory",
-    text: "Guidance on compliance with Indian laws including the Digital Personal Data Protection Act, 2023, the Information Technology Act, 2000, and applicable financial regulations.",
-    icon: BookOpen,
-  },
-  {
-    n: "04",
-    title: "Corporate Fraud & Risk Advisory",
-    text: "Legal guidance in cases of internal fraud, employee misconduct, and financial irregularities — bridging investigation findings with defensible legal strategy.",
-    icon: Landmark,
-  },
-  {
-    n: "05",
-    title: "Expert Witness Services",
-    text: "Courtroom testimony and clear technical explanations that help judges, juries, and opposing counsel understand complex forensic evidence.",
-    icon: Gavel,
-  },
+const SERVICES_META = [
+  { n: "01", icon: FileSearch },
+  { n: "02", icon: Briefcase },
+  { n: "03", icon: BookOpen },
+  { n: "04", icon: Landmark },
+  { n: "05", icon: Gavel },
 ];
 
-const CLIENT_TYPES = [
-  { label: "Law Firms & Litigation Teams", icon: Scale },
-  { label: "Courts & Judicial Authorities", icon: Gavel },
-  { label: "Corporate Legal & Compliance Departments", icon: Building2 },
-  { label: "CA Firms & Forensic Auditors", icon: FileText },
-  { label: "Insolvency Professionals (IBBI Registered)", icon: Briefcase },
-  { label: "Government & Regulatory Agencies", icon: Landmark },
-];
-
-const WHY_POINTS = [
-  "Forensic science treated as a strategic legal asset, not an afterthought",
-  "Evidence translated into clear, court-ready, legally admissible findings",
-  "Direct support identifying weaknesses in opposing evidence and arguments",
-  "Compliance guidance aligned with DPDP Act 2023, IT Act 2000 & financial law",
+const CLIENT_TYPES_META = [
+  { icon: Scale },
+  { icon: Gavel },
+  { icon: Building2 },
+  { icon: FileText },
+  { icon: Briefcase },
+  { icon: Landmark },
 ];
 
 function ScanRadar() {
@@ -202,6 +172,13 @@ function Particles({ count = 22 }) {
 }
 
 export default function LegalConsultationPage() {
+  const { t } = useLanguage();
+  const sc = t.svcCommon;
+  const lc = t.legalConsultation;
+  const SERVICES = SERVICES_META.map((m, i) => ({ ...m, ...lc.services[i] }));
+  const CLIENT_TYPES = CLIENT_TYPES_META.map((m, i) => ({ ...m, label: lc.clientTypes[i] }));
+  const WHY_POINTS = lc.whyPoints;
+
   const [navSolid, setNavSolid] = useState(false);
   const [scrollPct, setScrollPct] = useState(0);
 
@@ -627,15 +604,16 @@ export default function LegalConsultationPage() {
           <div className="fa-nav-logo">F</div>
           FORFRA SOLUTIONS
         </Link>
-        <div className="fa-nav-links">
-          <Link to="/">Home</Link>
-          <a href="#about">About</a>
-          <a href="#services">Services</a>
-          <a href="#why">Why Us</a>
-          <a href="#clients">Who We Serve</a>
-          <a href="#contact">Contact</a>
+        <div className="fa-nav-links" style={{ alignItems: "center" }}>
+          <Link to="/">{sc.navHome}</Link>
+          <a href="#about">{sc.navAbout}</a>
+          <a href="#services">{sc.navServices}</a>
+          <a href="#why">{sc.navWhy}</a>
+          <a href="#clients">{sc.navClients}</a>
+          <a href="#contact">{sc.navContact}</a>
+          <LanguageToggle />
         </div>
-        <button className="fa-nav-cta">Request Consultation</button>
+        <button className="fa-nav-cta">{lc.navCta}</button>
       </nav>
 
       {/* HERO */}
@@ -654,29 +632,26 @@ export default function LegalConsultationPage() {
           </svg>
         </div>
         <div className="fa-eyebrow">
-          <Scale size={14} className="fa-spin-slow" /> Forensic Evidence Meets Legal Strategy
+          <Scale size={14} className="fa-spin-slow" /> {lc.heroEyebrow}
         </div>
         <h1>
-          Legal Consultation —<br />
-          where <em>evidence</em> becomes<br />
-          your strongest argument.
+          {lc.heroTitle1}<br />
+          {lc.heroTitle2}<em>{lc.heroTitle3}</em>{lc.heroTitle4}<br />
+          {lc.heroTitle5}
         </h1>
         <p className="lede">
-          We provide strategic legal consultation backed by forensic insights, helping legal
-          organizations and authorities navigate complex crimes, incidents, and regulatory
-          challenges. Our approach bridges the gap between technical evidence and legal
-          strategy — ensuring every case is structured, compliant, and court-ready.
+          {lc.heroLede}
         </p>
         <div className="fa-hero-actions">
           <button className="fa-btn-primary">
-            Book a Legal Consultation <ArrowRight size={17} />
+            {lc.heroBtnPrimary} <ArrowRight size={17} />
           </button>
-          <button className="fa-btn-ghost">View Our Services</button>
+          <button className="fa-btn-ghost">{lc.heroBtnGhost}</button>
         </div>
         <div className="fa-hero-stats">
-          <StatCounter value={5} label="Core Advisory Services" />
-          <StatCounter value={6} label="Client Categories Served" />
-          <StatCounter value={100} suffix="%" label="Court-Ready Documentation" />
+          <StatCounter value={5} label={lc.stats[0].label} />
+          <StatCounter value={6} label={lc.stats[1].label} />
+          <StatCounter value={100} suffix="%" label={lc.stats[2].label} />
         </div>
       </header>
 
@@ -685,12 +660,12 @@ export default function LegalConsultationPage() {
         <div className="fa-marquee-track">
           {Array.from({ length: 2 }).flatMap((_, dup) =>
             [
-              ["Forensic-Legal Advisory", FileSearch],
-              ["Litigation Support & Case Strategy", Briefcase],
-              ["Regulatory Compliance Advisory", BookOpen],
-              ["Corporate Fraud & Risk Advisory", Landmark],
-              ["Expert Witness Services", Gavel],
-              ["DPDP Act & IT Act Guidance", Scale],
+              [lc.marquee[0], FileSearch],
+              [lc.marquee[1], Briefcase],
+              [lc.marquee[2], BookOpen],
+              [lc.marquee[3], Landmark],
+              [lc.marquee[4], Gavel],
+              [lc.marquee[5], Scale],
             ].map(([label, Icon], i) => (
               <span key={`${dup}-${i}`}>
                 <Icon size={15} /> {label}
@@ -703,33 +678,27 @@ export default function LegalConsultationPage() {
       {/* INTRO */}
       <section className="fa-section" id="about">
         <Reveal>
-          <div className="fa-kicker">What Legal Consultation Means at Forfra</div>
-          <h2 className="fa-h2">Forensic science as a strategic legal asset</h2>
+          <div className="fa-kicker">{lc.introKicker}</div>
+          <h2 className="fa-h2">{lc.introHeading}</h2>
         </Reveal>
         <div className="fa-intro-wrap" style={{ marginTop: 40 }}>
           <Reveal delay={80}>
             <p className="fa-sub" style={{ fontSize: "1.05rem" }}>
-              Understanding forensic reports helps lawyers build stronger arguments and
-              identify weaknesses in opposing evidence. In a fact-driven legal system, forensic
-              science is a strategic legal asset — not a supporting footnote.
+              {lc.introP1}
             </p>
             <p className="fa-sub" style={{ marginTop: 18 }}>
-              Beyond advisory, our team prepares legally admissible forensic reports covering
-              digital evidence and document forensics, giving legal teams a defensible
-              technical foundation for every stage of a case.
+              {lc.introP2}
             </p>
           </Reveal>
           <Reveal delay={160}>
             <div className="fa-intro-card fa-glow-card">
-              <h3>Bridging Evidence & Strategy</h3>
+              <h3>{lc.introCardTitle}</h3>
               <p>
-                Our approach bridges the gap between technical evidence and legal strategy —
-                ensuring every case is structured, compliant, and court-ready, whatever
-                authority or forum it is headed to.
+                {lc.introCardBody}
               </p>
               <div className="fa-intro-quote">
                 <Quote size={20} />
-                <span>"In a fact-driven legal system, forensic science is a strategic legal asset."</span>
+                <span>{lc.introQuote}</span>
               </div>
             </div>
           </Reveal>
@@ -739,11 +708,10 @@ export default function LegalConsultationPage() {
       {/* SERVICES */}
       <section className="fa-section tight" id="services" style={{ background: "#fff" }}>
         <Reveal>
-          <div className="fa-kicker">Our Legal Consultation Services</div>
-          <h2 className="fa-h2">Five disciplines, one defensible case strategy</h2>
+          <div className="fa-kicker">{lc.servicesKicker}</div>
+          <h2 className="fa-h2">{lc.servicesHeading}</h2>
           <p className="fa-sub">
-            Every engagement is structured to move smoothly from forensic finding to legal
-            argument — so nothing gets lost in translation between the lab and the courtroom.
+            {lc.servicesSub}
           </p>
         </Reveal>
         <div className="fa-process">
@@ -757,7 +725,7 @@ export default function LegalConsultationPage() {
                     <Icon size={24} />
                   </div>
                   <div className="fa-step-body fa-glow-card">
-                    <span className="fa-step-num">EXHIBIT {s.n}</span>
+                    <span className="fa-step-num">{lc.protocolLabel} {s.n}</span>
                     <h4>{s.title}</h4>
                     <p>{s.text}</p>
                   </div>
@@ -771,11 +739,10 @@ export default function LegalConsultationPage() {
       {/* WHY US */}
       <section className="fa-section fa-why" id="why">
         <Reveal>
-          <div className="fa-kicker">Why Legal Teams Choose Forfra</div>
-          <h2 className="fa-h2">Technical clarity, structured for the courtroom</h2>
+          <div className="fa-kicker">{lc.whyKicker}</div>
+          <h2 className="fa-h2">{lc.whyHeading}</h2>
           <p className="fa-sub">
-            We don't just hand over findings — we structure, document, and contextualize them
-            so your legal strategy stands on solid technical ground.
+            {lc.whySub}
           </p>
         </Reveal>
         <div className="fa-why-grid">
@@ -794,12 +761,10 @@ export default function LegalConsultationPage() {
       <section className="fa-section fa-industries-band" id="clients">
         <div className="fa-ind-head">
           <Reveal>
-            <div className="fa-kicker">Who We Serve</div>
-            <h2 className="fa-h2">Trusted by legal, regulatory, and advisory teams</h2>
+            <div className="fa-kicker">{lc.clientsKicker}</div>
+            <h2 className="fa-h2">{lc.clientsHeading}</h2>
             <p className="fa-sub">
-              From law firms and litigation teams to courts, judicial authorities, and
-              compliance departments — our legal consultation services support every party
-              that depends on defensible evidence.
+              {lc.clientsSub}
             </p>
           </Reveal>
         </div>
@@ -825,15 +790,14 @@ export default function LegalConsultationPage() {
           <div className="fa-cta-pulse p1" />
           <div className="fa-cta-pulse p2" />
           <div>
-            <h3>Build your case on evidence that holds up in court.</h3>
+            <h3>{lc.ctaTitle}</h3>
             <p>
-              Whether you need forensic-legal advisory, litigation support, or expert witness
-              testimony — our team is ready to structure your case for success.
+              {lc.ctaBody}
             </p>
           </div>
           <div className="fa-cta-actions">
             <button className="fa-btn-primary">
-              Schedule a Legal Consultation <ArrowRight size={17} />
+              {lc.ctaBtn} <ArrowRight size={17} />
             </button>
             <div className="fa-cta-contact">
               <a href="mailto:hello@forfrasolutions.com">
@@ -849,7 +813,7 @@ export default function LegalConsultationPage() {
 
       {/* FOOTER */}
       <footer className="fa-footer">
-        © {new Date().getFullYear()} <b>FORFRA SOLUTIONS</b> — Detect. Protect. Evolve. · Build Trust. Deliver Truth. Protect What Matters.
+        © {new Date().getFullYear()} <b>FORFRA SOLUTIONS</b> — {sc.footer}
       </footer>
     </div>
   );

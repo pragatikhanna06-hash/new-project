@@ -8,6 +8,8 @@ import {
   FolderCheck, Stamp, Mic, Cloud,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useLanguage } from "../LanguageContext";
+import LanguageToggle from "../LanguageToggle";
 
 /* ----------------------------------------------------------------------
    FORFRA SOLUTIONS — FORENSIC AUDIT PAGE
@@ -95,28 +97,21 @@ function StatCounter({ value, suffix = "", label }) {
   );
 }
 
-const SERVICES = [
-    { n: "01", title: "Fraud & Irregularity Detection", text: "We identify fraud and financial irregularities at the source, tracing manipulated entries back to the decisions and individuals behind them.", icon: Search },
-    { n: "02", title: "Advanced Analytical Tracing", text: "Advanced analytics surface discrepancies and hidden risks that manual review alone would never catch.", icon: TrendingUp },
-    { n: "03", title: "Cross-Industry Audit Expertise", text: "Deep experience across banking, manufacturing, real estate, healthcare, and e-commerce means we know where each industry hides its risk.", icon: Building2 },
-    { n: "04", title: "Government & PSU Project Audits", text: "We support government bodies, PSU projects, NGOs, and insurance companies with audits built for public accountability.", icon: Landmark },
-    { n: "05", title: "Litigation-Ready Reporting", text: "Every finding is documented to court-admissible standard, ready to support litigation, prosecution, or regulatory action.", icon: FileCheck2 },
+const SERVICES_META = [
+    { n: "01", icon: Search },
+    { n: "02", icon: TrendingUp },
+    { n: "03", icon: Building2 },
+    { n: "04", icon: Landmark },
+    { n: "05", icon: FileCheck2 },
   ];
 
-const CLIENT_TYPES = [
-    { label: "Banking & NBFC Institutions", icon: Building2 },
-    { label: "Manufacturing & Real Estate Firms", icon: Landmark },
-    { label: "Healthcare & E-commerce Companies", icon: ShieldCheck },
-    { label: "Government & PSU Projects", icon: Landmark },
-    { label: "NGOs & Insurance Companies", icon: Briefcase },
-    { label: "Internal Audit & Compliance Teams", icon: FileCheck2 },
-  ];
-
-const WHY_POINTS = [
-    "Investigative rigor that goes beyond standard compliance checklists",
-    "Advanced analytics surface irregularities invisible to manual review",
-    "Experience spanning 10+ industries, from banking to insurance",
-    "Every finding documented to withstand courtroom and regulatory scrutiny",
+const CLIENT_TYPES_META = [
+    { icon: Building2 },
+    { icon: Landmark },
+    { icon: ShieldCheck },
+    { icon: Landmark },
+    { icon: Briefcase },
+    { icon: FileCheck2 },
   ];
 
 function ScanRadar() {
@@ -168,6 +163,13 @@ function Particles({ count = 22 }) {
 }
 
 export default function ForensicAuditPage() {
+  const { t } = useLanguage();
+  const sc = t.svcCommon;
+  const fa = t.forensicAudit;
+  const SERVICES = SERVICES_META.map((m, i) => ({ ...m, ...fa.services[i] }));
+  const CLIENT_TYPES = CLIENT_TYPES_META.map((m, i) => ({ ...m, label: fa.clientTypes[i] }));
+  const WHY_POINTS = fa.whyPoints;
+
   const [navSolid, setNavSolid] = useState(false);
   const [scrollPct, setScrollPct] = useState(0);
   const SignatureIcon = Search;
@@ -594,15 +596,16 @@ export default function ForensicAuditPage() {
           <div className="fa-nav-logo">F</div>
           FORFRA SOLUTIONS
         </Link>
-        <div className="fa-nav-links">
-          <Link to="/">Home</Link>
-          <a href="#about">About</a>
-          <a href="#services">Services</a>
-          <a href="#why">Why Us</a>
-          <a href="#clients">Who We Serve</a>
-          <a href="#contact">Contact</a>
+        <div className="fa-nav-links" style={{ alignItems: "center" }}>
+          <Link to="/">{sc.navHome}</Link>
+          <a href="#about">{sc.navAbout}</a>
+          <a href="#services">{sc.navServices}</a>
+          <a href="#why">{sc.navWhy}</a>
+          <a href="#clients">{sc.navClients}</a>
+          <a href="#contact">{sc.navContact}</a>
+          <LanguageToggle />
         </div>
-        <button className="fa-nav-cta">Request an Audit</button>
+        <button className="fa-nav-cta">{fa.navCta}</button>
       </nav>
 
       {/* HERO */}
@@ -616,25 +619,25 @@ export default function ForensicAuditPage() {
           <SignatureIcon className="fa-gavel-icon" />
         </div>
         <div className="fa-eyebrow">
-          <SignatureIcon size={14} className="fa-spin-slow" /> Beyond Traditional Audits
+          <SignatureIcon size={14} className="fa-spin-slow" /> {fa.heroEyebrow}
         </div>
         <h1>
-          Forensic Audit —<br />
-          uncovering what <em>conventional audits</em> miss.
+          {fa.heroTitle1}<br />
+          {fa.heroTitle2}<em>{fa.heroTitle3}</em>{fa.heroTitle4}
         </h1>
         <p className="lede">
-          We identify fraud, financial irregularities, and hidden risks using investigative expertise and advanced analytics — across banking, manufacturing, healthcare, government, and 10+ other targeted industries.
+          {fa.heroLede}
         </p>
         <div className="fa-hero-actions">
           <button className="fa-btn-primary">
-            Book a Forensic Audit <ArrowRight size={17} />
+            {fa.heroBtnPrimary} <ArrowRight size={17} />
           </button>
-          <button className="fa-btn-ghost">View Our Services</button>
+          <button className="fa-btn-ghost">{fa.heroBtnGhost}</button>
         </div>
         <div className="fa-hero-stats">
-          <StatCounter value={10} suffix="+" label="Industries Audited" />
-          <StatCounter value={5} suffix="" label="Core Audit Disciplines" />
-          <StatCounter value={100} suffix="%" label="Court-Admissible Reports" />
+          <StatCounter value={10} suffix="+" label={fa.stats[0].label} />
+          <StatCounter value={5} suffix="" label={fa.stats[1].label} />
+          <StatCounter value={100} suffix="%" label={fa.stats[2].label} />
         </div>
       </header>
 
@@ -654,27 +657,27 @@ export default function ForensicAuditPage() {
       {/* INTRO */}
       <section className="fa-section" id="about">
         <Reveal>
-          <div className="fa-kicker">What Forensic Audit Means at Forfra</div>
-          <h2 className="fa-h2">Investigative rigor beyond the compliance checklist</h2>
+          <div className="fa-kicker">{fa.introKicker}</div>
+          <h2 className="fa-h2">{fa.introHeading}</h2>
         </Reveal>
         <div className="fa-intro-wrap" style={{ marginTop: 40 }}>
           <Reveal delay={80}>
             <p className="fa-sub" style={{ fontSize: "1.05rem" }}>
-              A standard audit checks whether the numbers add up. A forensic audit asks why they were made to add up — tracing irregularities, hidden diversions, and manipulated records back to their source.
+              {fa.introP1}
             </p>
             <p className="fa-sub" style={{ marginTop: 18 }}>
-              Our findings are built for two audiences at once: the regulator who needs a clean compliance trail, and the courtroom that needs a defensible, litigation-ready report.
+              {fa.introP2}
             </p>
           </Reveal>
           <Reveal delay={160}>
             <div className="fa-intro-card fa-glow-card">
-              <h3>Beyond Traditional Audits</h3>
+              <h3>{fa.introCardTitle}</h3>
               <p>
-                Advanced analytics surface discrepancies invisible to manual review, across banking, real estate, healthcare, government PSU projects, NGOs, and insurance.
+                {fa.introCardBody}
               </p>
               <div className="fa-intro-quote">
                 <Quote size={20} />
-                <span>"Uncover fraud, financial irregularities, and hidden risks."</span>
+                <span>{fa.introQuote}</span>
               </div>
             </div>
           </Reveal>
@@ -684,10 +687,10 @@ export default function ForensicAuditPage() {
       {/* SERVICES */}
       <section className="fa-section tight" id="services" style={{ background: "#fff" }}>
         <Reveal>
-          <div className="fa-kicker">Our Forensic Audit Services</div>
-          <h2 className="fa-h2">Five disciplines, one defensible finding</h2>
+          <div className="fa-kicker">{fa.servicesKicker}</div>
+          <h2 className="fa-h2">{fa.servicesHeading}</h2>
           <p className="fa-sub">
-            Each engagement moves from raw financial data to a court-admissible finding without losing anything in translation.
+            {fa.servicesSub}
           </p>
         </Reveal>
         <div className="fa-process">
@@ -701,7 +704,7 @@ export default function ForensicAuditPage() {
                     <Icon size={24} />
                   </div>
                   <div className="fa-step-body fa-glow-card">
-                    <span className="fa-step-num">FINDING {s.n}</span>
+                    <span className="fa-step-num">{fa.protocolLabel} {s.n}</span>
                     <h4>{s.title}</h4>
                     <p>{s.text}</p>
                   </div>
@@ -715,10 +718,10 @@ export default function ForensicAuditPage() {
       {/* WHY US */}
       <section className="fa-section fa-why" id="why">
         <Reveal>
-          <div className="fa-kicker">Why Organisations Choose Forfra</div>
-          <h2 className="fa-h2">Analytical depth, documented for scrutiny</h2>
+          <div className="fa-kicker">{fa.whyKicker}</div>
+          <h2 className="fa-h2">{fa.whyHeading}</h2>
           <p className="fa-sub">
-            We don't just flag irregularities — we structure and document them so they withstand regulatory and courtroom review.
+            {fa.whySub}
           </p>
         </Reveal>
         <div className="fa-why-grid">
@@ -737,10 +740,10 @@ export default function ForensicAuditPage() {
       <section className="fa-section fa-industries-band" id="clients">
         <div className="fa-ind-head">
           <Reveal>
-            <div className="fa-kicker">Who We Serve</div>
-            <h2 className="fa-h2">Trusted across 10+ regulated industries</h2>
+            <div className="fa-kicker">{fa.clientsKicker}</div>
+            <h2 className="fa-h2">{fa.clientsHeading}</h2>
             <p className="fa-sub">
-              From banking and manufacturing to government PSU projects and insurance — our forensic audit services support every organisation that needs the full picture.
+              {fa.clientsSub}
             </p>
           </Reveal>
         </div>
@@ -766,14 +769,14 @@ export default function ForensicAuditPage() {
           <div className="fa-cta-pulse p1" />
           <div className="fa-cta-pulse p2" />
           <div>
-            <h3>Find what a standard audit would miss.</h3>
+            <h3>{fa.ctaTitle}</h3>
             <p>
-              Whether you need fraud detection, analytical tracing, or litigation-ready documentation — our certified team is ready to dig deeper.
+              {fa.ctaBody}
             </p>
           </div>
           <div className="fa-cta-actions">
             <button className="fa-btn-primary">
-              Book a Forensic Audit <ArrowRight size={17} />
+              {fa.ctaBtn} <ArrowRight size={17} />
             </button>
             <div className="fa-cta-contact">
               <a href="mailto:hello@forfrasolutions.com">
@@ -789,7 +792,7 @@ export default function ForensicAuditPage() {
 
       {/* FOOTER */}
       <footer className="fa-footer">
-        © {new Date().getFullYear()} <b>FORFRA SOLUTIONS</b> — Detect. Protect. Evolve. · Build Trust. Deliver Truth. Protect What Matters.
+        © {new Date().getFullYear()} <b>FORFRA SOLUTIONS</b> — {sc.footer}
       </footer>
     </div>
   );

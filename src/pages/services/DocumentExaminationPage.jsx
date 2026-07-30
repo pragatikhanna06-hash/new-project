@@ -8,6 +8,8 @@ import {
   FolderCheck, Stamp, Mic, Cloud,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useLanguage } from "../LanguageContext";
+import LanguageToggle from "../LanguageToggle";
 
 /* ----------------------------------------------------------------------
    FORFRA SOLUTIONS — DOCUMENT EXAMINATION PAGE
@@ -95,28 +97,21 @@ function StatCounter({ value, suffix = "", label }) {
   );
 }
 
-const SERVICES = [
-    { n: "01", title: "Handwriting & Signature Authentication", text: "We compare handwriting and signatures against verified samples using established forensic document examination techniques.", icon: PenTool },
-    { n: "02", title: "Forgery & Alteration Detection", text: "Additions, deletions, and alterations to a document identified through detailed physical and visual examination.", icon: FileWarning },
-    { n: "03", title: "Digital Metadata Inspection", text: "Timestamps, backdating, and hidden edit history uncovered through digital document metadata analysis.", icon: FileClock },
-    { n: "04", title: "Paper, Ink & Print Analysis", text: "Paper composition, ink chemistry, and print method analysed to determine a document's true age and origin.", icon: Printer },
-    { n: "05", title: "Evidentiary File Preparation", text: "Every finding prepared as an evidentiary file, complete with chain-of-custody documentation for court submission.", icon: FolderCheck },
+const SERVICES_META = [
+    { n: "01", icon: PenTool },
+    { n: "02", icon: FileWarning },
+    { n: "03", icon: FileClock },
+    { n: "04", icon: Printer },
+    { n: "05", icon: FolderCheck },
   ];
 
-const CLIENT_TYPES = [
-    { label: "Courts & Judicial Authorities", icon: Gavel },
-    { label: "Law Firms & Litigation Teams", icon: Scale },
-    { label: "Banks & Financial Institutions", icon: Building2 },
-    { label: "Government & Regulatory Agencies", icon: Landmark },
-    { label: "Corporates & HR Departments", icon: Briefcase },
-    { label: "Insurance Companies", icon: ShieldCheck },
-  ];
-
-const WHY_POINTS = [
-    "Scientific methods verify authenticity where the naked eye cannot",
-    "Both physical documents and digital files examined under one roof",
-    "Backdating, tampering, and alterations detected through metadata inspection",
-    "Every finding prepared as evidentiary-file-ready for court submission",
+const CLIENT_TYPES_META = [
+    { icon: Gavel },
+    { icon: Scale },
+    { icon: Building2 },
+    { icon: Landmark },
+    { icon: Briefcase },
+    { icon: ShieldCheck },
   ];
 
 function ScanRadar() {
@@ -168,6 +163,13 @@ function Particles({ count = 22 }) {
 }
 
 export default function DocumentExaminationPage() {
+  const { t } = useLanguage();
+  const sc = t.svcCommon;
+  const de = t.documentExamination;
+  const SERVICES = SERVICES_META.map((m, i) => ({ ...m, ...de.services[i] }));
+  const CLIENT_TYPES = CLIENT_TYPES_META.map((m, i) => ({ ...m, label: de.clientTypes[i] }));
+  const WHY_POINTS = de.whyPoints;
+
   const [navSolid, setNavSolid] = useState(false);
   const [scrollPct, setScrollPct] = useState(0);
   const SignatureIcon = Stamp;
@@ -594,15 +596,16 @@ export default function DocumentExaminationPage() {
           <div className="fa-nav-logo">F</div>
           FORFRA SOLUTIONS
         </Link>
-        <div className="fa-nav-links">
-          <Link to="/">Home</Link>
-          <a href="#about">About</a>
-          <a href="#services">Services</a>
-          <a href="#why">Why Us</a>
-          <a href="#clients">Who We Serve</a>
-          <a href="#contact">Contact</a>
+        <div className="fa-nav-links" style={{ alignItems: "center" }}>
+          <Link to="/">{sc.navHome}</Link>
+          <a href="#about">{sc.navAbout}</a>
+          <a href="#services">{sc.navServices}</a>
+          <a href="#why">{sc.navWhy}</a>
+          <a href="#clients">{sc.navClients}</a>
+          <a href="#contact">{sc.navContact}</a>
+          <LanguageToggle />
         </div>
-        <button className="fa-nav-cta">Request an Examination</button>
+        <button className="fa-nav-cta">{de.navCta}</button>
       </nav>
 
       {/* HERO */}
@@ -616,25 +619,25 @@ export default function DocumentExaminationPage() {
           <SignatureIcon className="fa-gavel-icon" />
         </div>
         <div className="fa-eyebrow">
-          <SignatureIcon size={14} className="fa-spin-slow" /> Verify. Authenticate. Protect.
+          <SignatureIcon size={14} className="fa-spin-slow" /> {de.heroEyebrow}
         </div>
         <h1>
-          Document Examination —<br />
-          <em>authentic</em>, or forged? We know.
+          {de.heroTitle1}<br />
+          {de.heroTitle2}<em>{de.heroTitle3}</em>{de.heroTitle4}
         </h1>
         <p className="lede">
-          Signatures, handwriting, ink, paper, and digital metadata — we detect forgery, alterations, and tampering using scientific methods, across both physical and digital documents.
+          {de.heroLede}
         </p>
         <div className="fa-hero-actions">
           <button className="fa-btn-primary">
-            Request a Document Examination <ArrowRight size={17} />
+            {de.heroBtnPrimary} <ArrowRight size={17} />
           </button>
-          <button className="fa-btn-ghost">View Our Services</button>
+          <button className="fa-btn-ghost">{de.heroBtnGhost}</button>
         </div>
         <div className="fa-hero-stats">
-          <StatCounter value={6} suffix="" label="Examination Disciplines" />
-          <StatCounter value={5} suffix="" label="Core Services Offered" />
-          <StatCounter value={100} suffix="%" label="Scientifically Verified Findings" />
+          <StatCounter value={6} suffix="" label={de.stats[0].label} />
+          <StatCounter value={5} suffix="" label={de.stats[1].label} />
+          <StatCounter value={100} suffix="%" label={de.stats[2].label} />
         </div>
       </header>
 
@@ -654,27 +657,27 @@ export default function DocumentExaminationPage() {
       {/* INTRO */}
       <section className="fa-section" id="about">
         <Reveal>
-          <div className="fa-kicker">What Document Examination Means at Forfra</div>
-          <h2 className="fa-h2">Scientific verification where the eye can't tell</h2>
+          <div className="fa-kicker">{de.introKicker}</div>
+          <h2 className="fa-h2">{de.introHeading}</h2>
         </Reveal>
         <div className="fa-intro-wrap" style={{ marginTop: 40 }}>
           <Reveal delay={80}>
             <p className="fa-sub" style={{ fontSize: "1.05rem" }}>
-              A forged signature, a backdated contract, a manipulated PDF — none of it looks wrong to the naked eye. Our examination methods are built to see what the eye can't.
+              {de.introP1}
             </p>
             <p className="fa-sub" style={{ marginTop: 18 }}>
-              We examine both physical and digital documents under one roof, combining traditional forensic document techniques with digital metadata inspection.
+              {de.introP2}
             </p>
           </Reveal>
           <Reveal delay={160}>
             <div className="fa-intro-card fa-glow-card">
-              <h3>Document Validation</h3>
+              <h3>{de.introCardTitle}</h3>
               <p>
-                Physical and digital document forensics — detecting forgery, tampering, and manipulation scientifically, with findings prepared for court submission.
+                {de.introCardBody}
               </p>
               <div className="fa-intro-quote">
                 <Quote size={20} />
-                <span>"Authentic or forged? We know."</span>
+                <span>{de.introQuote}</span>
               </div>
             </div>
           </Reveal>
@@ -684,10 +687,10 @@ export default function DocumentExaminationPage() {
       {/* SERVICES */}
       <section className="fa-section tight" id="services" style={{ background: "#fff" }}>
         <Reveal>
-          <div className="fa-kicker">Our Document Examination Services</div>
-          <h2 className="fa-h2">Five disciplines, one verified answer</h2>
+          <div className="fa-kicker">{de.servicesKicker}</div>
+          <h2 className="fa-h2">{de.servicesHeading}</h2>
           <p className="fa-sub">
-            Every examination is built to give a scientifically grounded answer to a simple question: is this document what it claims to be?
+            {de.servicesSub}
           </p>
         </Reveal>
         <div className="fa-process">
@@ -701,7 +704,7 @@ export default function DocumentExaminationPage() {
                     <Icon size={24} />
                   </div>
                   <div className="fa-step-body fa-glow-card">
-                    <span className="fa-step-num">SPECIMEN {s.n}</span>
+                    <span className="fa-step-num">{de.protocolLabel} {s.n}</span>
                     <h4>{s.title}</h4>
                     <p>{s.text}</p>
                   </div>
@@ -715,10 +718,10 @@ export default function DocumentExaminationPage() {
       {/* WHY US */}
       <section className="fa-section fa-why" id="why">
         <Reveal>
-          <div className="fa-kicker">Why Organisations Choose Forfra</div>
-          <h2 className="fa-h2">Verification backed by scientific method</h2>
+          <div className="fa-kicker">{de.whyKicker}</div>
+          <h2 className="fa-h2">{de.whyHeading}</h2>
           <p className="fa-sub">
-            We don't guess at authenticity — we test for it, and document every step of that testing.
+            {de.whySub}
           </p>
         </Reveal>
         <div className="fa-why-grid">
@@ -737,10 +740,10 @@ export default function DocumentExaminationPage() {
       <section className="fa-section fa-industries-band" id="clients">
         <div className="fa-ind-head">
           <Reveal>
-            <div className="fa-kicker">Who We Serve</div>
-            <h2 className="fa-h2">Trusted wherever a document's authenticity matters</h2>
+            <div className="fa-kicker">{de.clientsKicker}</div>
+            <h2 className="fa-h2">{de.clientsHeading}</h2>
             <p className="fa-sub">
-              From courts and law firms to banks and government agencies — our document examination services support anyone who needs proof a document is genuine.
+              {de.clientsSub}
             </p>
           </Reveal>
         </div>
@@ -766,14 +769,14 @@ export default function DocumentExaminationPage() {
           <div className="fa-cta-pulse p1" />
           <div className="fa-cta-pulse p2" />
           <div>
-            <h3>Find out if it's authentic — before it matters too late.</h3>
+            <h3>{de.ctaTitle}</h3>
             <p>
-              Whether it's a signature, a contract, or a digital file — our team is ready to examine it scientifically.
+              {de.ctaBody}
             </p>
           </div>
           <div className="fa-cta-actions">
             <button className="fa-btn-primary">
-              Request a Document Examination <ArrowRight size={17} />
+              {de.ctaBtn} <ArrowRight size={17} />
             </button>
             <div className="fa-cta-contact">
               <a href="mailto:hello@forfrasolutions.com">
@@ -789,7 +792,7 @@ export default function DocumentExaminationPage() {
 
       {/* FOOTER */}
       <footer className="fa-footer">
-        © {new Date().getFullYear()} <b>FORFRA SOLUTIONS</b> — Detect. Protect. Evolve. · Build Trust. Deliver Truth. Protect What Matters.
+        © {new Date().getFullYear()} <b>FORFRA SOLUTIONS</b> — {sc.footer}
       </footer>
     </div>
   );

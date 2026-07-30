@@ -8,6 +8,8 @@ import {
   FolderCheck, Stamp, Mic, Cloud,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useLanguage } from "../LanguageContext";
+import LanguageToggle from "../LanguageToggle";
 
 /* ----------------------------------------------------------------------
    FORFRA SOLUTIONS — FRAUD INVESTIGATION PAGE
@@ -95,28 +97,21 @@ function StatCounter({ value, suffix = "", label }) {
   );
 }
 
-const SERVICES = [
-    { n: "01", title: "Transaction Trail Analysis", text: "We reconstruct financial movement across bank statements and digital ledgers, mapping exactly where funds went and when.", icon: Banknote },
-    { n: "02", title: "Forensic Accounting", text: "Manipulated entries, fund diversion, and hidden liabilities detected through detailed forensic accounting review.", icon: Calculator },
-    { n: "03", title: "Data Manipulation Detection", text: "Altered, backdated, or fabricated financial records identified through systematic document and metadata analysis.", icon: FileWarning },
-    { n: "04", title: "Benami & Shell Entity Investigation", text: "We trace hidden ownership structures and shell entities used to disguise the true beneficiaries of fraudulent transactions.", icon: Building2 },
-    { n: "05", title: "Cryptocurrency & Cross-Platform Tracing", text: "Fraud tracked across banking systems and digital platforms, including cryptocurrency wallets and exchanges.", icon: Bitcoin },
+const SERVICES_META = [
+    { n: "01", icon: Banknote },
+    { n: "02", icon: Calculator },
+    { n: "03", icon: FileWarning },
+    { n: "04", icon: Building2 },
+    { n: "05", icon: Bitcoin },
   ];
 
-const CLIENT_TYPES = [
-    { label: "Banks & NBFCs", icon: Building2 },
-    { label: "Enforcement & Regulatory Agencies", icon: Landmark },
-    { label: "Corporates & Internal Audit Teams", icon: Briefcase },
-    { label: "Insurance Companies", icon: ShieldCheck },
-    { label: "Law Firms & Litigation Teams", icon: Scale },
-    { label: "Insolvency Professionals (IBBI)", icon: FileCheck2 },
-  ];
-
-const WHY_POINTS = [
-    "Financial crime expertise spanning banking, cryptocurrency, and shell-entity structures",
-    "Transaction reconstruction that follows money across accounts, borders, and platforms",
-    "Insider fraud uncovered through systematic log and access-history analysis",
-    "Findings structured for regulatory reporting and criminal prosecution",
+const CLIENT_TYPES_META = [
+    { icon: Building2 },
+    { icon: Landmark },
+    { icon: Briefcase },
+    { icon: ShieldCheck },
+    { icon: Scale },
+    { icon: FileCheck2 },
   ];
 
 function ScanRadar() {
@@ -168,6 +163,13 @@ function Particles({ count = 22 }) {
 }
 
 export default function FraudInvestigationPage() {
+  const { t } = useLanguage();
+  const sc = t.svcCommon;
+  const fi = t.fraudInvestigation;
+  const SERVICES = SERVICES_META.map((m, i) => ({ ...m, ...fi.services[i] }));
+  const CLIENT_TYPES = CLIENT_TYPES_META.map((m, i) => ({ ...m, label: fi.clientTypes[i] }));
+  const WHY_POINTS = fi.whyPoints;
+
   const [navSolid, setNavSolid] = useState(false);
   const [scrollPct, setScrollPct] = useState(0);
   const SignatureIcon = Banknote;
@@ -594,15 +596,16 @@ export default function FraudInvestigationPage() {
           <div className="fa-nav-logo">F</div>
           FORFRA SOLUTIONS
         </Link>
-        <div className="fa-nav-links">
-          <Link to="/">Home</Link>
-          <a href="#about">About</a>
-          <a href="#services">Services</a>
-          <a href="#why">Why Us</a>
-          <a href="#clients">Who We Serve</a>
-          <a href="#contact">Contact</a>
+        <div className="fa-nav-links" style={{ alignItems: "center" }}>
+          <Link to="/">{sc.navHome}</Link>
+          <a href="#about">{sc.navAbout}</a>
+          <a href="#services">{sc.navServices}</a>
+          <a href="#why">{sc.navWhy}</a>
+          <a href="#clients">{sc.navClients}</a>
+          <a href="#contact">{sc.navContact}</a>
+          <LanguageToggle />
         </div>
-        <button className="fa-nav-cta">Report a Suspected Fraud</button>
+        <button className="fa-nav-cta">{fi.navCta}</button>
       </nav>
 
       {/* HERO */}
@@ -616,25 +619,25 @@ export default function FraudInvestigationPage() {
           <SignatureIcon className="fa-gavel-icon" />
         </div>
         <div className="fa-eyebrow">
-          <SignatureIcon size={14} className="fa-spin-slow" /> Follow the Money
+          <SignatureIcon size={14} className="fa-spin-slow" /> {fi.heroEyebrow}
         </div>
         <h1>
-          Financial & Fraud Investigation —<br />
-          we <em>trace the money</em>, wherever it goes.
+          {fi.heroTitle1}<br />
+          {fi.heroTitle2}<em>{fi.heroTitle3}</em>{fi.heroTitle4}
         </h1>
         <p className="lede">
-          From transaction trails and forensic accounting to cryptocurrency tracing and shell-entity investigation — we reconstruct the financial trail and expose the fraud behind it.
+          {fi.heroLede}
         </p>
         <div className="fa-hero-actions">
           <button className="fa-btn-primary">
-            Report a Suspected Fraud <ArrowRight size={17} />
+            {fi.heroBtnPrimary} <ArrowRight size={17} />
           </button>
-          <button className="fa-btn-ghost">View Our Services</button>
+          <button className="fa-btn-ghost">{fi.heroBtnGhost}</button>
         </div>
         <div className="fa-hero-stats">
-          <StatCounter value={5} suffix="" label="Core Investigation Disciplines" />
-          <StatCounter value={6} suffix="" label="Client Categories Served" />
-          <StatCounter value={100} suffix="%" label="Traceable Documentation" />
+          <StatCounter value={5} suffix="" label={fi.stats[0].label} />
+          <StatCounter value={6} suffix="" label={fi.stats[1].label} />
+          <StatCounter value={100} suffix="%" label={fi.stats[2].label} />
         </div>
       </header>
 
@@ -654,27 +657,27 @@ export default function FraudInvestigationPage() {
       {/* INTRO */}
       <section className="fa-section" id="about">
         <Reveal>
-          <div className="fa-kicker">What Fraud Investigation Means at Forfra</div>
-          <h2 className="fa-h2">Reconstructing the trail money leaves behind</h2>
+          <div className="fa-kicker">{fi.introKicker}</div>
+          <h2 className="fa-h2">{fi.introHeading}</h2>
         </Reveal>
         <div className="fa-intro-wrap" style={{ marginTop: 40 }}>
           <Reveal delay={80}>
             <p className="fa-sub" style={{ fontSize: "1.05rem" }}>
-              Fraud rarely leaves a confession — it leaves a trail. Altered ledgers, shell entities, insider access logs, cryptocurrency wallets. Our job is to follow that trail until intent becomes undeniable.
+              {fi.introP1}
             </p>
             <p className="fa-sub" style={{ marginTop: 18 }}>
-              We support organisations and authorities through cases of embezzlement, bribery, and corporate misconduct — reconstructing transactions with a level of detail regulators and courts can rely on.
+              {fi.introP2}
             </p>
           </Reveal>
           <Reveal delay={160}>
             <div className="fa-intro-card fa-glow-card">
-              <h3>Financial Crime Specialists</h3>
+              <h3>{fi.introCardTitle}</h3>
               <p>
-                Forensic accounting, cryptocurrency tracing, benami entity investigation, and transaction trail analysis — built to follow the money across accounts, borders, and platforms.
+                {fi.introCardBody}
               </p>
               <div className="fa-intro-quote">
                 <Quote size={20} />
-                <span>"Trace the money. Expose the fraud."</span>
+                <span>{fi.introQuote}</span>
               </div>
             </div>
           </Reveal>
@@ -684,10 +687,10 @@ export default function FraudInvestigationPage() {
       {/* SERVICES */}
       <section className="fa-section tight" id="services" style={{ background: "#fff" }}>
         <Reveal>
-          <div className="fa-kicker">Our Fraud Investigation Services</div>
-          <h2 className="fa-h2">Five disciplines, one unbroken trail</h2>
+          <div className="fa-kicker">{fi.servicesKicker}</div>
+          <h2 className="fa-h2">{fi.servicesHeading}</h2>
           <p className="fa-sub">
-            Each engagement follows the money from the first suspicious entry to a fully reconstructed, defensible finding.
+            {fi.servicesSub}
           </p>
         </Reveal>
         <div className="fa-process">
@@ -701,7 +704,7 @@ export default function FraudInvestigationPage() {
                     <Icon size={24} />
                   </div>
                   <div className="fa-step-body fa-glow-card">
-                    <span className="fa-step-num">TRACE {s.n}</span>
+                    <span className="fa-step-num">{fi.protocolLabel} {s.n}</span>
                     <h4>{s.title}</h4>
                     <p>{s.text}</p>
                   </div>
@@ -715,10 +718,10 @@ export default function FraudInvestigationPage() {
       {/* WHY US */}
       <section className="fa-section fa-why" id="why">
         <Reveal>
-          <div className="fa-kicker">Why Organisations Choose Forfra</div>
-          <h2 className="fa-h2">Financial crime expertise that follows every trail</h2>
+          <div className="fa-kicker">{fi.whyKicker}</div>
+          <h2 className="fa-h2">{fi.whyHeading}</h2>
           <p className="fa-sub">
-            We don't stop at the first irregularity — we follow it until the full picture, and the people behind it, are clear.
+            {fi.whySub}
           </p>
         </Reveal>
         <div className="fa-why-grid">
@@ -737,10 +740,10 @@ export default function FraudInvestigationPage() {
       <section className="fa-section fa-industries-band" id="clients">
         <div className="fa-ind-head">
           <Reveal>
-            <div className="fa-kicker">Who We Serve</div>
-            <h2 className="fa-h2">Trusted by those who need the money traced</h2>
+            <div className="fa-kicker">{fi.clientsKicker}</div>
+            <h2 className="fa-h2">{fi.clientsHeading}</h2>
             <p className="fa-sub">
-              From banks and enforcement agencies to insolvency professionals — our fraud investigation services support anyone who needs the financial trail reconstructed.
+              {fi.clientsSub}
             </p>
           </Reveal>
         </div>
@@ -766,14 +769,14 @@ export default function FraudInvestigationPage() {
           <div className="fa-cta-pulse p1" />
           <div className="fa-cta-pulse p2" />
           <div>
-            <h3>Follow the money to where it actually went.</h3>
+            <h3>{fi.ctaTitle}</h3>
             <p>
-              Whether it's transaction tracing, forensic accounting, or cryptocurrency investigation — our team is ready to reconstruct the trail.
+              {fi.ctaBody}
             </p>
           </div>
           <div className="fa-cta-actions">
             <button className="fa-btn-primary">
-              Report a Suspected Fraud <ArrowRight size={17} />
+              {fi.ctaBtn} <ArrowRight size={17} />
             </button>
             <div className="fa-cta-contact">
               <a href="mailto:hello@forfrasolutions.com">
@@ -789,7 +792,7 @@ export default function FraudInvestigationPage() {
 
       {/* FOOTER */}
       <footer className="fa-footer">
-        © {new Date().getFullYear()} <b>FORFRA SOLUTIONS</b> — Detect. Protect. Evolve. · Build Trust. Deliver Truth. Protect What Matters.
+        © {new Date().getFullYear()} <b>FORFRA SOLUTIONS</b> — {sc.footer}
       </footer>
     </div>
   );

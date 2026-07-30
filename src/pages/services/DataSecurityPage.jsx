@@ -8,6 +8,8 @@ import {
   FolderCheck, Stamp, Mic, Cloud,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useLanguage } from "../LanguageContext";
+import LanguageToggle from "../LanguageToggle";
 
 /* ----------------------------------------------------------------------
    FORFRA SOLUTIONS — DATA SECURITY PAGE
@@ -95,29 +97,22 @@ function StatCounter({ value, suffix = "", label }) {
   );
 }
 
-const SERVICES = [
-    { n: "01", title: "Air-Gapped Infrastructure", text: "Isolated environments with zero internet connectivity remove remote attack surfaces entirely \u2014 your most sensitive data never touches the open network.", icon: Lock },
-    { n: "02", title: "Military-Grade Encryption", text: "Strong encryption protocols protect data at rest, rendering it unreadable to anyone without authorised keys, even in the event of physical theft.", icon: KeyRound },
-    { n: "03", title: "Multi-Layer Access Control", text: "Role-based and device-based authentication ensures only verified personnel \u2014 on verified devices \u2014 ever reach sensitive data.", icon: Fingerprint },
-    { n: "04", title: "Secure Offline Transfer", text: "Encrypted drives and controlled physical ports move data between systems without ever exposing it to the internet.", icon: HardDrive },
-    { n: "05", title: "Chain of Custody & Compliance", text: "Full chain-of-custody documentation aligned with the DPDP Act 2023 and Section 63(4)(c), ensuring every safeguard is admissible and traceable.", icon: ShieldCheck },
-  ];
+const SERVICES_META = [
+  { n: "01", icon: Lock },
+  { n: "02", icon: KeyRound },
+  { n: "03", icon: Fingerprint },
+  { n: "04", icon: HardDrive },
+  { n: "05", icon: ShieldCheck },
+];
 
-const CLIENT_TYPES = [
-    { label: "Banks & NBFCs", icon: Building2 },
-    { label: "Government & Regulatory Agencies", icon: Landmark },
-    { label: "Corporate Legal & Compliance Teams", icon: Briefcase },
-    { label: "Law Firms & Litigation Teams", icon: Scale },
-    { label: "Healthcare & Insurance Providers", icon: ShieldCheck },
-    { label: "Technology & Data-Driven Enterprises", icon: HardDrive },
-  ];
-
-const WHY_POINTS = [
-    "Data treated as a high-value asset secured with a \"royal vault\" discipline, not a routine backup",
-    "Zero-exposure environments that remove the possibility of remote compromise",
-    "Every access event logged and attributable to a specific person and device",
-    "Full regulatory alignment with the DPDP Act 2023 for lawful, defensible data handling",
-  ];
+const CLIENT_TYPES_META = [
+  { icon: Building2 },
+  { icon: Landmark },
+  { icon: Briefcase },
+  { icon: Scale },
+  { icon: ShieldCheck },
+  { icon: HardDrive },
+];
 
 function ScanRadar() {
   const Icon = Lock;
@@ -168,6 +163,13 @@ function Particles({ count = 22 }) {
 }
 
 export default function DataSecurityPage() {
+  const { t } = useLanguage();
+  const sc = t.svcCommon;
+  const ds = t.dataSecurity;
+  const SERVICES = SERVICES_META.map((m, i) => ({ ...m, ...ds.services[i] }));
+  const CLIENT_TYPES = CLIENT_TYPES_META.map((m, i) => ({ ...m, label: ds.clientTypes[i] }));
+  const WHY_POINTS = ds.whyPoints;
+
   const [navSolid, setNavSolid] = useState(false);
   const [scrollPct, setScrollPct] = useState(0);
   const SignatureIcon = Lock;
@@ -594,15 +596,16 @@ export default function DataSecurityPage() {
           <div className="fa-nav-logo">F</div>
           FORFRA SOLUTIONS
         </Link>
-        <div className="fa-nav-links">
-          <Link to="/">Home</Link>
-          <a href="#about">About</a>
-          <a href="#services">Services</a>
-          <a href="#why">Why Us</a>
-          <a href="#clients">Who We Serve</a>
-          <a href="#contact">Contact</a>
+        <div className="fa-nav-links" style={{ alignItems: "center" }}>
+          <Link to="/">{sc.navHome}</Link>
+          <a href="#about">{sc.navAbout}</a>
+          <a href="#services">{sc.navServices}</a>
+          <a href="#why">{sc.navWhy}</a>
+          <a href="#clients">{sc.navClients}</a>
+          <a href="#contact">{sc.navContact}</a>
+          <LanguageToggle />
         </div>
-        <button className="fa-nav-cta">Request Security Assessment</button>
+        <button className="fa-nav-cta">{ds.navCta}</button>
       </nav>
 
       {/* HERO */}
@@ -616,25 +619,25 @@ export default function DataSecurityPage() {
           <SignatureIcon className="fa-gavel-icon" />
         </div>
         <div className="fa-eyebrow">
-          <SignatureIcon size={14} className="fa-spin-slow" /> Data Treated As A High-Value Asset
+          <SignatureIcon size={14} className="fa-spin-slow" /> {ds.heroEyebrow}
         </div>
         <h1>
-          Data Security —<br />
-          built like a <em>royal vault</em>, not a folder.
+          {ds.heroTitle1}<br />
+          {ds.heroTitle2}<em>{ds.heroTitle3}</em>{ds.heroTitle4}
         </h1>
         <p className="lede">
-          We combine air-gapped systems, layered encryption, and strict access controls to keep your most sensitive data isolated, private, and tamper-proof — protected with discipline, not just a password.
+          {ds.heroLede}
         </p>
         <div className="fa-hero-actions">
           <button className="fa-btn-primary">
-            Book a Security Assessment <ArrowRight size={17} />
+            {ds.heroBtnPrimary} <ArrowRight size={17} />
           </button>
-          <button className="fa-btn-ghost">View Our Services</button>
+          <button className="fa-btn-ghost">{ds.heroBtnGhost}</button>
         </div>
         <div className="fa-hero-stats">
-          <StatCounter value={2} suffix="" label="ISO Certifications Held" />
-          <StatCounter value={6} suffix="" label="Layers of Access Control" />
-          <StatCounter value={100} suffix="%" label="Chain-of-Custody Compliance" />
+          <StatCounter value={2} suffix="" label={ds.stats[0].label} />
+          <StatCounter value={6} suffix="" label={ds.stats[1].label} />
+          <StatCounter value={100} suffix="%" label={ds.stats[2].label} />
         </div>
       </header>
 
@@ -654,27 +657,27 @@ export default function DataSecurityPage() {
       {/* INTRO */}
       <section className="fa-section" id="about">
         <Reveal>
-          <div className="fa-kicker">What Data Security Means at Forfra</div>
-          <h2 className="fa-h2">Data as a high-value asset, not a line item</h2>
+          <div className="fa-kicker">{ds.introKicker}</div>
+          <h2 className="fa-h2">{ds.introHeading}</h2>
         </Reveal>
         <div className="fa-intro-wrap" style={{ marginTop: 40 }}>
           <Reveal delay={80}>
             <p className="fa-sub" style={{ fontSize: "1.05rem" }}>
-              Most breaches don't happen because data was stolen from a vault — they happen because it was never treated like something worth vaulting. We start from the opposite assumption: your data is a high-value asset, and it deserves isolation, custody, and discipline.
+              {ds.introP1}
             </p>
             <p className="fa-sub" style={{ marginTop: 18 }}>
-              Beyond infrastructure, we build the human layer too — role-based access, device authentication, and controlled offline transfer — so exposure isn't just unlikely, it's structurally impossible.
+              {ds.introP2}
             </p>
           </Reveal>
           <Reveal delay={160}>
             <div className="fa-intro-card fa-glow-card">
-              <h3>The Royal Vault Approach</h3>
+              <h3>{ds.introCardTitle}</h3>
               <p>
-                Air-gapped environments with no internet connectivity, multi-layer authentication, and encrypted offline transfer combine to create a security posture with zero routine exposure.
+                {ds.introCardBody}
               </p>
               <div className="fa-intro-quote">
                 <Quote size={20} />
-                <span>"Data protected with discipline and zero exposure."</span>
+                <span>{ds.introQuote}</span>
               </div>
             </div>
           </Reveal>
@@ -684,10 +687,10 @@ export default function DataSecurityPage() {
       {/* SERVICES */}
       <section className="fa-section tight" id="services" style={{ background: "#fff" }}>
         <Reveal>
-          <div className="fa-kicker">Our Data Security Services</div>
-          <h2 className="fa-h2">Five layers, one uncompromising vault</h2>
+          <div className="fa-kicker">{ds.servicesKicker}</div>
+          <h2 className="fa-h2">{ds.servicesHeading}</h2>
           <p className="fa-sub">
-            Every engagement is built to remove exposure at each layer — from the network, to the device, to the person accessing the data.
+            {ds.servicesSub}
           </p>
         </Reveal>
         <div className="fa-process">
@@ -701,7 +704,7 @@ export default function DataSecurityPage() {
                     <Icon size={24} />
                   </div>
                   <div className="fa-step-body fa-glow-card">
-                    <span className="fa-step-num">PROTOCOL {s.n}</span>
+                    <span className="fa-step-num">{ds.protocolLabel} {s.n}</span>
                     <h4>{s.title}</h4>
                     <p>{s.text}</p>
                   </div>
@@ -715,10 +718,10 @@ export default function DataSecurityPage() {
       {/* WHY US */}
       <section className="fa-section fa-why" id="why">
         <Reveal>
-          <div className="fa-kicker">Why Organisations Trust Forfra</div>
-          <h2 className="fa-h2">Security that holds up to audit and to court</h2>
+          <div className="fa-kicker">{ds.whyKicker}</div>
+          <h2 className="fa-h2">{ds.whyHeading}</h2>
           <p className="fa-sub">
-            We don't just secure data — we document how it was secured, so every safeguard is defensible later.
+            {ds.whySub}
           </p>
         </Reveal>
         <div className="fa-why-grid">
@@ -737,10 +740,10 @@ export default function DataSecurityPage() {
       <section className="fa-section fa-industries-band" id="clients">
         <div className="fa-ind-head">
           <Reveal>
-            <div className="fa-kicker">Who We Serve</div>
-            <h2 className="fa-h2">Trusted by organisations that cannot afford exposure</h2>
+            <div className="fa-kicker">{ds.clientsKicker}</div>
+            <h2 className="fa-h2">{ds.clientsHeading}</h2>
             <p className="fa-sub">
-              From banks and NBFCs to government agencies and law firms — our data security services protect every organisation that treats its data as an asset worth defending.
+              {ds.clientsSub}
             </p>
           </Reveal>
         </div>
@@ -766,14 +769,14 @@ export default function DataSecurityPage() {
           <div className="fa-cta-pulse p1" />
           <div className="fa-cta-pulse p2" />
           <div>
-            <h3>Protect your data like it's worth protecting.</h3>
+            <h3>{ds.ctaTitle}</h3>
             <p>
-              Whether you need air-gapped infrastructure, encrypted offline transfer, or a full access-control overhaul — our team is ready to build your vault.
+              {ds.ctaBody}
             </p>
           </div>
           <div className="fa-cta-actions">
             <button className="fa-btn-primary">
-              Book a Security Assessment <ArrowRight size={17} />
+              {ds.ctaBtn} <ArrowRight size={17} />
             </button>
             <div className="fa-cta-contact">
               <a href="mailto:hello@forfrasolutions.com">
@@ -789,7 +792,7 @@ export default function DataSecurityPage() {
 
       {/* FOOTER */}
       <footer className="fa-footer">
-        © {new Date().getFullYear()} <b>FORFRA SOLUTIONS</b> — Detect. Protect. Evolve. · Build Trust. Deliver Truth. Protect What Matters.
+        © {new Date().getFullYear()} <b>FORFRA SOLUTIONS</b> — {sc.footer}
       </footer>
     </div>
   );

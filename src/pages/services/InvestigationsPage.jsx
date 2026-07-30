@@ -8,6 +8,8 @@ import {
   FolderCheck, Stamp, Mic, Cloud,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useLanguage } from "../LanguageContext";
+import LanguageToggle from "../LanguageToggle";
 
 /* ----------------------------------------------------------------------
    FORFRA SOLUTIONS — INVESTIGATIONS & INTELLIGENCE PAGE
@@ -95,28 +97,21 @@ function StatCounter({ value, suffix = "", label }) {
   );
 }
 
-const SERVICES = [
-    { n: "01", title: "Background Verification", text: "Identity, employment, education, and criminal record checks \u2014 verified against source, not just self-declared.", icon: UserCheck },
-    { n: "02", title: "Corporate & Private Investigations", text: "Misconduct, asset tracing, and discreet surveillance conducted for both corporate and private clients.", icon: Eye },
-    { n: "03", title: "Litigation Support & Fact-Finding", text: "Document review, fact-finding, and case-strategy support for legal teams building their argument.", icon: ClipboardCheck },
-    { n: "04", title: "Due Diligence & Reputation Checks", text: "Financial integrity, corporate history, and reputation assessed before a deal, hire, or partnership is finalised.", icon: ShieldAlert },
-    { n: "05", title: "OSINT & Business Risk Assessment", text: "Open-source intelligence across social media and corporate records, structured into a clear business risk assessment.", icon: Globe },
+const SERVICES_META = [
+    { n: "01", icon: UserCheck },
+    { n: "02", icon: Eye },
+    { n: "03", icon: ClipboardCheck },
+    { n: "04", icon: ShieldAlert },
+    { n: "05", icon: Globe },
   ];
 
-const CLIENT_TYPES = [
-    { label: "Corporates & HR Departments", icon: Briefcase },
-    { label: "Law Firms & Litigation Teams", icon: Scale },
-    { label: "Banks & Financial Institutions", icon: Building2 },
-    { label: "Individuals & Private Clients", icon: UserCheck },
-    { label: "Investors & M&A Teams", icon: TrendingUp },
-    { label: "Insurance Companies", icon: ShieldCheck },
-  ];
-
-const WHY_POINTS = [
-    "Verification services that combine public records, digital footprints, and field checks",
-    "Discreet, confidential handling of every corporate and private inquiry",
-    "Due diligence that protects business decisions before they're made",
-    "OSINT capabilities that surface risk hidden in plain sight",
+const CLIENT_TYPES_META = [
+    { icon: Briefcase },
+    { icon: Scale },
+    { icon: Building2 },
+    { icon: UserCheck },
+    { icon: TrendingUp },
+    { icon: ShieldCheck },
   ];
 
 function ScanRadar() {
@@ -168,6 +163,13 @@ function Particles({ count = 22 }) {
 }
 
 export default function InvestigationsPage() {
+  const { t } = useLanguage();
+  const sc = t.svcCommon;
+  const iv = t.investigations;
+  const SERVICES = SERVICES_META.map((m, i) => ({ ...m, ...iv.services[i] }));
+  const CLIENT_TYPES = CLIENT_TYPES_META.map((m, i) => ({ ...m, label: iv.clientTypes[i] }));
+  const WHY_POINTS = iv.whyPoints;
+
   const [navSolid, setNavSolid] = useState(false);
   const [scrollPct, setScrollPct] = useState(0);
   const SignatureIcon = Eye;
@@ -594,15 +596,16 @@ export default function InvestigationsPage() {
           <div className="fa-nav-logo">F</div>
           FORFRA SOLUTIONS
         </Link>
-        <div className="fa-nav-links">
-          <Link to="/">Home</Link>
-          <a href="#about">About</a>
-          <a href="#services">Services</a>
-          <a href="#why">Why Us</a>
-          <a href="#clients">Who We Serve</a>
-          <a href="#contact">Contact</a>
+        <div className="fa-nav-links" style={{ alignItems: "center" }}>
+          <Link to="/">{sc.navHome}</Link>
+          <a href="#about">{sc.navAbout}</a>
+          <a href="#services">{sc.navServices}</a>
+          <a href="#why">{sc.navWhy}</a>
+          <a href="#clients">{sc.navClients}</a>
+          <a href="#contact">{sc.navContact}</a>
+          <LanguageToggle />
         </div>
-        <button className="fa-nav-cta">Request an Investigation</button>
+        <button className="fa-nav-cta">{iv.navCta}</button>
       </nav>
 
       {/* HERO */}
@@ -616,25 +619,25 @@ export default function InvestigationsPage() {
           <SignatureIcon className="fa-gavel-icon" />
         </div>
         <div className="fa-eyebrow">
-          <SignatureIcon size={14} className="fa-spin-slow" /> OSINT & Due Diligence
+          <SignatureIcon size={14} className="fa-spin-slow" /> {iv.heroEyebrow}
         </div>
         <h1>
-          Investigations & Intelligence —<br />
-          verify first, <em>decide</em> with confidence.
+          {iv.heroTitle1}<br />
+          {iv.heroTitle2}<em>{iv.heroTitle3}</em>{iv.heroTitle4}
         </h1>
         <p className="lede">
-          Background verification, corporate and private investigations, OSINT, litigation support, and business risk assessment — built to help you make informed decisions with confidence.
+          {iv.heroLede}
         </p>
         <div className="fa-hero-actions">
           <button className="fa-btn-primary">
-            Request an Investigation <ArrowRight size={17} />
+            {iv.heroBtnPrimary} <ArrowRight size={17} />
           </button>
-          <button className="fa-btn-ghost">View Our Services</button>
+          <button className="fa-btn-ghost">{iv.heroBtnGhost}</button>
         </div>
         <div className="fa-hero-stats">
-          <StatCounter value={6} suffix="" label="Investigation & Intelligence Services" />
-          <StatCounter value={5} suffix="" label="Client Categories Served" />
-          <StatCounter value={100} suffix="%" label="Confidential Handling" />
+          <StatCounter value={6} suffix="" label={iv.stats[0].label} />
+          <StatCounter value={5} suffix="" label={iv.stats[1].label} />
+          <StatCounter value={100} suffix="%" label={iv.stats[2].label} />
         </div>
       </header>
 
@@ -654,27 +657,27 @@ export default function InvestigationsPage() {
       {/* INTRO */}
       <section className="fa-section" id="about">
         <Reveal>
-          <div className="fa-kicker">What Investigations & Intelligence Means at Forfra</div>
-          <h2 className="fa-h2">Verification before commitment, always</h2>
+          <div className="fa-kicker">{iv.introKicker}</div>
+          <h2 className="fa-h2">{iv.introHeading}</h2>
         </Reveal>
         <div className="fa-intro-wrap" style={{ marginTop: 40 }}>
           <Reveal delay={80}>
             <p className="fa-sub" style={{ fontSize: "1.05rem" }}>
-              Every partnership, hire, or investment carries risk you can't see from the outside. Our investigations exist to surface that risk before it becomes your problem — not after.
+              {iv.introP1}
             </p>
             <p className="fa-sub" style={{ marginTop: 18 }}>
-              From background checks to open-source intelligence, every inquiry is handled discreetly, confidentially, and built for security and compliance.
+              {iv.introP2}
             </p>
           </Reveal>
           <Reveal delay={160}>
             <div className="fa-intro-card fa-glow-card">
-              <h3>OSINT & Beyond</h3>
+              <h3>{iv.introCardTitle}</h3>
               <p>
-                Professional intelligence combined with investigative fieldwork — background verification, due diligence, and business risk assessment, all in one place.
+                {iv.introCardBody}
               </p>
               <div className="fa-intro-quote">
                 <Quote size={20} />
-                <span>"Verify. Investigate. Mitigate."</span>
+                <span>{iv.introQuote}</span>
               </div>
             </div>
           </Reveal>
@@ -684,10 +687,10 @@ export default function InvestigationsPage() {
       {/* SERVICES */}
       <section className="fa-section tight" id="services" style={{ background: "#fff" }}>
         <Reveal>
-          <div className="fa-kicker">Our Investigations & Intelligence Services</div>
-          <h2 className="fa-h2">Five services, one confident decision</h2>
+          <div className="fa-kicker">{iv.servicesKicker}</div>
+          <h2 className="fa-h2">{iv.servicesHeading}</h2>
           <p className="fa-sub">
-            Each engagement is built to answer one question clearly: is this person, company, or claim what it appears to be?
+            {iv.servicesSub}
           </p>
         </Reveal>
         <div className="fa-process">
@@ -701,7 +704,7 @@ export default function InvestigationsPage() {
                     <Icon size={24} />
                   </div>
                   <div className="fa-step-body fa-glow-card">
-                    <span className="fa-step-num">FILE {s.n}</span>
+                    <span className="fa-step-num">{iv.protocolLabel} {s.n}</span>
                     <h4>{s.title}</h4>
                     <p>{s.text}</p>
                   </div>
@@ -715,10 +718,10 @@ export default function InvestigationsPage() {
       {/* WHY US */}
       <section className="fa-section fa-why" id="why">
         <Reveal>
-          <div className="fa-kicker">Why Organisations Choose Forfra</div>
-          <h2 className="fa-h2">Verification that protects the decision, not just the file</h2>
+          <div className="fa-kicker">{iv.whyKicker}</div>
+          <h2 className="fa-h2">{iv.whyHeading}</h2>
           <p className="fa-sub">
-            We don't just gather information — we structure it so it directly supports the decision you're about to make.
+            {iv.whySub}
           </p>
         </Reveal>
         <div className="fa-why-grid">
@@ -737,10 +740,10 @@ export default function InvestigationsPage() {
       <section className="fa-section fa-industries-band" id="clients">
         <div className="fa-ind-head">
           <Reveal>
-            <div className="fa-kicker">Who We Serve</div>
-            <h2 className="fa-h2">Trusted by those who need to know before they commit</h2>
+            <div className="fa-kicker">{iv.clientsKicker}</div>
+            <h2 className="fa-h2">{iv.clientsHeading}</h2>
             <p className="fa-sub">
-              From HR departments and law firms to investors and insurers — our investigation services support anyone who needs verified answers before making a call.
+              {iv.clientsSub}
             </p>
           </Reveal>
         </div>
@@ -766,14 +769,14 @@ export default function InvestigationsPage() {
           <div className="fa-cta-pulse p1" />
           <div className="fa-cta-pulse p2" />
           <div>
-            <h3>Know before you commit.</h3>
+            <h3>{iv.ctaTitle}</h3>
             <p>
-              Whether it's background verification, due diligence, or OSINT — our team is ready to give you the full picture.
+              {iv.ctaBody}
             </p>
           </div>
           <div className="fa-cta-actions">
             <button className="fa-btn-primary">
-              Request an Investigation <ArrowRight size={17} />
+              {iv.ctaBtn} <ArrowRight size={17} />
             </button>
             <div className="fa-cta-contact">
               <a href="mailto:hello@forfrasolutions.com">
@@ -789,7 +792,7 @@ export default function InvestigationsPage() {
 
       {/* FOOTER */}
       <footer className="fa-footer">
-        © {new Date().getFullYear()} <b>FORFRA SOLUTIONS</b> — Detect. Protect. Evolve. · Build Trust. Deliver Truth. Protect What Matters.
+        © {new Date().getFullYear()} <b>FORFRA SOLUTIONS</b> — {sc.footer}
       </footer>
     </div>
   );

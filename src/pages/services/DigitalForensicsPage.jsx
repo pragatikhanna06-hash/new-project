@@ -8,6 +8,8 @@ import {
   FolderCheck, Stamp, Mic, Cloud,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useLanguage } from "../LanguageContext";
+import LanguageToggle from "../LanguageToggle";
 
 /* ----------------------------------------------------------------------
    FORFRA SOLUTIONS — DIGITAL FORENSICS PAGE
@@ -95,28 +97,21 @@ function StatCounter({ value, suffix = "", label }) {
   );
 }
 
-const SERVICES = [
-    { n: "01", title: "Computer & Server Forensics", text: "Full forensic imaging and analysis of desktops, laptops, and servers \u2014 recovering deleted, hidden, or encrypted data without altering the original.", icon: Monitor },
-    { n: "02", title: "Mobile Device Forensics", text: "Smartphones, SIM cards, WhatsApp chats, and call logs examined with tools built to preserve evidentiary integrity.", icon: Smartphone },
-    { n: "03", title: "Email & Communication Forensics", text: "Phishing detection and deleted-message recovery across email and messaging platforms, tracing communication trails end to end.", icon: Mail },
-    { n: "04", title: "Cloud, CCTV & Audio Forensics", text: "Cloud accounts, CCTV footage, and audio recordings enhanced and authenticated to detect tampering or manipulation.", icon: Video },
-    { n: "05", title: "Expert Witness & Litigation Support", text: "Courtroom testimony and technical explanations that help judges and juries understand complex digital evidence.", icon: Gavel },
+const SERVICES_META = [
+    { n: "01", icon: Monitor },
+    { n: "02", icon: Smartphone },
+    { n: "03", icon: Mail },
+    { n: "04", icon: Video },
+    { n: "05", icon: Gavel },
   ];
 
-const CLIENT_TYPES = [
-    { label: "Law Enforcement & Cyber Crime Cells", icon: ShieldCheck },
-    { label: "Corporate Legal & IT Security Teams", icon: Briefcase },
-    { label: "Law Firms & Litigation Teams", icon: Scale },
-    { label: "Courts & Judicial Authorities", icon: Gavel },
-    { label: "Banks & Financial Institutions", icon: Building2 },
-    { label: "Individuals & Private Clients", icon: UserCheck },
-  ];
-
-const WHY_POINTS = [
-    "Multi-platform coverage \u2014 computers, mobiles, cloud, CCTV, and audio in one team",
-    "Every acquisition preserves evidence integrity with a documented chain of custody",
-    "Deleted, hidden, and encrypted data recovered without compromising admissibility",
-    "Direct courtroom support through expert witness testimony",
+const CLIENT_TYPES_META = [
+    { icon: ShieldCheck },
+    { icon: Briefcase },
+    { icon: Scale },
+    { icon: Gavel },
+    { icon: Building2 },
+    { icon: UserCheck },
   ];
 
 function ScanRadar() {
@@ -168,6 +163,13 @@ function Particles({ count = 22 }) {
 }
 
 export default function DigitalForensicsPage() {
+  const { t } = useLanguage();
+  const sc = t.svcCommon;
+  const df = t.digitalForensics;
+  const SERVICES = SERVICES_META.map((m, i) => ({ ...m, ...df.services[i] }));
+  const CLIENT_TYPES = CLIENT_TYPES_META.map((m, i) => ({ ...m, label: df.clientTypes[i] }));
+  const WHY_POINTS = df.whyPoints;
+
   const [navSolid, setNavSolid] = useState(false);
   const [scrollPct, setScrollPct] = useState(0);
   const SignatureIcon = Monitor;
@@ -594,15 +596,16 @@ export default function DigitalForensicsPage() {
           <div className="fa-nav-logo">F</div>
           FORFRA SOLUTIONS
         </Link>
-        <div className="fa-nav-links">
-          <Link to="/">Home</Link>
-          <a href="#about">About</a>
-          <a href="#services">Services</a>
-          <a href="#why">Why Us</a>
-          <a href="#clients">Who We Serve</a>
-          <a href="#contact">Contact</a>
+        <div className="fa-nav-links" style={{ alignItems: "center" }}>
+          <Link to="/">{sc.navHome}</Link>
+          <a href="#about">{sc.navAbout}</a>
+          <a href="#services">{sc.navServices}</a>
+          <a href="#why">{sc.navWhy}</a>
+          <a href="#clients">{sc.navClients}</a>
+          <a href="#contact">{sc.navContact}</a>
+          <LanguageToggle />
         </div>
-        <button className="fa-nav-cta">Request Digital Forensics</button>
+        <button className="fa-nav-cta">{df.navCta}</button>
       </nav>
 
       {/* HERO */}
@@ -616,25 +619,25 @@ export default function DigitalForensicsPage() {
           <SignatureIcon className="fa-gavel-icon" />
         </div>
         <div className="fa-eyebrow">
-          <SignatureIcon size={14} className="fa-spin-slow" /> End-to-End Digital Investigation
+          <SignatureIcon size={14} className="fa-spin-slow" /> {df.heroEyebrow}
         </div>
         <h1>
-          Digital Forensics —<br />
-          where <em>evidence</em> meets integrity.
+          {df.heroTitle1}<br />
+          {df.heroTitle2}<em>{df.heroTitle3}</em>{df.heroTitle4}
         </h1>
         <p className="lede">
-          From computers and mobile devices to cloud platforms, CCTV, and audio — we acquire, analyse, and report digital evidence with full chain of custody, for law enforcement and corporate clients alike.
+          {df.heroLede}
         </p>
         <div className="fa-hero-actions">
           <button className="fa-btn-primary">
-            Book a Digital Forensics Case <ArrowRight size={17} />
+            {df.heroBtnPrimary} <ArrowRight size={17} />
           </button>
-          <button className="fa-btn-ghost">View Our Services</button>
+          <button className="fa-btn-ghost">{df.heroBtnGhost}</button>
         </div>
         <div className="fa-hero-stats">
-          <StatCounter value={6} suffix="" label="Digital Evidence Domains" />
-          <StatCounter value={100} suffix="%" label="Chain-of-Custody Integrity" />
-          <StatCounter value={24} suffix="/7" label="Incident Response Availability" />
+          <StatCounter value={6} suffix="" label={df.stats[0].label} />
+          <StatCounter value={100} suffix="%" label={df.stats[1].label} />
+          <StatCounter value={24} suffix="/7" label={df.stats[2].label} />
         </div>
       </header>
 
@@ -654,27 +657,27 @@ export default function DigitalForensicsPage() {
       {/* INTRO */}
       <section className="fa-section" id="about">
         <Reveal>
-          <div className="fa-kicker">What Digital Forensics Means at Forfra</div>
-          <h2 className="fa-h2">Every digital surface, one evidentiary standard</h2>
+          <div className="fa-kicker">{df.introKicker}</div>
+          <h2 className="fa-h2">{df.introHeading}</h2>
         </Reveal>
         <div className="fa-intro-wrap" style={{ marginTop: 40 }}>
           <Reveal delay={80}>
             <p className="fa-sub" style={{ fontSize: "1.05rem" }}>
-              Digital evidence lives everywhere now — on phones, in the cloud, on CCTV footage, inside deleted files. Our job is to recover it without ever compromising its integrity or its admissibility.
+              {df.introP1}
             </p>
             <p className="fa-sub" style={{ marginTop: 18 }}>
-              Every acquisition is documented from the first byte to the final report, so what we find in the lab stands up in the courtroom.
+              {df.introP2}
             </p>
           </Reveal>
           <Reveal delay={160}>
             <div className="fa-intro-card fa-glow-card">
-              <h3>Multi-Platform Forensics</h3>
+              <h3>{df.introCardTitle}</h3>
               <p>
-                Computers, mobiles, cloud, CCTV, and audio — every digital surface covered, with evidence integrity guaranteed at every step.
+                {df.introCardBody}
               </p>
               <div className="fa-intro-quote">
                 <Quote size={20} />
-                <span>"Evidence. Integrity. Justice."</span>
+                <span>{df.introQuote}</span>
               </div>
             </div>
           </Reveal>
@@ -684,10 +687,10 @@ export default function DigitalForensicsPage() {
       {/* SERVICES */}
       <section className="fa-section tight" id="services" style={{ background: "#fff" }}>
         <Reveal>
-          <div className="fa-kicker">Our Digital Forensics Services</div>
-          <h2 className="fa-h2">Five domains, one evidentiary standard</h2>
+          <div className="fa-kicker">{df.servicesKicker}</div>
+          <h2 className="fa-h2">{df.servicesHeading}</h2>
           <p className="fa-sub">
-            Whatever device or platform holds the evidence, our process is built to preserve it — and prove it.
+            {df.servicesSub}
           </p>
         </Reveal>
         <div className="fa-process">
@@ -701,7 +704,7 @@ export default function DigitalForensicsPage() {
                     <Icon size={24} />
                   </div>
                   <div className="fa-step-body fa-glow-card">
-                    <span className="fa-step-num">CASE FILE {s.n}</span>
+                    <span className="fa-step-num">{df.protocolLabel} {s.n}</span>
                     <h4>{s.title}</h4>
                     <p>{s.text}</p>
                   </div>
@@ -715,10 +718,10 @@ export default function DigitalForensicsPage() {
       {/* WHY US */}
       <section className="fa-section fa-why" id="why">
         <Reveal>
-          <div className="fa-kicker">Why Investigators Choose Forfra</div>
-          <h2 className="fa-h2">Evidence integrity, from acquisition to courtroom</h2>
+          <div className="fa-kicker">{df.whyKicker}</div>
+          <h2 className="fa-h2">{df.whyHeading}</h2>
           <p className="fa-sub">
-            We treat every device as a potential exhibit — handled, imaged, and documented accordingly.
+            {df.whySub}
           </p>
         </Reveal>
         <div className="fa-why-grid">
@@ -737,10 +740,10 @@ export default function DigitalForensicsPage() {
       <section className="fa-section fa-industries-band" id="clients">
         <div className="fa-ind-head">
           <Reveal>
-            <div className="fa-kicker">Who We Serve</div>
-            <h2 className="fa-h2">Trusted by investigators and litigators alike</h2>
+            <div className="fa-kicker">{df.clientsKicker}</div>
+            <h2 className="fa-h2">{df.clientsHeading}</h2>
             <p className="fa-sub">
-              From cyber crime cells to corporate legal teams — our digital forensics services support anyone who needs digital evidence that holds up.
+              {df.clientsSub}
             </p>
           </Reveal>
         </div>
@@ -766,14 +769,14 @@ export default function DigitalForensicsPage() {
           <div className="fa-cta-pulse p1" />
           <div className="fa-cta-pulse p2" />
           <div>
-            <h3>Recover evidence without losing its integrity.</h3>
+            <h3>{df.ctaTitle}</h3>
             <p>
-              Whether it's a phone, a server, a cloud account, or CCTV footage — our team is ready to acquire, analyse, and testify.
+              {df.ctaBody}
             </p>
           </div>
           <div className="fa-cta-actions">
             <button className="fa-btn-primary">
-              Book a Digital Forensics Case <ArrowRight size={17} />
+              {df.ctaBtn} <ArrowRight size={17} />
             </button>
             <div className="fa-cta-contact">
               <a href="mailto:hello@forfrasolutions.com">
@@ -789,7 +792,7 @@ export default function DigitalForensicsPage() {
 
       {/* FOOTER */}
       <footer className="fa-footer">
-        © {new Date().getFullYear()} <b>FORFRA SOLUTIONS</b> — Detect. Protect. Evolve. · Build Trust. Deliver Truth. Protect What Matters.
+        © {new Date().getFullYear()} <b>FORFRA SOLUTIONS</b> — {sc.footer}
       </footer>
     </div>
   );
