@@ -7,6 +7,7 @@ import {
   Eye, ClipboardCheck, ShieldAlert, Globe, PenTool, FileClock, Printer,
   FolderCheck, Stamp, Mic, Cloud,
 } from "lucide-react";
+import forfraLogo from "../../assets/forfra-logo.png";
 import { Link } from "react-router-dom";
 import { useLanguage } from "../LanguageContext";
 import LanguageToggle from "../LanguageToggle";
@@ -224,10 +225,8 @@ export default function ForensicAuditPage() {
         }
         .fa-nav-brand { display:flex; align-items:center; gap:10px; color:#fff; font-weight:700; letter-spacing:0.04em; }
         .fa-nav-logo {
-          width:34px; height:34px; border-radius:8px;
-          background: linear-gradient(135deg, var(--gold), #b9852a);
-          display:flex; align-items:center; justify-content:center;
-          color: var(--navy-deep); font-family:'Fraunces',serif; font-weight:700;
+          width:34px; height:34px; border-radius:50%;
+          object-fit: cover; flex-shrink: 0;
         }
         .fa-nav-links { display:flex; gap:28px; }
         .fa-nav-links a {
@@ -593,7 +592,7 @@ export default function ForensicAuditPage() {
       {/* NAV */}
       <nav className={`fa-nav ${navSolid ? "solid" : ""}`}>
         <Link to="/" className="fa-nav-brand" style={{ textDecoration: "none" }}>
-          <div className="fa-nav-logo">F</div>
+          <img src={forfraLogo} alt="Forfra Solutions" className="fa-nav-logo" />
           FORFRA SOLUTIONS
         </Link>
         <div className="fa-nav-links" style={{ alignItems: "center" }}>

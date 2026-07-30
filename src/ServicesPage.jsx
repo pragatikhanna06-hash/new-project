@@ -107,13 +107,13 @@ const PILLS = [
 ];
 
 const CARDS = [
-  {num:"01",icon:"",sub:"ROYAL VAULT APPROACH",    title:"Data Security",                   body:"Air-gapped systems, strong encryption, and strict access controls keep your data completely isolated, private, and tamper-proof.",                                                               id:"data-security"},
-  {num:"02",icon:"",sub:"BEYOND TRADITIONAL AUDITS",title:"Forensic Audit",                 body:"Uncover fraud, financial irregularities, and hidden risks with investigative expertise and advanced analytics. Court-admissible reports guaranteed.",                                           id:"forensic-audit"},
-  {num:"03",icon:"",sub:"END-TO-END INVESTIGATION", title:"Digital Forensics",              body:"Data imaging, extraction, and in-depth analysis from mobile devices, computers, and networks with full chain of custody.",                                                                     id:"digital-forensics"},
-  {num:"04",icon:"",sub:"FOLLOW THE MONEY",         title:"Financial & Fraud Investigation",body:"Uncover financial irregularities, trace complex transactions, and track fraud across banking systems — including cryptocurrency tracing.",                                                     id:"fraud"},
-  {num:"05",icon:"",sub:"OSINT & DUE DILIGENCE",   title:"Investigations & Intelligence", body:"Background verification, corporate & private investigations, OSINT, litigation support, and business risk assessment.",                                                                         id:"investigations"},
-  {num:"06",icon:"",sub:"FORENSIC-LEGAL BRIDGE",   title:"Legal Consultation",             body:"Translating digital and physical evidence into legally admissible insights — bridging forensic science and courtroom strategy.",                                                               id:"legal"},
-  {num:"07",icon:"",sub:"VERIFY. AUTHENTICATE.",   title:"Document Examination",           body:"Handwriting authentication, forgery detection, metadata inspection, and tamper checks — scientifically verified and court-ready.",                                                             id:"document"},
+  {num:"01",sub:"ROYAL VAULT APPROACH",    title:"Data Security",                   body:"Air-gapped systems, strong encryption, and strict access controls keep your data completely isolated, private, and tamper-proof.",                                                               id:"data-security"},
+  {num:"02",sub:"BEYOND TRADITIONAL AUDITS",title:"Forensic Audit",                 body:"Uncover fraud, financial irregularities, and hidden risks with investigative expertise and advanced analytics. Court-admissible reports guaranteed.",                                           id:"forensic-audit"},
+  {num:"03",sub:"END-TO-END INVESTIGATION", title:"Digital Forensics",              body:"Data imaging, extraction, and in-depth analysis from mobile devices, computers, and networks with full chain of custody.",                                                                     id:"digital-forensics"},
+  {num:"04",sub:"FOLLOW THE MONEY",         title:"Financial & Fraud Investigation",body:"Uncover financial irregularities, trace complex transactions, and track fraud across banking systems — including cryptocurrency tracing.",                                                     id:"fraud"},
+  {num:"05",sub:"OSINT & DUE DILIGENCE",   title:"Investigations & Intelligence", body:"Background verification, corporate & private investigations, OSINT, litigation support, and business risk assessment.",                                                                         id:"investigations"},
+  {num:"06",sub:"FORENSIC-LEGAL BRIDGE",   title:"Legal Consultation",             body:"Translating digital and physical evidence into legally admissible insights — bridging forensic science and courtroom strategy.",                                                               id:"legal"},
+  {num:"07",sub:"VERIFY. AUTHENTICATE.",   title:"Document Examination",           body:"Handwriting authentication, forgery detection, metadata inspection, and tamper checks — scientifically verified and court-ready.",                                                             id:"document"},
 ];
 
 const STATS = [
@@ -126,43 +126,43 @@ const STATS = [
 const DETAILS = [
   {id:"data-security",   bg:"#0d1635",flip:false,
    eyebrow:"DATA SECURITY",hw:"AIR-GAPPED.",hg:"ENCRYPTED.\nCOMPLIANT.",
-   cert:"ISO 27001:2022 Certified",icon:"",vt:"Royal Vault Approach",
+   cert:"ISO 27001:2022 Certified",vt:"Royal Vault Approach",
    vb:"Data treated as high-value assets — hidden, isolated, and accessible only to verified authorities.",
    body:"Combining secrecy, layered control, and modern air-gapped systems to create environments where data is not just stored — it is protected with discipline and zero exposure.",
    feats:["Isolated air-gapped environments with no internet connectivity","Strong encryption protocols for data at rest","Role-based and device-based access with multi-layer authentication","Safe offline transfer via encrypted drives and controlled ports","Full chain of custody — admissible and traceable in court","Aligned with DPDP Act 2023 and Section 63(4)(c) compliance"]},
   {id:"forensic-audit",  bg:"#090f1e",flip:true,
    eyebrow:"FORENSIC AUDIT",hw:"UNCOVER WHAT",hg:"OTHERS MISS.",
-   icon:"",vt:"10+ Targeted Industries",
+   vt:"10+ Targeted Industries",
    vb:"Banking, fintech, healthcare, real estate, NGOs, government PSU projects, and more.",
    body:"Beyond traditional audits — identifying fraud, financial irregularities, and hidden risks using investigative expertise and advanced analytics across 10+ targeted industries.",
    feats:["Fraud detection and financial irregularity identification","Advanced analytics to trace discrepancies and hidden risks","Banking, Manufacturing, Real Estate, Healthcare & E-commerce","Government & PSU projects, NGOs, Insurance companies","Court-admissible, litigation-ready documentation"]},
   {id:"digital-forensics",bg:"#0d1635",flip:false,
    eyebrow:"DIGITAL FORENSICS",hw:"EVIDENCE.",hg:"INTEGRITY.\nJUSTICE.",
-   icon:"",vt:"Multi-Platform Forensics",
+   vt:"Multi-Platform Forensics",
    vb:"Computers, mobiles, cloud, CCTV, audio — every digital surface covered with evidence integrity guaranteed.",
    body:"End-to-end investigations for law enforcement and corporate clients — evidence acquisition, analysis, and expert reporting with proper chain of custody.",
    feats:["Computer Forensics — desktops, laptops, servers","Mobile Device Forensics — smartphones, SIM cards, WhatsApp, call logs","Email & Communication Forensics — phishing detection, deleted recovery","Cloud Forensics — Google Drive, AWS, OneDrive","CCTV & Video Forensics — enhancement and authentication","Audio Forensics — voice analysis and tampering detection","Expert Witness & Litigation Support"]},
   {id:"fraud",            bg:"#090f1e",flip:true,
    eyebrow:"FINANCIAL & FRAUD INVESTIGATION",hw:"TRACE THE MONEY.",hg:"EXPOSE THE FRAUD.",
-   icon:"",vt:"Financial Crime Specialists",
+   vt:"Financial Crime Specialists",
    vb:"Forensic accounting, cryptocurrency tracing, benami entities, transaction trail analysis.",
    body:"Tracing digital evidence, reconstructing transactions, and identifying fraudulent intent — supporting organizations and authorities in cases of fraud, embezzlement, bribery, and corporate misconduct.",
    feats:["Transaction Trail Analysis — bank statements and digital ledgers","Forensic Accounting — detecting manipulation and fund diversion","Data Manipulation Detection — altered or fabricated records","Benami & Shell Entity Investigation — hidden ownership tracing","Insider Fraud — system logs and access history analysis","Cryptocurrency tracing across banking and digital platforms"]},
   {id:"investigations",   bg:"#0d1635",flip:false,
    eyebrow:"INVESTIGATIONS & INTELLIGENCE",hw:"VERIFY.",hg:"INVESTIGATE.\nMITIGATE.",
-   icon:"",vt:"OSINT & Beyond",
+   vt:"OSINT & Beyond",
    vb:"Professional intelligence combined with investigative services for accurate, confident decisions.",
    body:"Helping businesses and individuals verify information, identify risks, and make informed decisions — accurate, confidential, and built for security and compliance.",
    feats:["Background Verification — identity, employment, education, criminal records","Corporate & Private Detective Services — misconduct, asset tracing, surveillance","Litigation Support — fact-finding, document review, case strategy","Due Diligence — financial integrity, corporate history, reputation","Open-Source Intelligence (OSINT) — social media, corporate records","Business Intelligence & Risk Assessment"]},
   {id:"legal",            bg:"#090f1e",flip:true,
    eyebrow:"LEGAL CONSULTATION",hw:"EVIDENCE TO",hg:"COURTROOM.",
-   icon:"",vt:"Forensic-Legal Bridge",
+   vt:"Forensic-Legal Bridge",
    vb:"Technical evidence translated into legally admissible insights — every case structured and court-ready.",
    body:"Strategic legal consultation backed by forensic insights — bridging the gap between technical evidence and legal strategy, ensuring every case is compliant and court-ready.",
    feats:["Forensic-Legal Advisory — digital and physical evidence to admissible insights","Regulatory Compliance — DPDP Act 2023, IT Act 2000, financial regulations","Expert Witness Services — courtroom testimony and technical explanations","Corporate Fraud & Risk Advisory","Litigation Support & Case Strategy"]},
   {id:"document",         bg:"#0d1635",flip:false,
    eyebrow:"DOCUMENT EXAMINATION & VALIDATION",hw:"AUTHENTIC OR",hg:"FORGED?\nWE KNOW.",
-   icon:"",vt:"Document Validation",
+   vt:"Document Validation",
    vb:"Physical and digital document forensics — detecting forgery, tampering, and manipulation scientifically.",
    body:"Comprehensive forensic examination of physical and digital documents — combining scientific analysis with advanced digital forensics to support legal proceedings and fraud investigations.",
    feats:["Handwriting & Signature Authentication","Forgery & Alteration Detection","Metadata & Digital Document Inspection — timestamps, backdating","Paper, Ink & Print Analysis","Tamper & Manipulation Checks","Evidentiary File Preparation — chain of custody compliance"]},
@@ -177,10 +177,10 @@ const CLIENTS = [
 ];
 
 const PROGRAMS = [
-  {icon:"",title:"Corporate Crime Awareness",
+  {title:"Corporate Crime Awareness",
    sub:"Equipping organizations to detect, prevent, and respond to modern financial and digital threats.",
    items:["Payment gateway manipulation & refund scams","Business Email Compromise (BEC) attacks","CEO/CFO impersonation & social engineering","Insider data theft & confidential leaks","Legal & regulatory compliance obligations","POSH Act awareness & workplace ethics"]},
-  {icon:"",title:"School Crime Awareness",
+  {title:"School Crime Awareness",
    sub:"Building safer schools by educating students, teachers, and parents about digital safety and protection.",
    items:["Cyberbullying, phishing & online scams","Social media safety & privacy protection","Stranger danger & substance abuse awareness","Juvenile laws & student responsibilities","Mental health & peer pressure management","POSH & safe school environment"]},
 ];
@@ -329,7 +329,6 @@ function SvcCard({d}) {
       <div className="sc" onClick={()=>document.getElementById(d.id)?.scrollIntoView({behavior:"smooth"})}
         style={{background:CBKG,border:`1px solid ${BORD}`,borderRadius:12,padding:"36px 30px 32px",cursor:"pointer"}}>
         <span className="sc-num" style={{position:"absolute",top:18,right:24,fontFamily:"'Inter',sans-serif",fontWeight:900,fontSize:"3.5rem",color:"rgba(255,255,255,.04)",lineHeight:1,pointerEvents:"none",transition:"color .35s"}}>{d.num}</span>
-        <span style={{fontSize:28,marginBottom:18,display:"block"}}>{d.icon}</span>
         <span style={{fontFamily:"'Inter',sans-serif",fontSize:".65rem",fontWeight:700,letterSpacing:3,textTransform:"uppercase",color:G,marginBottom:8,display:"block"}}>{d.sub}</span>
         <h3 style={{fontFamily:"'Inter',sans-serif",fontWeight:800,fontSize:"1.3rem",textTransform:"uppercase",letterSpacing:.5,color:"#fff",marginBottom:14,lineHeight:1.15}}>{d.title}</h3>
         <p style={{fontSize:".88rem",color:BODY,lineHeight:1.65,marginBottom:24}}>{d.body}</p>
@@ -350,7 +349,6 @@ function Detail({d}) {
       <div className="floaty" style={{background:CBKG,border:`1px solid ${BORD}`,borderRadius:16,padding:"52px 40px",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",gap:16,minHeight:300,position:"relative",overflow:"hidden"}}>
         <div style={{position:"absolute",inset:0,background:"radial-gradient(circle at 50% 0%,rgba(232,151,26,.08) 0%,transparent 65%)"}}/>
         {d.cert&&<span style={{background:G,color:"#000",fontFamily:"'Inter',sans-serif",fontSize:".65rem",fontWeight:800,letterSpacing:2,textTransform:"uppercase",padding:"5px 14px",borderRadius:3,position:"relative"}}>{d.cert}</span>}
-        <span style={{fontSize:68,position:"relative"}}>{d.icon}</span>
         <h4 style={{fontFamily:"'Inter',sans-serif",fontWeight:800,fontSize:"1.1rem",textTransform:"uppercase",color:"#fff",position:"relative"}}>{d.vt}</h4>
         <p style={{fontSize:".85rem",color:BODY,lineHeight:1.6,position:"relative",maxWidth:240}}>{d.vb}</p>
       </div>
@@ -484,7 +482,6 @@ export default function ServicesPage() {
                 <div className="prog" style={{background:CBKG,border:`1px solid ${BORD}`,borderRadius:12,overflow:"hidden",transition:"transform .3s,border-color .3s,box-shadow .3s"}}>
                   <div style={{padding:"32px 30px 28px",borderBottom:`1px solid ${BORD}`,background:`linear-gradient(135deg,${CBKG} 0%,rgba(17,29,64,.5) 100%)`,position:"relative"}}>
                     <div style={{position:"absolute",top:0,left:0,right:0,height:2,background:G}}/>
-                    <span style={{fontSize:36,marginBottom:14,display:"block"}}>{p.icon}</span>
                     <h3 style={{fontFamily:"'Inter',sans-serif",fontWeight:800,fontSize:"1.25rem",textTransform:"uppercase",color:"#fff",marginBottom:8}}>{p.title}</h3>
                     <p style={{fontSize:".85rem",color:BODY,lineHeight:1.6}}>{p.sub}</p>
                   </div>
