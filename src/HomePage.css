@@ -203,6 +203,7 @@ img { display: block; max-width: 100%; }
   gap: 0.65rem;
   text-decoration: none;
   transition: opacity var(--trans);
+  -webkit-tap-highlight-color: transparent;
 }
 .navbar-brand:hover { opacity: 0.88; }
 
@@ -260,6 +261,7 @@ img { display: block; max-width: 100%; }
   transition: color var(--trans);
   letter-spacing: 0.01em;
   padding: 0.3rem 0;
+  -webkit-tap-highlight-color: transparent;
 }
 .navbar-links li:not(:last-child):not(:nth-last-child(2)) > a::after {
   content: "";
@@ -283,10 +285,31 @@ img { display: block; max-width: 100%; }
   border-radius: 999px;
   box-shadow: 0 4px 16px rgba(245,166,35,0.28);
   transition: transform var(--trans), box-shadow var(--trans) !important;
+  -webkit-tap-highlight-color: transparent;
 }
 .nav-cta:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 22px rgba(245,166,35,0.4);
+}
+
+/* replace the browser's default blue focus ring with the site's gold accent */
+.navbar-brand:focus,
+.navbar-links a:focus,
+.nav-cta:focus,
+.hamburger:focus,
+.navbar-lang-item button:focus,
+.navbar-lang-item a:focus {
+  outline: none;
+}
+.navbar-brand:focus-visible,
+.navbar-links a:focus-visible,
+.nav-cta:focus-visible,
+.hamburger:focus-visible,
+.navbar-lang-item button:focus-visible,
+.navbar-lang-item a:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
 /* Report a Crime — urgent nav button */
@@ -390,7 +413,9 @@ img { display: block; max-width: 100%; }
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: radial-gradient(ellipse at 60% 40%, #1B3A6B 0%, #0A1628 65%);
+  background:
+    linear-gradient(to bottom, var(--navy) 0, var(--navy) 40px, rgba(10,22,40,0) 260px),
+    radial-gradient(ellipse at 60% 40%, #1B3A6B 0%, #0A1628 65%);
   padding: var(--nav-h) 1.5rem 0;
 }
 
@@ -1155,7 +1180,24 @@ img { display: block; max-width: 100%; }
 }
 
 @media (max-width: 860px) {
-  :root { --nav-h: 62px; }
+  :root { --nav-h: 60px; }
+
+  .navbar-inner { padding: 0 1rem; }
+
+  .brand-logo { width: 26px; height: 26px; }
+  .brand-name, .brand-sub { font-size: 0.98rem; letter-spacing: 0.02em; }
+  .navbar-brand { gap: 0.4rem; }
+
+  .navbar-mobile-controls { gap: 0.5rem; }
+
+  .lang-toggle--compact {
+    padding: 0.24rem 0.5rem;
+    font-size: 0.68rem;
+    gap: 0.22rem;
+  }
+
+  .hamburger { width: 34px; height: 34px; }
+  .hamburger span { width: 19px; }
 
   .navbar-links {
     margin-left: 0;
