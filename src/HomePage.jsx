@@ -3208,11 +3208,11 @@ function ContactSection() {
               +91 89823 07608
             </a>
             <a href="https://instagram.com/forfrasolutions" className="contact-link" target="_blank" rel="noopener noreferrer">
-              Instagram
-            </a>
-            <a href="https://linkedin.com/company/forfra-solutions" className="contact-link" target="_blank" rel="noopener noreferrer">
-              LinkedIn
-            </a>
+  Instagram
+</a>
+<a href="https://www.linkedin.com/company/forfra-solutions/" className="contact-link" target="_blank" rel="noopener noreferrer">
+  LinkedIn
+</a>
           </div>
         </div>
         <div className="contact-cta-box">
