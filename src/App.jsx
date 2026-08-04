@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "./pages/LanguageContext";
 
 import HomePage from "./HomePage";
+import AboutPage from "./AboutPage";
 import ServicesPage from "./ServicesPage";
 import ReportCrimePage from "./pages/ReportCrimePage";
 import BookLawyerPage from "./pages/BookLawyerPage";
@@ -28,6 +29,7 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
           <Route path="/report-crime" element={<ReportCrimePage />} />
           <Route path="/book-lawyer" element={<BookLawyerPage />} />
           <Route path="/book-lawyer/day-1" element={<BookLawyerDay1Page />} />

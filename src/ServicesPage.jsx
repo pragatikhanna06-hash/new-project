@@ -1,4 +1,7 @@
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { Landmark, Siren, Building2, Briefcase, FileText } from "lucide-react";
+import forfraLogo from "./assets/forfra-logo-transparent.png";
 
 /* ══════════════════════════════════════════
    GLOBAL STYLES
@@ -169,11 +172,11 @@ const DETAILS = [
 ];
 
 const CLIENTS = [
-  {title:"Government & Regulatory",items:["Income Tax Department","GST Department","Enforcement Directorate","CBI","SEBI","SFIO"]},
-  {title:"Law Enforcement & Legal", items:["State Police & Cyber Crime Cells","Economic Offences Wings","Law Firms & Litigation Teams","Courts & Judicial Authorities"]},
-  {title:"Banking & Finance",       items:["Public & Private Banks","NBFCs","Insurance Companies","FinTech & Payment Providers"]},
-  {title:"Corporate & Business",    items:["Large Corporates & MNCs","SMEs & Family Businesses","Internal Audit Teams","Compliance Departments"]},
-  {title:"Professional Firms",      items:["CA Firms & Forensic Auditors","Risk Advisory Firms","IBBI Insolvency Professionals"]},
+  {title:"Government & Regulatory",icon:Landmark, items:["Income Tax Department","GST Department","Enforcement Directorate","CBI","SEBI","SFIO"]},
+  {title:"Law Enforcement & Legal", icon:Siren,    items:["State Police & Cyber Crime Cells","Economic Offences Wings","Law Firms & Litigation Teams","Courts & Judicial Authorities"]},
+  {title:"Banking & Finance",       icon:Building2,items:["Public & Private Banks","NBFCs","Insurance Companies","FinTech & Payment Providers"]},
+  {title:"Corporate & Business",    icon:Briefcase,items:["Large Corporates & MNCs","SMEs & Family Businesses","Internal Audit Teams","Compliance Departments"]},
+  {title:"Professional Firms",      icon:FileText, items:["CA Firms & Forensic Auditors","Risk Advisory Firms","IBBI Insolvency Professionals"]},
 ];
 
 const PROGRAMS = [
@@ -261,16 +264,25 @@ function Stars() {
 function Nav() {
   const [open,setOpen]=useState(false);
   const [sc,setSc]=useState(false);
+  const navigate = useNavigate();
   useEffect(()=>{
     const fn=()=>setSc(scrollY>8);
     addEventListener("scroll",fn);return()=>removeEventListener("scroll",fn);
   },[]);
-  const go=(id)=>{id?document.getElementById(id)?.scrollIntoView({behavior:"smooth"}):window.location="/";setOpen(false);};
-  const links=[["About",null],["Services","overview"],["Clients","clients"],["Programs","programs"],["Contact","contact"]];
+
+  // "Home" -> "/", "About" -> "/about" via router;
+  // "Services"/"Clients"/"Programs" scroll within this same page (already here)
+  const go=(id)=>{
+    if(id==="/"){ navigate("/"); }
+    else if(id==="/about"){ navigate("/about"); }
+    else if(id){ document.getElementById(id)?.scrollIntoView({behavior:"smooth"}); }
+    setOpen(false);
+  };
+  const links=[["Home","/"],["About","/about"],["Services","overview"],["Clients","clients"],["Programs","programs"]];
   return(<>
     <nav style={{position:"fixed",top:0,left:0,right:0,zIndex:100,background:sc?"rgba(9,15,30,.98)":"rgba(9,15,30,.92)",backdropFilter:"blur(12px)",borderBottom:`1px solid ${BORD}`,display:"flex",alignItems:"center",justifyContent:"space-between",padding:"0 48px",height:64,transition:"background .3s"}}>
-      <a href="/" style={{display:"flex",alignItems:"center",gap:10,textDecoration:"none"}}>
-        <span style={{color:G,fontFamily:"'Inter',sans-serif",fontWeight:900,fontSize:20}}></span>
+      <a href="/" style={{display:"flex",alignItems:"center",gap:10,textDecoration:"none"}} onClick={(e)=>{e.preventDefault();navigate("/");}}>
+        <img src={forfraLogo} alt="Forfra Solutions" style={{width:34,height:34,objectFit:"contain",flexShrink:0}}/>
         <span style={{fontFamily:"'Inter',sans-serif",fontWeight:800,fontSize:"1.15rem",letterSpacing:2,textTransform:"uppercase",color:"#fff"}}>FORFRA<span style={{color:G,fontWeight:500,fontSize:".82rem",letterSpacing:3,marginLeft:6}}>SOLUTIONS</span></span>
       </a>
       <ul className="dn" id="dnav" style={{display:"flex",gap:34,listStyle:"none"}}>
@@ -446,21 +458,29 @@ export default function ServicesPage() {
             <h2 style={{fontFamily:"'Inter',sans-serif",fontWeight:900,fontSize:"clamp(2.2rem,4.5vw,3.8rem)",textTransform:"uppercase",color:"#fff"}}>OUR <span style={{color:G}}>CLIENTS</span></h2>
             <div style={{width:48,height:3,background:G,borderRadius:2,marginTop:18}}/>
           </Rev>
-          <div ref={clientsRef} className="g1" style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(210px,1fr))",gap:16}}>
-            {CLIENTS.map(c=>(
+          <div ref={clientsRef} className="g1" style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(230px,1fr))",gap:20}}>
+            {CLIENTS.map(c=>{
+              const Icon=c.icon;
+              return(
               <div key={c.title}>
-                <div className="cli" style={{background:CBKG,border:`1px solid ${BORD}`,borderRadius:10,padding:"24px 20px",transition:"border-color .25s,transform .25s"}}>
-                  <h4 style={{fontFamily:"'Inter',sans-serif",fontSize:".68rem",fontWeight:700,letterSpacing:3,textTransform:"uppercase",color:G,marginBottom:14}}>{c.title}</h4>
-                  <ul style={{listStyle:"none",display:"flex",flexDirection:"column",gap:7}}>
+                <div className="cli" style={{background:CBKG,border:`1px solid ${BORD}`,borderRadius:12,padding:"26px 22px",position:"relative",overflow:"hidden",transition:"border-color .25s,transform .25s"}}>
+                  <div style={{position:"absolute",top:0,left:0,right:0,height:3,background:`linear-gradient(90deg,${G},transparent)`}}/>
+                  <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:16}}>
+                    <span style={{display:"flex",alignItems:"center",justifyContent:"center",width:34,height:34,borderRadius:9,background:"rgba(232,151,26,.12)",color:G,flexShrink:0}}>
+                      <Icon size={17}/>
+                    </span>
+                    <h4 style={{fontFamily:"'Inter',sans-serif",fontSize:".72rem",fontWeight:700,letterSpacing:2,textTransform:"uppercase",color:"#fff",lineHeight:1.3}}>{c.title}</h4>
+                  </div>
+                  <ul style={{listStyle:"none",display:"flex",flexDirection:"column",gap:9}}>
                     {c.items.map(item=>(
-                      <li key={item} style={{color:BODY,fontSize:".84rem",paddingLeft:14,position:"relative",lineHeight:1.4}}>
-                        <span style={{position:"absolute",left:0,color:G,fontSize:".7rem",top:2}}>—</span>{item}
+                      <li key={item} style={{color:BODY,fontSize:".85rem",paddingLeft:16,position:"relative",lineHeight:1.4}}>
+                        <span style={{position:"absolute",left:0,top:".55em",width:5,height:5,borderRadius:"50%",background:G}}/>{item}
                       </li>
                     ))}
                   </ul>
                 </div>
               </div>
-            ))}
+            );})}
           </div>
         </div>
       </section>
