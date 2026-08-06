@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { LanguageProvider } from "./pages/LanguageContext";
 
 import HomePage from "./HomePage";
@@ -12,6 +12,8 @@ import BookLawyerInBetweenPage from "./pages/BookLawyerInBetweenPage";
 import CaseStatusPage from "./pages/CaseStatusPage";
 import ForensicExpertPage from "./pages/ForensicExpertPage";
 import LegalDraftingPage from "./pages/LegalDraftingPage";
+import CorporateCrimeAwarenessPage from "./pages/CorporateCrimeAwarenessPage";
+import SchoolCrimeAwarenessPage from "./pages/SchoolCrimeAwarenessPage";
 
 import DataSecurityPage from "./pages/services/DataSecurityPage";
 import ForensicAuditPage from "./pages/services/ForensicAuditPage";
@@ -23,10 +25,24 @@ import DocumentExaminationPage from "./pages/services/DocumentExaminationPage";
 
 import WhatsAppButton from "./pages/WhatsAppButton";
 
+/* Ensures every route change starts scrolled to the top of the page
+   instead of resuming the previous page's scroll position (fixes the
+   "opens in the middle of the page" issue when navigating). Hash links
+   like /#contact still scroll to their target section as expected. */
+function ScrollToTop() {
+  const { pathname, hash } = useLocation();
+  useEffect(() => {
+    if (hash) return; // let in-page anchor links do their own thing
+    window.scrollTo(0, 0);
+  }, [pathname, hash]);
+  return null;
+}
+
 export default function App() {
   return (
     <LanguageProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
@@ -37,6 +53,8 @@ export default function App() {
           <Route path="/case-status" element={<CaseStatusPage />} />
           <Route path="/forensic-expert" element={<ForensicExpertPage />} />
           <Route path="/legal-drafting" element={<LegalDraftingPage />} />
+          <Route path="/corporate-crime-awareness" element={<CorporateCrimeAwarenessPage />} />
+          <Route path="/school-crime-awareness" element={<SchoolCrimeAwarenessPage />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/services/data-security" element={<DataSecurityPage />} />
           <Route path="/services/forensic-audit" element={<ForensicAuditPage />} />

@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Landmark, Siren, Building2, Briefcase, FileText } from "lucide-react";
 import forfraLogo from "./assets/forfra-logo-transparent.png";
+import cyberThreatPhoto from "./assets/photos/cyber-threat.jpg";
+import scalesOfJusticePhoto from "./assets/photos/scales-of-justice.jpg";
 
 /* ══════════════════════════════════════════
    GLOBAL STYLES
@@ -107,6 +109,7 @@ const PILLS = [
   {label:"INVESTIGATIONS",       id:"investigations"},
   {label:"LEGAL CONSULTATION",   id:"legal"},
   {label:"DOCUMENT EXAMINATION", id:"document"},
+  {label:"CYBER INVESTIGATION",  id:"cyber-investigation"},
 ];
 
 const CARDS = [
@@ -117,6 +120,7 @@ const CARDS = [
   {num:"05",sub:"OSINT & DUE DILIGENCE",   title:"Investigations & Intelligence", body:"Background verification, corporate & private investigations, OSINT, litigation support, and business risk assessment.",                                                                         id:"investigations"},
   {num:"06",sub:"FORENSIC-LEGAL BRIDGE",   title:"Legal Consultation",             body:"Translating digital and physical evidence into legally admissible insights — bridging forensic science and courtroom strategy.",                                                               id:"legal"},
   {num:"07",sub:"VERIFY. AUTHENTICATE.",   title:"Document Examination",           body:"Handwriting authentication, forgery detection, metadata inspection, and tamper checks — scientifically verified and court-ready.",                                                             id:"document"},
+  {num:"08",sub:"DETECT. RESPOND. RECOVER.",title:"Cyber Investigation",           body:"Malware analysis, threat intelligence, and data breach investigation — identifying, containing, and tracing cyber attacks back to their source.",                                                 id:"cyber-investigation"},
 ];
 
 const STATS = [
@@ -161,6 +165,7 @@ const DETAILS = [
    eyebrow:"LEGAL CONSULTATION",hw:"EVIDENCE TO",hg:"COURTROOM.",
    vt:"Forensic-Legal Bridge",
    vb:"Technical evidence translated into legally admissible insights — every case structured and court-ready.",
+   img:scalesOfJusticePhoto,
    body:"Strategic legal consultation backed by forensic insights — bridging the gap between technical evidence and legal strategy, ensuring every case is compliant and court-ready.",
    feats:["Forensic-Legal Advisory — digital and physical evidence to admissible insights","Regulatory Compliance — DPDP Act 2023, IT Act 2000, financial regulations","Expert Witness Services — courtroom testimony and technical explanations","Corporate Fraud & Risk Advisory","Litigation Support & Case Strategy"]},
   {id:"document",         bg:"#0d1635",flip:false,
@@ -169,6 +174,13 @@ const DETAILS = [
    vb:"Physical and digital document forensics — detecting forgery, tampering, and manipulation scientifically.",
    body:"Comprehensive forensic examination of physical and digital documents — combining scientific analysis with advanced digital forensics to support legal proceedings and fraud investigations.",
    feats:["Handwriting & Signature Authentication","Forgery & Alteration Detection","Metadata & Digital Document Inspection — timestamps, backdating","Paper, Ink & Print Analysis","Tamper & Manipulation Checks","Evidentiary File Preparation — chain of custody compliance"]},
+  {id:"cyber-investigation",bg:"#090f1e",flip:true,
+   eyebrow:"CYBER INVESTIGATION",hw:"DETECT THE BREACH.",hg:"TRACE THE ATTACKER.",
+   vt:"Full-Spectrum Cyber Response",
+   vb:"Malware analysis, threat intelligence, and data breach investigation — under one roof.",
+   img:cyberThreatPhoto,
+   body:"When systems are compromised, speed and precision matter. Our cyber investigation team identifies malicious activity, maps the threat, and reconstructs how a breach happened — delivering clear, evidence-backed findings your organization and legal counsel can act on.",
+   feats:["Malware Analysis — static & dynamic analysis to identify malicious code and its behaviour","Threat Intelligence — profiling attackers, tracking indicators of compromise (IOCs), and threat actor patterns","Data Breach Investigation — scope assessment, root-cause analysis, and impact reporting","Incident Response & Containment — isolating compromised systems and stopping active threats","Network & Log Forensics — tracing intrusion paths across servers, endpoints, and cloud systems","Post-Incident Reporting — compliance-ready reports for regulators, insurers, and leadership"]},
 ];
 
 const CLIENTS = [
@@ -259,6 +271,48 @@ function Stars() {
 }
 
 /* ══════════════════════════════════════════
+   CONTACT DROPDOWN — all platforms, one click away
+══════════════════════════════════════════ */
+const CONTACT_PLATFORMS=[
+  {label:"Website", value:"www.forfrasolutions.com", href:"https://www.forfrasolutions.com", external:true},
+  {label:"Email",    value:"hello@forfrasolutions.com", href:"mailto:hello@forfrasolutions.com"},
+  {label:"Call",     value:"+91 97110 15337", href:"tel:+919711015337"},
+  {label:"Call",     value:"+91 89823 07608", href:"tel:+918982307608"},
+  {label:"Instagram",value:"@forfrasolutions", href:"https://instagram.com/forfrasolutions", external:true},
+  {label:"LinkedIn", value:"Forfra Solutions", href:"https://www.linkedin.com/company/forfra-solutions/", external:true},
+];
+
+function ContactDropdown({triggerClass,triggerStyle,onItemClick}) {
+  const [open,setOpen]=useState(false);
+  const ref=useRef(null);
+  useEffect(()=>{
+    if(!open)return;
+    const onDoc=(e)=>{ if(ref.current && !ref.current.contains(e.target)) setOpen(false); };
+    document.addEventListener("mousedown",onDoc);
+    return()=>document.removeEventListener("mousedown",onDoc);
+  },[open]);
+  return(
+    <div ref={ref} style={{position:"relative",display:"inline-block"}}>
+      <button className={triggerClass} style={{...triggerStyle,border:"none",cursor:"pointer"}} onClick={()=>setOpen(o=>!o)} aria-haspopup="true" aria-expanded={open}>Contact Us</button>
+      {open && (
+        <div role="menu" style={{position:"absolute",top:"calc(100% + 10px)",right:0,minWidth:230,background:"#111d40",border:"1px solid rgba(232,151,26,.3)",borderRadius:12,boxShadow:"0 20px 50px rgba(0,0,0,.45)",padding:8,zIndex:1200,display:"flex",flexDirection:"column",gap:2}}>
+          {CONTACT_PLATFORMS.map((p,i)=>(
+            <a key={p.label+i} href={p.href} target={p.external?"_blank":undefined} rel={p.external?"noopener noreferrer":undefined} role="menuitem"
+               onClick={()=>{setOpen(false);onItemClick&&onItemClick();}}
+               style={{display:"flex",flexDirection:"column",gap:1,padding:"9px 12px",borderRadius:8,textDecoration:"none"}}
+               onMouseEnter={(e)=>e.currentTarget.style.background="rgba(232,151,26,.12)"}
+               onMouseLeave={(e)=>e.currentTarget.style.background="transparent"}>
+              <span style={{fontSize:".65rem",fontWeight:700,letterSpacing:1.5,textTransform:"uppercase",color:G}}>{p.label}</span>
+              <span style={{fontSize:".85rem",color:"#fff"}}>{p.value}</span>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════════
    NAV
 ══════════════════════════════════════════ */
 function Nav() {
@@ -288,14 +342,14 @@ function Nav() {
       <ul className="dn" id="dnav" style={{display:"flex",gap:34,listStyle:"none"}}>
         {links.map(([l,id])=><li key={l}><button className="nbtn" onClick={()=>go(id)}>{l}</button></li>)}
       </ul>
-      <button className="ncta dn" id="dcta" onClick={()=>go("contact")}>Get in Touch</button>
+      <span className="dn" id="dcta"><ContactDropdown triggerClass="ncta" /></span>
       <button onClick={()=>setOpen(o=>!o)} aria-label="Menu" style={{display:"none",flexDirection:"column",gap:5,background:"none",border:"none",cursor:"pointer",padding:4}} className="dfl" id="hambtn">
         {[0,1,2].map(i=><span key={i} style={{display:"block",width:22,height:2,background:"#fff",borderRadius:2}}/>)}
       </button>
     </nav>
     {open&&<div style={{position:"fixed",top:64,left:0,right:0,zIndex:99,background:"#090f1e",padding:"20px 28px 28px",display:"flex",flexDirection:"column",gap:0,borderBottom:`1px solid ${BORD}`}}>
       {links.map(([l,id])=><button key={l} className="moba" onClick={()=>go(id)}>{l}</button>)}
-      <button className="ncta" onClick={()=>go("contact")} style={{marginTop:16}}>Get in Touch</button>
+      <div style={{marginTop:16}}><ContactDropdown triggerClass="ncta" onItemClick={()=>setOpen(false)} /></div>
     </div>}
     <style>{`@media(min-width:961px){#dnav{display:flex!important}#dcta{display:block!important}#hambtn{display:none!important}}`}</style>
   </>);
@@ -358,12 +412,24 @@ function Detail({d}) {
   const conRef =useReveal(d.flip?"rvl":"rvr");
   const Visual=(
     <div ref={vizRef}>
-      <div className="floaty" style={{background:CBKG,border:`1px solid ${BORD}`,borderRadius:16,padding:"52px 40px",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",gap:16,minHeight:300,position:"relative",overflow:"hidden"}}>
-        <div style={{position:"absolute",inset:0,background:"radial-gradient(circle at 50% 0%,rgba(232,151,26,.08) 0%,transparent 65%)"}}/>
-        {d.cert&&<span style={{background:G,color:"#000",fontFamily:"'Inter',sans-serif",fontSize:".65rem",fontWeight:800,letterSpacing:2,textTransform:"uppercase",padding:"5px 14px",borderRadius:3,position:"relative"}}>{d.cert}</span>}
-        <h4 style={{fontFamily:"'Inter',sans-serif",fontWeight:800,fontSize:"1.1rem",textTransform:"uppercase",color:"#fff",position:"relative"}}>{d.vt}</h4>
-        <p style={{fontSize:".85rem",color:BODY,lineHeight:1.6,position:"relative",maxWidth:240}}>{d.vb}</p>
-      </div>
+      {d.img ? (
+        <div className="floaty" style={{borderRadius:16,overflow:"hidden",border:`1px solid ${BORD}`,position:"relative",minHeight:300}}>
+          <img src={d.img} alt={d.vt} style={{width:"100%",height:"100%",minHeight:300,objectFit:"cover",display:"block"}}/>
+          <div style={{position:"absolute",inset:0,background:"linear-gradient(180deg,transparent 40%,rgba(9,15,30,.92) 100%)"}}/>
+          <div style={{position:"absolute",left:0,right:0,bottom:0,padding:"24px 26px",textAlign:"left"}}>
+            {d.cert&&<span style={{background:G,color:"#000",fontSize:".65rem",fontWeight:800,letterSpacing:2,textTransform:"uppercase",padding:"5px 14px",borderRadius:3,display:"inline-block",marginBottom:10}}>{d.cert}</span>}
+            <h4 style={{fontFamily:"'Inter',sans-serif",fontWeight:800,fontSize:"1.1rem",textTransform:"uppercase",color:"#fff"}}>{d.vt}</h4>
+            <p style={{fontSize:".85rem",color:BODY,lineHeight:1.6,maxWidth:280}}>{d.vb}</p>
+          </div>
+        </div>
+      ) : (
+        <div className="floaty" style={{background:CBKG,border:`1px solid ${BORD}`,borderRadius:16,padding:"52px 40px",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",gap:16,minHeight:300,position:"relative",overflow:"hidden"}}>
+          <div style={{position:"absolute",inset:0,background:"radial-gradient(circle at 50% 0%,rgba(232,151,26,.08) 0%,transparent 65%)"}}/>
+          {d.cert&&<span style={{background:G,color:"#000",fontFamily:"'Inter',sans-serif",fontSize:".65rem",fontWeight:800,letterSpacing:2,textTransform:"uppercase",padding:"5px 14px",borderRadius:3,position:"relative"}}>{d.cert}</span>}
+          <h4 style={{fontFamily:"'Inter',sans-serif",fontWeight:800,fontSize:"1.1rem",textTransform:"uppercase",color:"#fff",position:"relative"}}>{d.vt}</h4>
+          <p style={{fontSize:".85rem",color:BODY,lineHeight:1.6,position:"relative",maxWidth:240}}>{d.vb}</p>
+        </div>
+      )}
     </div>
   );
   const Content=(

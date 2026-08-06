@@ -5,6 +5,7 @@ import "./ForensicExpertPage.css";
 import { sendFormToWhatsApp } from "../utils/whatsapp";
 import { useLanguage } from "./LanguageContext";
 import LangToggle from "./LangToggle";
+import evidencePhoto from "../assets/photos/accident-vehicle.jpg";
 
 const EXPERT_POOL = [
   "Dr. A. Krishnan — Digital Forensics Examiner",
@@ -80,10 +81,17 @@ export default function ForensicExpertPage() {
       </nav>
 
       <section className="page-hero">
-        <div className="wrap">
-          <div className="eyebrow">{tr("Forensic Services")}</div>
-          <h1>{tr("Evidence fades fast —")} <em>{tr("secure it before it does.")}</em></h1>
-          <p>{tr("Certified forensic experts document and preserve digital and physical evidence so it holds up in court, however long the case takes to conclude.")}</p>
+        <div className="wrap fx-hero-grid">
+          <div>
+            <div className="eyebrow">{tr("Forensic Services")}</div>
+            <h1>{tr("Evidence fades fast —")} <em>{tr("secure it before it does.")}</em></h1>
+            <p>{tr("Certified forensic experts document and preserve digital and physical evidence so it holds up in court, however long the case takes to conclude.")}</p>
+          </div>
+          <img
+            src={evidencePhoto}
+            alt={tr("Physical evidence documented for forensic examination")}
+            className="fx-hero-photo"
+          />
         </div>
       </section>
 

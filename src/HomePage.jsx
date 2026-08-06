@@ -295,6 +295,61 @@ function LanguageToggle({ className = "" }) {
   );
 }
 
+const CONTACT_PLATFORMS = [
+  { label: "Website", value: "www.forfrasolutions.com", href: "https://www.forfrasolutions.com", external: true },
+  { label: "Email", value: "hello@forfrasolutions.com", href: "mailto:hello@forfrasolutions.com" },
+  { label: "Call", value: "+91 97110 15337", href: "tel:+919711015337" },
+  { label: "Call", value: "+91 89823 07608", href: "tel:+918982307608" },
+  { label: "Instagram", value: "@forfrasolutions", href: "https://instagram.com/forfrasolutions", external: true },
+  { label: "LinkedIn", value: "Forfra Solutions", href: "https://www.linkedin.com/company/forfra-solutions/", external: true },
+];
+
+function ContactDropdown({ className = "", onItemClick }) {
+  const [open, setOpen] = useState(false);
+  const wrapRef = useRef(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onDocClick = (e) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false);
+    };
+    document.addEventListener("mousedown", onDocClick);
+    return () => document.removeEventListener("mousedown", onDocClick);
+  }, [open]);
+
+  return (
+    <div className={`contact-dd-wrap ${className}`} ref={wrapRef}>
+      <button
+        type="button"
+        className="nav-cta contact-dd-trigger"
+        onClick={() => setOpen((o) => !o)}
+        aria-haspopup="true"
+        aria-expanded={open}
+      >
+        Contact Us
+      </button>
+      {open && (
+        <div className="contact-dd-menu" role="menu">
+          {CONTACT_PLATFORMS.map((p, i) => (
+            <a
+              key={p.label + i}
+              href={p.href}
+              className="contact-dd-item"
+              target={p.external ? "_blank" : undefined}
+              rel={p.external ? "noopener noreferrer" : undefined}
+              role="menuitem"
+              onClick={() => { setOpen(false); onItemClick && onItemClick(); }}
+            >
+              <span className="contact-dd-label">{p.label}</span>
+              <span className="contact-dd-value">{p.value}</span>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function Navbar({ scrolled }) {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -344,13 +399,7 @@ function Navbar({ scrolled }) {
         ))}
 
         <li>
-          <a
-            href="#contact"
-            className="nav-cta"
-            onClick={() => setOpen(false)}
-          >
-            {t.nav.getInTouch}
-          </a>
+          <ContactDropdown onItemClick={() => setOpen(false)} />
         </li>
 
         <li className="navbar-lang-item">
@@ -653,12 +702,14 @@ function ClientsSection() {
   );
 }
 
-const PROGRAM_COLORS = ["var(--gold)", "var(--blue-mid)"];
+const PROGRAM_COLORS = ["var(--gold)", "var(--gold)"];
+const PROGRAM_LINKS = ["/corporate-crime-awareness", "/school-crime-awareness"];
 
 function ProgramsSection() {
   const [ref, inView] = useInView();
   const { t } = useLanguage();
-  const programs = t.programs.items.map((p, i) => ({ ...p, color: PROGRAM_COLORS[i] }));
+  const navigate = useNavigate();
+  const programs = t.programs.items.map((p, i) => ({ ...p, color: PROGRAM_COLORS[i], to: PROGRAM_LINKS[i] }));
   return (
     <section className="programs" id="programs" ref={ref}>
       <div className={`programs-inner ${inView ? "reveal" : ""}`}>
@@ -669,7 +720,15 @@ function ProgramsSection() {
         </h2>
         <div className="programs-grid">
           {programs.map((p) => (
-            <div key={p.title} className="program-card">
+            <div
+              key={p.title}
+              className="program-card"
+              role="link"
+              tabIndex={0}
+              style={{ cursor: p.to ? "pointer" : "default" }}
+              onClick={() => p.to && navigate(p.to)}
+              onKeyDown={(e) => { if (p.to && (e.key === "Enter" || e.key === " ")) navigate(p.to); }}
+            >
               <div className="prog-accent" style={{ background: p.color }} />
               <h3>{p.title}</h3>
               <span className="prog-sub">{p.subtitle}</span>
@@ -678,6 +737,7 @@ function ProgramsSection() {
                   <li key={pt}><span className="prog-dot" />  {pt}</li>
                 ))}
               </ul>
+              {p.to && <span className="prog-more">{t.programs.learnMore || "Learn more →"}</span>}
             </div>
           ))}
         </div>

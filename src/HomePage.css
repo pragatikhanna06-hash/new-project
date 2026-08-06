@@ -292,6 +292,64 @@ img { display: block; max-width: 100%; }
   box-shadow: 0 8px 22px rgba(245,166,35,0.4);
 }
 
+/* Contact Us dropdown — lists every platform, click goes straight there */
+.contact-dd-wrap {
+  position: relative;
+  display: inline-block;
+}
+.contact-dd-trigger {
+  border: none;
+  cursor: pointer;
+  font-family: var(--ff-nav);
+}
+.contact-dd-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 240px;
+  background: var(--navy-mid, #101d3a);
+  border: 1px solid rgba(245,166,35,0.25);
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+  padding: 8px;
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  animation: contactDdIn 0.18s ease;
+}
+@keyframes contactDdIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.contact-dd-item {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background var(--trans);
+}
+.contact-dd-item:hover,
+.contact-dd-item:focus-visible {
+  background: rgba(245,166,35,0.12);
+}
+.contact-dd-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.contact-dd-value {
+  font-size: 0.85rem;
+  color: var(--white);
+}
+@media (max-width: 960px) {
+  .contact-dd-menu { position: static; margin-top: 8px; box-shadow: none; border: 1px solid rgba(255,255,255,0.08); }
+}
+
 /* replace the browser's default blue focus ring with the site's gold accent */
 .navbar-brand:focus,
 .navbar-links a:focus,
@@ -1023,6 +1081,15 @@ img { display: block; max-width: 100%; }
 .program-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+  border-color: rgba(245,166,35,0.35);
+}
+.prog-more {
+  display: inline-block;
+  margin-top: 1.4rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--gold);
 }
 .prog-accent {
   position: absolute;

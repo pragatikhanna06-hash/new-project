@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Siren, Scale, ClipboardList, Microscope, FileText } from "lucide-react";
+import { Siren, Scale, Microscope, FileText } from "lucide-react";
 import "./NyayShieldPage.css";
 import { useLanguage } from "./LanguageContext";
 import LangToggle from "./LangToggle";
@@ -71,14 +71,6 @@ export default function NyayShieldPage() {
               <span>
                 <div className="qa-text-title">{tr("Book a Lawyer")}</div>
                 <div className="qa-text-sub">{tr("From Day 1, or later in the case")}</div>
-              </span>
-            </Link>
-
-            <Link className="qa-btn qa-status" to="/case-status">
-              <span className="qa-icon"><ClipboardList size={22} /></span>
-              <span>
-                <div className="qa-text-title">{tr("Check Case Status")}</div>
-                <div className="qa-text-sub">{tr("Track progress & next hearing date")}</div>
               </span>
             </Link>
 
