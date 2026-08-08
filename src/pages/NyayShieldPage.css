@@ -20,7 +20,6 @@
   position:relative;
   background:
     radial-gradient(ellipse 900px 500px at 15% -10%, rgba(201,162,39,0.08), transparent 60%),
-    radial-gradient(ellipse 700px 500px at 100% 10%, rgba(47,191,166,0.06), transparent 60%),
     var(--ink);
   color:var(--text);
   font-family:'Inter', sans-serif;

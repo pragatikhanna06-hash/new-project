@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Siren, Scale, ClipboardList, Microscope, FileText, ShieldCheck, FileCheck2, Fingerprint, Landmark, Building2, Briefcase } from "lucide-react";
+import { Siren, Scale, Microscope, FileText, ShieldCheck, FileCheck2, Fingerprint, Landmark, Building2, Briefcase } from "lucide-react";
 import "./HomePage.css";
 import "./pages/NyayShieldPage.css"; // adjust this path to wherever NyayShieldPage.css actually sits relative to HomePage.jsx (per your App.jsx, it's in "./pages/")
 import { useLanguage } from "./pages/LanguageContext";
@@ -430,7 +430,6 @@ function Navbar({ scrolled }) {
 const HERO_ACTION_META = [
   { to: "/report-crime", icon: Siren, className: "qa-btn qa-report" },
   { to: "/book-lawyer", icon: Scale, className: "qa-btn qa-lawyer" },
-  { to: "/case-status", icon: ClipboardList, className: "qa-btn qa-status" },
   { to: "/forensic-expert", icon: Microscope, className: "qa-btn qa-forensic" },
   { to: "/legal-drafting", icon: FileText, className: "qa-btn qa-drafting" },
 ];
@@ -536,6 +535,7 @@ function AboutSection() {
 
 function ServicesSection() {
   const [ref, inView] = useInView(0.05);
+  const [expandedId, setExpandedId] = useState(null);
   const navigate = useNavigate();
   const { t } = useLanguage();
 
@@ -556,26 +556,54 @@ function ServicesSection() {
         </div>
       </div>
       <div className="services-strip">
-        {t.services.items.map((s, i) => (
-          <div
-            className="service-card"
-            key={s.id}
-            style={{ animationDelay: `${i * 0.07}s`, cursor: "pointer" }}
-            onClick={() => navigate(`/services/${s.slug}`)}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") navigate(`/services/${s.slug}`);
-            }}
-          >
-            <div className="card-id">{s.id}</div>
-            <div className="card-icon">{s.icon}</div>
-            <div className="card-tag">{s.tag}</div>
-            <h3 className="card-title">{s.title}</h3>
-            <p className="card-desc">{s.desc}</p>
-            <div className="card-arrow">→</div>
-          </div>
-        ))}
+        {t.services.items.map((s, i) => {
+          const hasFeats = Array.isArray(s.feats) && s.feats.length > 0;
+          const isOpen = expandedId === s.id;
+          const go = () => {
+            if (s.slug) navigate(`/services/${s.slug}`);
+            else if (hasFeats) setExpandedId(isOpen ? null : s.id);
+          };
+          return (
+            <div
+              className={`service-card ${isOpen ? "service-card--open" : ""}`}
+              key={s.id}
+              style={{ animationDelay: `${i * 0.07}s`, cursor: "pointer" }}
+              onClick={go}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => { if (e.key === "Enter") go(); }}
+            >
+              <div className="card-id">{s.id}</div>
+              <div className="card-icon">{s.icon}</div>
+              <div className="card-tag">{s.tag}</div>
+              <h3 className="card-title">{s.title}</h3>
+              <p className="card-desc">{s.desc}</p>
+
+              {hasFeats && (
+                <>
+                  <button
+                    className="card-toggle"
+                    aria-expanded={isOpen}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setExpandedId(isOpen ? null : s.id);
+                    }}
+                  >
+                    {isOpen ? "Hide details" : "View key details"}
+                    <span className={`card-toggle-icon ${isOpen ? "card-toggle-icon--open" : ""}`}>▾</span>
+                  </button>
+                  <ul className={`card-feats ${isOpen ? "card-feats--open" : ""}`}>
+                    {s.feats.map((f) => (
+                      <li key={f}><span className="bullet-dot" />{f}</li>
+                    ))}
+                  </ul>
+                </>
+              )}
+
+              {!hasFeats && <div className="card-arrow">→</div>}
+            </div>
+          );
+        })}
       </div>
     </section>
   );

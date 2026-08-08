@@ -9,7 +9,6 @@ import ReportCrimePage from "./pages/ReportCrimePage";
 import BookLawyerPage from "./pages/BookLawyerPage";
 import BookLawyerDay1Page from "./pages/BookLawyerDay1Page";
 import BookLawyerInBetweenPage from "./pages/BookLawyerInBetweenPage";
-import CaseStatusPage from "./pages/CaseStatusPage";
 import ForensicExpertPage from "./pages/ForensicExpertPage";
 import LegalDraftingPage from "./pages/LegalDraftingPage";
 import CorporateCrimeAwarenessPage from "./pages/CorporateCrimeAwarenessPage";
@@ -22,6 +21,7 @@ import FraudInvestigationPage from "./pages/services/FraudInvestigationPage";
 import InvestigationsPage from "./pages/services/InvestigationsPage";
 import LegalConsultationPage from "./pages/services/LegalConsultationPage";
 import DocumentExaminationPage from "./pages/services/DocumentExaminationPage";
+import CyberInvestigationPage from "./pages/services/CyberInvestigationPage";
 
 import WhatsAppButton from "./pages/WhatsAppButton";
 
@@ -50,7 +50,6 @@ export default function App() {
           <Route path="/book-lawyer" element={<BookLawyerPage />} />
           <Route path="/book-lawyer/day-1" element={<BookLawyerDay1Page />} />
           <Route path="/book-lawyer/in-between" element={<BookLawyerInBetweenPage />} />
-          <Route path="/case-status" element={<CaseStatusPage />} />
           <Route path="/forensic-expert" element={<ForensicExpertPage />} />
           <Route path="/legal-drafting" element={<LegalDraftingPage />} />
           <Route path="/corporate-crime-awareness" element={<CorporateCrimeAwarenessPage />} />
@@ -63,6 +62,7 @@ export default function App() {
           <Route path="/services/investigations" element={<InvestigationsPage />} />
           <Route path="/services/legal-consultation" element={<LegalConsultationPage />} />
           <Route path="/services/document-examination" element={<DocumentExaminationPage />} />
+          <Route path="/services/cyber-investigation" element={<CyberInvestigationPage />} />
           <Route path="*" element={<HomePage />} />
         </Routes>
         <WhatsAppButton />
