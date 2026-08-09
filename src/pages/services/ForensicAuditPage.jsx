@@ -604,7 +604,7 @@ export default function ForensicAuditPage() {
           <a href="#contact">{sc.navContact}</a>
           <LanguageToggle />
         </div>
-        <button className="fa-nav-cta">{fa.navCta}</button>
+        <Link to="/" className="fa-nav-cta">{fa.navCta}</Link>
       </nav>
 
       {/* HERO */}
@@ -628,10 +628,9 @@ export default function ForensicAuditPage() {
           {fa.heroLede}
         </p>
         <div className="fa-hero-actions">
-          <button className="fa-btn-primary">
+          <a href="mailto:hello@forfrasolutions.com" className="fa-btn-primary">
             {fa.heroBtnPrimary} <ArrowRight size={17} />
-          </button>
-          <button className="fa-btn-ghost">{fa.heroBtnGhost}</button>
+          </a>
         </div>
         <div className="fa-hero-stats">
           <StatCounter value={10} suffix="+" label={fa.stats[0].label} />
@@ -774,17 +773,9 @@ export default function ForensicAuditPage() {
             </p>
           </div>
           <div className="fa-cta-actions">
-            <button className="fa-btn-primary">
+            <a href="mailto:hello@forfrasolutions.com" className="fa-btn-primary">
               {fa.ctaBtn} <ArrowRight size={17} />
-            </button>
-            <div className="fa-cta-contact">
-              <a href="mailto:hello@forfrasolutions.com">
-                <Mail size={15} /> hello@forfrasolutions.com
-              </a>
-              <a href="tel:+919711015337">
-                <Phone size={15} /> +91 97110 15337
-              </a>
-            </div>
+            </a>
           </div>
         </section>
       </Reveal>

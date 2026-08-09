@@ -9,6 +9,7 @@ import {
 import { sendFormToWhatsApp } from "../utils/whatsapp";
 import { useLanguage } from "./LanguageContext";
 import LangToggle from "./LangToggle";
+import forfraLogo from "../assets/forfra-logo-transparent.png";
 
 /* ══════════════════════════════════════════════════════════════════
    FORFRA SOLUTIONS — REPORT A CRIME
@@ -329,9 +330,11 @@ export default function ReportCrimePage() {
           letter-spacing: 0.1em;
           font-size: 1.1rem;
           color: #fff;
-          display: flex; align-items: center; gap: 0.4rem;
+          font-weight: 700;
+          display: flex; align-items: center; gap: 0.5rem;
         }
-        .rc-topbar-brand span { color: ${GOLD}; font-size: 0.62rem; letter-spacing: 0.18em; }
+        .rc-topbar-brand img { width: 26px; height: 26px; object-fit: contain; flex-shrink: 0; }
+        .rc-topbar-brand span { color: #fff; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.1em; }
         .rc-topbar-right {
           display: flex; align-items: center; gap: 1rem;
         }
@@ -654,6 +657,7 @@ export default function ReportCrimePage() {
         </Link>
         <div className="rc-topbar-right">
           <div className="rc-topbar-brand">
+            <img src={forfraLogo} alt="Forfra Solutions" />
             FORFRA <span>SOLUTIONS</span>
           </div>
           <LangToggle />

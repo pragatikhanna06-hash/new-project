@@ -170,7 +170,7 @@ function Nav() {
     <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, background: sc ? "rgba(9,15,30,.98)" : "rgba(9,15,30,.92)", backdropFilter: "blur(12px)", borderBottom: `1px solid ${BORD}`, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 48px", height: 64, transition: "background .3s" }}>
       <a href="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }} onClick={(e) => { e.preventDefault(); navigate("/"); }}>
         <img src={forfraLogo} alt="Forfra Solutions" style={{ width: 34, height: 34, objectFit: "contain", flexShrink: 0 }} />
-        <span style={{ fontFamily: "'Inter',sans-serif", fontWeight: 800, fontSize: "1.15rem", letterSpacing: 2, textTransform: "uppercase", color: "#fff" }}>FORFRA<span style={{ color: G, fontWeight: 500, fontSize: ".82rem", letterSpacing: 3, marginLeft: 6 }}>SOLUTIONS</span></span>
+        <span style={{ fontFamily: "'Inter',sans-serif", fontWeight: 800, fontSize: "1.15rem", letterSpacing: 2, textTransform: "uppercase", color: "#fff" }}>FORFRA<span style={{ color: "#fff", fontWeight: 800, fontSize: "1.15rem", letterSpacing: 2, marginLeft: 6 }}>SOLUTIONS</span></span>
       </a>
       <ul className="dn" id="dnav" style={{ display: "flex", gap: 34, listStyle: "none" }}>
         {links.map(([l, href, active]) => (

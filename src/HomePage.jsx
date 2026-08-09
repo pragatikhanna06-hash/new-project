@@ -808,15 +808,6 @@ function ContactSection() {
 </a>
           </div>
         </div>
-        <div className="contact-cta-box">
-          <div className="cta-box-title">{t.contact.ctaTitle}</div>
-          <a href="mailto:hello@forfrasolutions.com" className="btn-primary btn-primary--large">
-            {t.contact.contactUsNow}
-          </a>
-          <a href="https://www.forfrasolutions.com" className="btn-ghost" target="_blank" rel="noreferrer">
-            {t.contact.visitWebsite}
-          </a>
-        </div>
       </div>
     </section>
   );

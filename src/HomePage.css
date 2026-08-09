@@ -226,12 +226,12 @@ img { display: block; max-width: 100%; }
 /* styled to match .brand-name, gold-toned for a two-tone logotype look */
 .brand-sub {
   font-family: var(--ff-nav);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 1.28rem;
   letter-spacing: 0.06em;
-  color: var(--gold);
+  color: var(--white);
   margin-top: 0;
-  opacity: 0.92;
+  opacity: 1;
 }
 
 .navbar-links {
@@ -1183,14 +1183,17 @@ img { display: block; max-width: 100%; }
   background: linear-gradient(135deg, var(--navy-mid) 0%, var(--blue-mid) 100%);
 }
 .contact-inner {
-  max-width: var(--max-w);
+  max-width: 720px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 5rem;
   align-items: center;
+  text-align: center;
 }
 .contact-text .section-title { margin-bottom: 1rem; }
+.contact-links { align-items: center; }
+.contact-link { border-bottom: none; justify-content: center; }
 .contact-text p {
   color: rgba(255,255,255,0.65);
   font-size: 0.97rem;
@@ -1213,24 +1216,6 @@ img { display: block; max-width: 100%; }
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 .contact-link:hover { color: var(--gold); }
-
-.contact-cta-box {
-  background: rgba(0,0,0,0.3);
-  border: 1px solid rgba(245,166,35,0.25);
-  border-radius: var(--radius-lg);
-  padding: 2.5rem 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  align-items: flex-start;
-}
-.cta-box-title {
-  font-family: var(--ff-display);
-  font-size: 1.8rem;
-  letter-spacing: 0.04em;
-  color: var(--white);
-  margin-bottom: 0.5rem;
-}
 
 /* ═══════════════════════════════════════════════════════════════════
    FOOTER
@@ -1378,5 +1363,4 @@ img { display: block; max-width: 100%; }
   .diff-grid { grid-template-columns: 1fr; }
 
   .contact-inner { grid-template-columns: 1fr; }
-  .contact-cta-box { align-items: stretch; }
 }
