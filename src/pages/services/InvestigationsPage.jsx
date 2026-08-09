@@ -418,7 +418,7 @@ export default function InvestigationsPage() {
         /* ---------- CTA ---------- */
         .fa-cta {
           background: linear-gradient(120deg, var(--navy) 0%, var(--navy-light) 100%);
-          border-radius: 18px; margin: 0 5vw 110px; padding: 64px 6vw;
+          border-radius: 18px; margin: 70px 5vw 110px; padding: 64px 6vw;
           display:flex; justify-content:space-between; align-items:center; gap:40px; flex-wrap:wrap;
           position:relative; overflow:hidden;
         }

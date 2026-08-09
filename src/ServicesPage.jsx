@@ -396,7 +396,7 @@ function SvcCard({d}) {
         style={{background:CBKG,border:`1px solid ${BORD}`,borderRadius:12,padding:"36px 30px 32px",cursor:"pointer"}}>
         <span className="sc-num" style={{position:"absolute",top:18,right:24,fontFamily:"'Inter',sans-serif",fontWeight:900,fontSize:"3.5rem",color:"rgba(255,255,255,.04)",lineHeight:1,pointerEvents:"none",transition:"color .35s"}}>{d.num}</span>
         <span style={{fontFamily:"'Inter',sans-serif",fontSize:".65rem",fontWeight:700,letterSpacing:3,textTransform:"uppercase",color:G,marginBottom:8,display:"block"}}>{d.sub}</span>
-        <h3 style={{fontFamily:"'Inter',sans-serif",fontWeight:800,fontSize:"1.3rem",textTransform:"uppercase",letterSpacing:.5,color:"#fff",marginBottom:14,lineHeight:1.15}}>{d.title}</h3>
+        <h3 style={{fontFamily:"'Inter',sans-serif",fontWeight:800,fontSize:"1.45rem",textTransform:"uppercase",letterSpacing:.5,color:"#fff",marginBottom:14,lineHeight:1.15}}>{d.title}</h3>
         <p style={{fontSize:".88rem",color:BODY,lineHeight:1.65,marginBottom:24}}>{d.body}</p>
         <span className="sc-arr" style={{color:G,fontSize:"1.2rem",display:"inline-block",transition:"transform .25s"}}>→</span>
       </div>
@@ -418,7 +418,7 @@ function Detail({d}) {
           <div style={{position:"absolute",inset:0,background:"linear-gradient(180deg,transparent 40%,rgba(9,15,30,.92) 100%)"}}/>
           <div style={{position:"absolute",left:0,right:0,bottom:0,padding:"24px 26px",textAlign:"left"}}>
             {d.cert&&<span style={{background:G,color:"#000",fontSize:".65rem",fontWeight:800,letterSpacing:2,textTransform:"uppercase",padding:"5px 14px",borderRadius:3,display:"inline-block",marginBottom:10}}>{d.cert}</span>}
-            <h4 style={{fontFamily:"'Inter',sans-serif",fontWeight:800,fontSize:"1.1rem",textTransform:"uppercase",color:"#fff"}}>{d.vt}</h4>
+            <h4 style={{fontFamily:"'Inter',sans-serif",fontWeight:800,fontSize:"1.25rem",textTransform:"uppercase",color:"#fff"}}>{d.vt}</h4>
             <p style={{fontSize:".85rem",color:BODY,lineHeight:1.6,maxWidth:280}}>{d.vb}</p>
           </div>
         </div>
@@ -426,7 +426,7 @@ function Detail({d}) {
         <div className="floaty" style={{background:CBKG,border:`1px solid ${BORD}`,borderRadius:16,padding:"52px 40px",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",gap:16,minHeight:300,position:"relative",overflow:"hidden"}}>
           <div style={{position:"absolute",inset:0,background:"radial-gradient(circle at 50% 0%,rgba(232,151,26,.08) 0%,transparent 65%)"}}/>
           {d.cert&&<span style={{background:G,color:"#000",fontFamily:"'Inter',sans-serif",fontSize:".65rem",fontWeight:800,letterSpacing:2,textTransform:"uppercase",padding:"5px 14px",borderRadius:3,position:"relative"}}>{d.cert}</span>}
-          <h4 style={{fontFamily:"'Inter',sans-serif",fontWeight:800,fontSize:"1.1rem",textTransform:"uppercase",color:"#fff",position:"relative"}}>{d.vt}</h4>
+          <h4 style={{fontFamily:"'Inter',sans-serif",fontWeight:800,fontSize:"1.25rem",textTransform:"uppercase",color:"#fff",position:"relative"}}>{d.vt}</h4>
           <p style={{fontSize:".85rem",color:BODY,lineHeight:1.6,position:"relative",maxWidth:240}}>{d.vb}</p>
         </div>
       )}
@@ -535,7 +535,7 @@ export default function ServicesPage() {
                     <span style={{display:"flex",alignItems:"center",justifyContent:"center",width:34,height:34,borderRadius:9,background:"rgba(232,151,26,.12)",color:G,flexShrink:0}}>
                       <Icon size={17}/>
                     </span>
-                    <h4 style={{fontFamily:"'Inter',sans-serif",fontSize:".72rem",fontWeight:700,letterSpacing:2,textTransform:"uppercase",color:"#fff",lineHeight:1.3}}>{c.title}</h4>
+                    <h4 style={{fontFamily:"'Inter',sans-serif",fontSize:".85rem",fontWeight:700,letterSpacing:2,textTransform:"uppercase",color:"#fff",lineHeight:1.3}}>{c.title}</h4>
                   </div>
                   <ul style={{listStyle:"none",display:"flex",flexDirection:"column",gap:9}}>
                     {c.items.map(item=>(
@@ -568,7 +568,7 @@ export default function ServicesPage() {
                 <div className="prog" style={{background:CBKG,border:`1px solid ${BORD}`,borderRadius:12,overflow:"hidden",transition:"transform .3s,border-color .3s,box-shadow .3s"}}>
                   <div style={{padding:"32px 30px 28px",borderBottom:`1px solid ${BORD}`,background:`linear-gradient(135deg,${CBKG} 0%,rgba(17,29,64,.5) 100%)`,position:"relative"}}>
                     <div style={{position:"absolute",top:0,left:0,right:0,height:2,background:G}}/>
-                    <h3 style={{fontFamily:"'Inter',sans-serif",fontWeight:800,fontSize:"1.25rem",textTransform:"uppercase",color:"#fff",marginBottom:8}}>{p.title}</h3>
+                    <h3 style={{fontFamily:"'Inter',sans-serif",fontWeight:800,fontSize:"1.4rem",textTransform:"uppercase",color:"#fff",marginBottom:8}}>{p.title}</h3>
                     <p style={{fontSize:".85rem",color:BODY,lineHeight:1.6}}>{p.sub}</p>
                   </div>
                   <div style={{padding:"24px 30px"}}>

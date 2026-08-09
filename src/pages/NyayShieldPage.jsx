@@ -59,7 +59,7 @@ export default function NyayShieldPage() {
 
           <div className="quick-actions-inner">
             <Link className="qa-btn qa-report" to="/report-crime">
-              <span className="qa-icon"><Siren size={22} /></span>
+              <span className="qa-icon"><Siren size={26} /></span>
               <span>
                 <div className="qa-text-title">{tr("Report a Crime")}</div>
                 <div className="qa-text-sub">{tr("File details, get routed instantly")}</div>
@@ -67,7 +67,7 @@ export default function NyayShieldPage() {
             </Link>
 
             <Link className="qa-btn qa-lawyer" to="/book-lawyer">
-              <span className="qa-icon"><Scale size={22} /></span>
+              <span className="qa-icon"><Scale size={26} /></span>
               <span>
                 <div className="qa-text-title">{tr("Book a Lawyer")}</div>
                 <div className="qa-text-sub">{tr("From Day 1, or later in the case")}</div>
@@ -75,7 +75,7 @@ export default function NyayShieldPage() {
             </Link>
 
             <Link className="qa-btn qa-forensic" to="/forensic-expert">
-              <span className="qa-icon"><Microscope size={22} /></span>
+              <span className="qa-icon"><Microscope size={26} /></span>
               <span>
                 <div className="qa-text-title">{tr("Book a Forensic Expert")}</div>
                 <div className="qa-text-sub">{tr("Secure evidence before it's gone")}</div>
@@ -83,7 +83,7 @@ export default function NyayShieldPage() {
             </Link>
 
             <Link className="qa-btn qa-drafting" to="/legal-drafting">
-              <span className="qa-icon"><FileText size={22} /></span>
+              <span className="qa-icon"><FileText size={26} /></span>
               <span>
                 <div className="qa-text-title">{tr("Legal / Corporate Report Drafting")}</div>
                 <div className="qa-text-sub">{tr("Notices, contracts & compliance docs")}</div>

@@ -1,10 +1,29 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Siren, Scale, Microscope, FileText, ShieldCheck, FileCheck2, Fingerprint, Landmark, Building2, Briefcase } from "lucide-react";
+import { Siren, Scale, Microscope, FileText, ShieldCheck, FileCheck2, Fingerprint, Landmark, Building2, Briefcase, Globe, Mail, Phone, MessageCircle, Zap, Clock } from "lucide-react";
 import "./HomePage.css";
 import "./pages/NyayShieldPage.css"; // adjust this path to wherever NyayShieldPage.css actually sits relative to HomePage.jsx (per your App.jsx, it's in "./pages/")
 import { useLanguage } from "./pages/LanguageContext";
 import forfraLogo from "./assets/forfra-logo-transparent.png"; // adjust this path to wherever you saved the logo image
+
+// Inline brand icons (not all lucide-react versions ship Instagram/Linkedin,
+// so these are hand-drawn to avoid any install-version mismatch).
+function InstagramIcon({ size = 17 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+    </svg>
+  );
+}
+function LinkedinIcon({ size = 17 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z" />
+    </svg>
+  );
+}
 
 // ── data ──────────────────────────────────────────────────────────────────────
 // NAV_LINKS keeps stable English keys (used for #anchors and translation lookup);
@@ -296,7 +315,6 @@ function LanguageToggle({ className = "" }) {
 }
 
 const CONTACT_PLATFORMS = [
-  { label: "Website", value: "www.forfrasolutions.com", href: "https://www.forfrasolutions.com", external: true },
   { label: "Email", value: "hello@forfrasolutions.com", href: "mailto:hello@forfrasolutions.com" },
   { label: "Call", value: "+91 97110 15337", href: "tel:+919711015337" },
   { label: "Call", value: "+91 89823 07608", href: "tel:+918982307608" },
@@ -777,6 +795,15 @@ function ProgramsSection() {
 function ContactSection() {
   const [ref, inView] = useInView();
   const { t } = useLanguage();
+
+  const links = [
+    { icon: Mail, label: "Email", value: "hello@forfrasolutions.com", href: "mailto:hello@forfrasolutions.com" },
+    { icon: Phone, label: "Call Us", value: "+91 97110 15337", href: "tel:+919711015337" },
+    { icon: Phone, label: "Call Us", value: "+91 89823 07608", href: "tel:+918982307608" },
+    { icon: InstagramIcon, label: "Instagram", value: "@forfrasolutions", href: "https://instagram.com/forfrasolutions", external: true },
+    { icon: LinkedinIcon, label: "LinkedIn", value: "Forfra Solutions", href: "https://www.linkedin.com/company/forfra-solutions/", external: true },
+  ];
+
   return (
     <section className="contact" id="contact" ref={ref}>
       <div className={`contact-inner ${inView ? "reveal" : ""}`}>
@@ -788,25 +815,28 @@ function ContactSection() {
           </h2>
           <p>{t.contact.desc}</p>
           <div className="contact-links">
-            <a href="https://www.forfrasolutions.com" className="contact-link" target="_blank" rel="noreferrer">
-              www.forfrasolutions.com
-            </a>
-            <a href="mailto:hello@forfrasolutions.com" className="contact-link">
-              hello@forfrasolutions.com
-            </a>
-            <a href="tel:+919711015337" className="contact-link">
-              +91 97110 15337
-            </a>
-            <a href="tel:+918982307608" className="contact-link">
-              +91 89823 07608
-            </a>
-            <a href="https://instagram.com/forfrasolutions" className="contact-link" target="_blank" rel="noopener noreferrer">
-  Instagram
-</a>
-<a href="https://www.linkedin.com/company/forfra-solutions/" className="contact-link" target="_blank" rel="noopener noreferrer">
-  LinkedIn
-</a>
+            {links.map((l) => (
+              <a
+                key={l.label + l.value}
+                href={l.href}
+                className="contact-link"
+                {...(l.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              >
+                <span className="contact-link-icon"><l.icon size={19} /></span>
+                <span className="contact-link-text">
+                  <span className="contact-link-label">{l.label}</span>
+                  <span className="contact-link-value">{l.value}</span>
+                </span>
+              </a>
+            ))}
           </div>
+        </div>
+
+        <div className="contact-cta-box">
+          <div className="cta-box-title">{t.contact.ctaTitle}</div>
+          <a href="mailto:hello@forfrasolutions.com" className="btn-primary btn-primary--large">
+            {t.contact.contactUsNow}
+          </a>
         </div>
       </div>
     </section>

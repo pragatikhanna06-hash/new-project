@@ -534,7 +534,7 @@ export default function ReportCrimePage() {
           display: flex; align-items: center; justify-content: center;
           color: ${GOLD};
         }
-        .rc-processing h3 { font-size: 1.8rem; margin-bottom: 0.6rem; }
+        .rc-processing h3 { font-size: 2.05rem; margin-bottom: 0.6rem; }
         .rc-processing p { color: rgba(255,255,255,0.65); font-size: 0.95rem; min-height: 1.4em; }
 
         /* ---------- RESULTS ---------- */
@@ -605,7 +605,7 @@ export default function ReportCrimePage() {
           display: flex; align-items: center; justify-content: center;
           color: ${GOLD};
         }
-        .rc-cat-card h4 { font-family: "Inter", sans-serif; font-size: 1.3rem; letter-spacing: 0.03em; }
+        .rc-cat-card h4 { font-family: "Inter", sans-serif; font-size: 1.5rem; letter-spacing: 0.03em; }
         .rc-cat-card p { font-size: 0.86rem; color: rgba(255,255,255,0.62); line-height: 1.6; }
         .rc-link-count {
           font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
