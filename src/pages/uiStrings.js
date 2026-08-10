@@ -248,7 +248,7 @@ export const uiStrings = {
     "डेमो फ्लो — अभी तक किसी लाइव ड्राफ्टिंग नेटवर्क से जुड़ा नहीं है।",
 
   // NyayShieldPage.jsx (legacy quick-actions page)
-  "What do you need help with right now?": "अभी आपको किस चीज़ में मदद चाहिए?",
+  "We are here to support you": "हम आपकी मदद के लिए यहां हैं",
   "Pick one — each takes you straight to the right place, no digging through menus.":
     "एक चुनें — हर विकल्प आपको सीधे सही जगह ले जाता है, मेनू में खोजने की ज़रूरत नहीं।",
   "Report a Crime": "अपराध की रिपोर्ट करें",

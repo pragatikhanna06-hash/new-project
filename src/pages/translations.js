@@ -747,7 +747,7 @@ export const translations = {
     },
     hero: {
       eyebrow: "NyayShield",
-      title: "What do you need help with right now?",
+      title: "We are here to support you",
       subtitle: "Pick one — each takes you straight to the right place, no digging through menus.",
       actions: [
         { title: "Report a Crime", sub: "File details, get routed instantly" },
@@ -1665,7 +1665,7 @@ export const translations = {
     },
     hero: {
       eyebrow: "न्यायशील्ड",
-      title: "अभी आपको किस चीज़ में मदद चाहिए?",
+      title: "हम आपकी मदद के लिए यहां हैं",
       subtitle: "एक विकल्प चुनें — हर एक आपको सीधे सही जगह ले जाएगा, मेन्यू में खोजने की ज़रूरत नहीं।",
       actions: [
         { title: "अपराध की रिपोर्ट करें", sub: "विवरण दर्ज करें, तुरंत सही जगह भेजा जाएगा" },

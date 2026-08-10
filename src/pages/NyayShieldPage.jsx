@@ -53,7 +53,7 @@ export default function NyayShieldPage() {
         <div className="wrap">
           <div className="quick-actions-head">
             <div className="eyebrow" style={{ justifyContent: "center" }}>NyayShield</div>
-            <h1>{tr("What do you need help with right now?")}</h1>
+            <h1>{tr("We are here to support you")}</h1>
             <p>{tr("Pick one — each takes you straight to the right place, no digging through menus.")}</p>
           </div>
 

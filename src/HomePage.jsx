@@ -485,7 +485,7 @@ function HeroSection() {
                 const Icon = meta.icon;
                 return (
                   <Link className={meta.className} to={meta.to} key={meta.to}>
-                    <span className="qa-icon"><Icon size={22} /></span>
+                    <span className="qa-icon"><Icon size={26} /></span>
                     <span>
                       <div className="qa-text-title">{action.title}</div>
                       <div className="qa-text-sub">{action.sub}</div>

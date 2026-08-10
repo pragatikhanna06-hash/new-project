@@ -472,8 +472,8 @@ img { display: block; max-width: 100%; }
   justify-content: center;
   overflow: hidden;
   background:
-    linear-gradient(to bottom, var(--navy) 0, var(--navy) 40px, rgba(10,22,40,0) 260px),
-    radial-gradient(ellipse at 60% 40%, #1B3A6B 0%, #0A1628 65%);
+    linear-gradient(to bottom, #0E1D33 0, #0E1D33 40px, rgba(14,29,51,0) 260px),
+    radial-gradient(ellipse at 60% 40%, #234A85 0%, #0E1D33 65%);
   padding: var(--nav-h) 1.5rem 0;
 }
 
