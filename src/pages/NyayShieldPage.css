@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@700;800&display=swap');
 
 .home-root{
   --ink:#0a0d16;
@@ -57,12 +57,15 @@
 .home-root .back-link:hover{ color:var(--gold-soft); }
 
 .home-root .eyebrow{
-  display:inline-flex; align-items:center; gap:8px;
-  font-family:'Inter', sans-serif; font-size:42px; font-weight:800; letter-spacing:0.16em;
+  display:inline-flex !important; align-items:center; gap:10px;
+  font-family:'Plus Jakarta Sans', 'Inter', sans-serif !important;
+  font-size:clamp(40px, 8vw, 44px) !important;
+  font-weight:800 !important; letter-spacing:0.12em;
   text-transform:uppercase; color:var(--gold-soft);
   margin-bottom:18px;
+  white-space:nowrap;
 }
-.home-root .eyebrow::before{ content:''; width:32px; height:3px; background:var(--gold); display:inline-block; }
+.home-root .eyebrow::before{ content:''; width:38px; height:4px; background:var(--gold); display:inline-block; }
 
 @media (max-width:520px){ .home-root .wrap{ padding:0 18px; } }
 .shield-bg{
@@ -102,7 +105,7 @@
 }
 .quick-actions{ padding:64px 0; min-height:calc(100vh - 90px); display:flex; align-items:center; }
 .quick-actions-head{ max-width:720px; margin:0 auto 44px; text-align:center; }
-.quick-actions-head h1{ font-size:clamp(38px,6.2vw,60px); font-weight:700; }
+.quick-actions-head h1{ font-size:clamp(17px, 4.4vw, 60px); font-weight:700; white-space:nowrap; }
 .quick-actions-head p{ margin-top:16px; color:var(--text-dim); font-size:18px; }
 
 /* 6 buttons — 3 per row on wide screens, 2 per row mid-width, 1 on mobile */

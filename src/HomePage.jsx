@@ -853,7 +853,6 @@ function Footer() {
           <span>FORFRA SOLUTIONS</span>
         </div>
         <p className="footer-tagline">{t.footer.tagline}</p>
-        <p className="footer-copy">© {new Date().getFullYear()} Forfra Solutions. {t.footer.rights}</p>
       </div>
     </footer>
   );
