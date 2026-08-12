@@ -5,6 +5,19 @@ import "./HomePage.css";
 import "./pages/NyayShieldPage.css"; // adjust this path to wherever NyayShieldPage.css actually sits relative to HomePage.jsx (per your App.jsx, it's in "./pages/")
 import { useLanguage } from "./pages/LanguageContext";
 import forfraLogo from "./assets/forfra-logo-transparent.png"; // adjust this path to wherever you saved the logo image
+import boardroomPhoto from "./assets/photos/boardroom-handshake.jpg";
+import celebrationPhoto from "./assets/photos/team-celebration.jpg";
+import scalesPhoto from "./assets/photos/scales-of-justice.jpg";
+// New photos — drop matching image files under ./assets/photos/ (or rename
+// these imports to point at photos you already have) for each spot below.
+import securityPhoto from "./assets/photos/security-shield.png";       // Differentiator: Security + Accountability
+import courtroomPhoto from "./assets/photos/courtroom.png";            // Differentiator: Legally Admissible
+import documentPhoto from "./assets/photos/legal-document.png";        // Differentiator: Section 63(4)(c) Compliant
+import privacyPhoto from "./assets/photos/data-privacy.png";           // Differentiator: DPDP Act 2023 Aligned
+import servicesBannerPhoto from "./assets/photos/services-banner.png"; // Services section banner
+import clientsBannerPhoto from "./assets/photos/clients-banner.png";   // Clients section backdrop
+import heroBannerPhoto from "./assets/photos/hero-banner.png";         // Hero section backdrop
+import TechGlobe from "./TechGlobe"; // adjust this path to wherever you saved TechGlobe.jsx
 
 // Inline brand icons (not all lucide-react versions ship Instagram/Linkedin,
 // so these are hand-drawn to avoid any install-version mismatch).
@@ -456,6 +469,9 @@ function HeroSection() {
   const { t } = useLanguage();
   return (
     <section className="hero hero--nyay" id="hero">
+      <div className="hero-photo" aria-hidden="true">
+        <img src={heroBannerPhoto} alt="" loading="lazy" />
+      </div>
       <div className="home-root hero-nyay-embed">
         <div className="shield-bg" aria-hidden="true">
           <svg viewBox="0 0 200 220" fill="none">
@@ -532,17 +548,19 @@ function AboutSection() {
           </button>
         </div>
         <div className="about-visual">
-          <div className="about-shield">
-            <div className="shield-glow" />
-            <div className="shield-ring ring-1">
-              <span className="orbit-dot dot-a"><ShieldCheck size={15} /></span>
+          <div className="about-globe">
+            <div className="globe-glow" />
+
+            <TechGlobe size={230} />
+
+            <div className="globe-orbit orbit-1">
+              <span className="orbit-dot dot-a"><ShieldCheck size={14} /></span>
             </div>
-            <div className="shield-ring ring-2">
-              <span className="orbit-dot dot-b"><Fingerprint size={13} /></span>
+            <div className="globe-orbit orbit-2">
+              <span className="orbit-dot dot-b"><Fingerprint size={12} /></span>
             </div>
-            <div className="shield-ring ring-3" />
-            <div className="shield-center">
-              <img src={forfraLogo} alt="Forfra Solutions" className="shield-logo" />
+            <div className="globe-orbit orbit-3">
+              <span className="orbit-dot dot-c"><Globe size={12} /></span>
             </div>
           </div>
         </div>
@@ -572,6 +590,9 @@ function ServicesSection() {
             {t.services.learnMore}
           </button>
         </div>
+      </div>
+      <div className="services-banner">
+        <img src={servicesBannerPhoto} alt="" loading="lazy" />
       </div>
       <div className="services-strip">
         {t.services.items.map((s, i) => {
@@ -652,24 +673,29 @@ function CapabilitiesSection() {
           </div>
         </div>
         <div className="cap-right">
-          {t.capabilities.items.map((c, i) => (
-            <div
-              key={c.phase}
-              className={`cap-panel ${active === i ? "cap-panel--active" : ""}`}
-            >
-              <div className="panel-phase-badge">{c.phase}</div>
-              <h3 className="panel-title">{c.title}</h3>
-              <p className="panel-body">{c.body}</p>
-              <ul className="panel-bullets">
-                {c.bullets.map((b) => (
-                  <li key={b}>
-                    <span className="bullet-dot" />
-                    {b}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <div className="cap-photo">
+            <img src={scalesPhoto} alt="" aria-hidden="true" loading="lazy" />
+          </div>
+          <div className="cap-panels">
+            {t.capabilities.items.map((c, i) => (
+              <div
+                key={c.phase}
+                className={`cap-panel ${active === i ? "cap-panel--active" : ""}`}
+              >
+                <div className="panel-phase-badge">{c.phase}</div>
+                <h3 className="panel-title">{c.title}</h3>
+                <p className="panel-body">{c.body}</p>
+                <ul className="panel-bullets">
+                  {c.bullets.map((b) => (
+                    <li key={b}>
+                      <span className="bullet-dot" />
+                      {b}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -679,6 +705,8 @@ function CapabilitiesSection() {
 // Position-indexed icons for the differentiator cards (order matches
 // t.differentiator.points in both EN and HI translations).
 const DIFFERENTIATOR_ICONS = [ShieldCheck, Scale, FileCheck2, Fingerprint];
+// Position-indexed photos, same order as DIFFERENTIATOR_ICONS above.
+const DIFFERENTIATOR_PHOTOS = [securityPhoto, courtroomPhoto, documentPhoto, privacyPhoto];
 
 function DifferentiatorSection() {
   const [ref, inView] = useInView();
@@ -702,6 +730,9 @@ function DifferentiatorSection() {
                 key={p.title}
                 style={{ animationDelay: `${i * 0.1}s` }}
               >
+                <div className="diff-photo">
+                  <img src={DIFFERENTIATOR_PHOTOS[i]} alt="" loading="lazy" />
+                </div>
                 <div className="diff-icon"><Icon size={22} /></div>
                 <h4>{p.title}</h4>
                 <p>{p.desc}</p>
@@ -723,6 +754,9 @@ function ClientsSection() {
   const { t } = useLanguage();
   return (
     <section className="clients-section" id="clients" ref={ref}>
+      <div className="clients-bg" aria-hidden="true">
+        <img src={clientsBannerPhoto} alt="" loading="lazy" />
+      </div>
       <div className={`clients-header ${inView ? "reveal" : ""}`}>
         <span className="section-eyebrow">{t.clients.eyebrow}</span>
         <h2 className="section-title">{t.clients.title}</h2>
@@ -750,12 +784,13 @@ function ClientsSection() {
 
 const PROGRAM_COLORS = ["var(--gold)", "var(--gold)"];
 const PROGRAM_LINKS = ["/corporate-crime-awareness", "/school-crime-awareness"];
+const PROGRAM_PHOTOS = [boardroomPhoto, celebrationPhoto];
 
 function ProgramsSection() {
   const [ref, inView] = useInView();
   const { t } = useLanguage();
   const navigate = useNavigate();
-  const programs = t.programs.items.map((p, i) => ({ ...p, color: PROGRAM_COLORS[i], to: PROGRAM_LINKS[i] }));
+  const programs = t.programs.items.map((p, i) => ({ ...p, color: PROGRAM_COLORS[i], to: PROGRAM_LINKS[i], photo: PROGRAM_PHOTOS[i] }));
   return (
     <section className="programs" id="programs" ref={ref}>
       <div className={`programs-inner ${inView ? "reveal" : ""}`}>
@@ -775,6 +810,11 @@ function ProgramsSection() {
               onClick={() => p.to && navigate(p.to)}
               onKeyDown={(e) => { if (p.to && (e.key === "Enter" || e.key === " ")) navigate(p.to); }}
             >
+              {p.photo && (
+                <div className="program-photo">
+                  <img src={p.photo} alt={p.title} loading="lazy" />
+                </div>
+              )}
               <div className="prog-accent" style={{ background: p.color }} />
               <h3>{p.title}</h3>
               <span className="prog-sub">{p.subtitle}</span>
