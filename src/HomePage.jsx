@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Siren, Scale, Microscope, FileText, ShieldCheck, FileCheck2, Fingerprint, Landmark, Building2, Briefcase, Globe, Mail, Phone, MessageCircle, Zap, Clock } from "lucide-react";
+import { Siren, Scale, Microscope, FileText, ShieldCheck, FileCheck2, Fingerprint, Landmark, Building2, Briefcase, Globe, Mail, Phone } from "lucide-react";
 import "./HomePage.css";
 import "./pages/NyayShieldPage.css"; // adjust this path to wherever NyayShieldPage.css actually sits relative to HomePage.jsx (per your App.jsx, it's in "./pages/")
 import { useLanguage } from "./pages/LanguageContext";
+import { useSiteTheme } from "./useSiteTheme";
 import forfraLogo from "./assets/forfra-logo-transparent.png"; // adjust this path to wherever you saved the logo image
 import boardroomPhoto from "./assets/photos/boardroom-handshake.jpg";
 import celebrationPhoto from "./assets/photos/team-celebration.jpg";
@@ -327,6 +328,26 @@ function LanguageToggle({ className = "" }) {
   );
 }
 
+// ── theme (light / dark) toggle ─────────────────────────────────────────
+// Light palette = white + light-grey + light-blue, as requested. Shared
+// across every page via useSiteTheme() (see src/useSiteTheme.js).
+function ThemeToggle({ className = "" }) {
+  const { isLight, toggleTheme } = useSiteTheme();
+  return (
+    <button
+      type="button"
+      className={`theme-toggle ${className}`}
+      onClick={toggleTheme}
+      aria-label={isLight ? "Switch to dark theme" : "Switch to light theme"}
+      title={isLight ? "Switch to dark theme" : "Switch to light theme"}
+    >
+      <span className={`theme-toggle-opt ${!isLight ? "theme-toggle-opt--active" : ""}`}>●</span>
+      <span className="theme-toggle-sep">/</span>
+      <span className={`theme-toggle-opt ${isLight ? "theme-toggle-opt--active" : ""}`}>○</span>
+    </button>
+  );
+}
+
 const CONTACT_PLATFORMS = [
   { label: "Email", value: "hello@forfrasolutions.com", href: "mailto:hello@forfrasolutions.com" },
   { label: "Call", value: "+91 97110 15337", href: "tel:+919711015337" },
@@ -436,10 +457,14 @@ function Navbar({ scrolled }) {
         <li className="navbar-lang-item">
           <LanguageToggle />
         </li>
+        <li className="navbar-lang-item">
+          <ThemeToggle />
+        </li>
       </ul>
 
       {/* Mobile Controls */}
       <div className="navbar-mobile-controls">
+        <ThemeToggle className="theme-toggle--compact" />
         <LanguageToggle className="lang-toggle--compact" />
 
         <button
@@ -469,6 +494,7 @@ function HeroSection() {
   const { t } = useLanguage();
   return (
     <section className="hero hero--nyay" id="hero">
+      <CyberBackground />
       <div className="hero-photo" aria-hidden="true">
         <img src={heroBannerPhoto} alt="" loading="lazy" />
       </div>

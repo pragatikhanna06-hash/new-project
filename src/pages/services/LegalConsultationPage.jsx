@@ -1,21 +1,6 @@
-import React, { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
-  ShieldCheck,
-  Search,
-  Scale,
-  Gavel,
-  FileSearch,
-  FileText,
-  BookOpen,
-  Landmark,
-  Users,
-  Briefcase,
-  ArrowRight,
-  CheckCircle2,
-  Phone,
-  Mail,
-  Quote,
-  Building2,
+  Scale, Gavel, FileSearch, FileText, BookOpen, Landmark, Briefcase, ArrowRight, CheckCircle2, Quote, Building2,
 } from "lucide-react";
 import forfraLogo from "../../assets/forfra-logo.png";
 import { Link } from "react-router-dom";
@@ -140,17 +125,18 @@ function ScanRadar() {
 }
 
 function Particles({ count = 22 }) {
-  const particles = useMemo(
-    () =>
-      Array.from({ length: count }).map((_, i) => ({
-        id: i,
-        left: Math.random() * 100,
-        size: 2 + Math.random() * 3,
-        dur: 9 + Math.random() * 10,
-        delay: Math.random() * 10,
-        drift: (Math.random() - 0.5) * 60,
-      })),
-    [count]
+  // Random particle layout generated once via a lazy useState initializer
+  // (not useMemo, whose factory React may legitimately re-run) so it stays
+  // a pure render and doesn't reshuffle on re-renders.
+  const [particles] = useState(() =>
+    Array.from({ length: count }).map((_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      size: 2 + Math.random() * 3,
+      dur: 9 + Math.random() * 10,
+      delay: Math.random() * 10,
+      drift: (Math.random() - 0.5) * 60,
+    }))
   );
   return (
     <div className="fa-particles" aria-hidden="true">

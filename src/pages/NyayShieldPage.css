@@ -105,8 +105,36 @@
 }
 .quick-actions{ padding:64px 0; min-height:calc(100vh - 90px); display:flex; align-items:center; }
 .quick-actions-head{ max-width:720px; margin:0 auto 44px; text-align:center; }
-.quick-actions-head h1{ font-size:clamp(17px, 4.4vw, 60px); font-weight:700; white-space:nowrap; }
+.quick-actions-head h1{
+  position:relative;
+  display:inline-block;
+  font-size:clamp(30px, 5.6vw, 68px);
+  font-weight:800;
+  padding-bottom:14px;
+}
+.quick-actions-head h1::after{
+  content:'';
+  position:absolute;
+  left:50%; bottom:0;
+  transform:translateX(-50%);
+  width:70px; height:5px;
+  border-radius:999px;
+  background:linear-gradient(90deg, var(--gold), var(--gold-soft));
+  box-shadow:0 0 16px rgba(201,162,39,0.5);
+}
 .quick-actions-head p{ margin-top:16px; color:var(--text-dim); font-size:18px; }
+
+/* ── light theme ── flips this section's locally-scoped palette so the
+   hero follows the site-wide light/dark toggle too */
+:root[data-theme="light"] .home-root{
+  --ink:#F3F5F8;
+  --panel:#FFFFFF;
+  --panel-2:#E7F0FB;
+  --line: rgba(35,38,43,0.14);
+  --text:#23262B;
+  --text-dim:#565C66;
+  --text-faint:#6B7280;
+}
 
 /* 6 buttons — 3 per row on wide screens, 2 per row mid-width, 1 on mobile */
 .quick-actions-inner{
